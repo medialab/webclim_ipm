@@ -1,0 +1,64 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Allcott and Gentzkow(2017)}]{allcott2017social}
+Hunt Allcott and Matthew Gentzkow. 2017.
+\newblock Social media and fake news in the 2016 election.
+\newblock \emph{Journal of economic perspectives}, 31(2):211--36.
+
+\bibitem[{Benkler et~al.(2020)Benkler, Tilton, Etling, Roberts, Clark, Faris,
+  Kaiser, and Schmitt}]{benkler2020mail}
+Yochai Benkler, Casey Tilton, Bruce Etling, Hal Roberts, Justin Clark, Robert
+  Faris, Jonas Kaiser, and Carolyn Schmitt. 2020.
+\newblock Mail-in voter fraud: Anatomy of a disinformation campaign.
+\newblock \emph{Available at SSRN}.
+
+\bibitem[{Brulle(2018)}]{brulle30years}
+R~Brulle. 2018.
+\newblock 30 years ago global warming became front-page news--and both
+  republicans and democrats took it seriously.
+\newblock \emph{The Conversation}.
+
+\bibitem[{Donovan et~al.(2020)Donovan, Jankowicz, Otis, and
+  Smith}]{donovan2020}
+J.~Donovan, N.~Jankowicz, C.~Otis, and M.~Smith. 2020.
+\newblock House intelligence committee open virtual hearing: “misinformation,
+  conspiracy theories, and ‘infodemics’: Stopping the spread online”.
+
+\bibitem[{Featherstone and Zhang(2020)}]{featherstone2020feeling}
+Jieyu~Ding Featherstone and Jingwen Zhang. 2020.
+\newblock Feeling angry: the effects of vaccine misinformation and refutational
+  messages on negative emotions and vaccination attitude.
+\newblock \emph{Journal of Health Communication}, 25(9):692--702.
+
+\bibitem[{Fletcher et~al.(2020)Fletcher, Kalogeropoulos, Simon, and
+  Nielsen}]{fletcher2020information}
+Richard Fletcher, Antonis Kalogeropoulos, Felix~M Simon, and Rasmus~Kleis
+  Nielsen. 2020.
+\newblock Information inequality in the uk coronavirus communications crisis.
+\newblock \emph{Reuters Institute for the Study of Journalism}.
+
+\bibitem[{Heldt(2019)}]{heldt2019let}
+Am{\'e}lie Heldt. 2019.
+\newblock Let's meet halfway: Sharing new responsibilities in a digital age.
+\newblock \emph{Journal of Information Policy}, 9:336--369.
+
+\bibitem[{Lahouati et~al.(2020)Lahouati, De~Coucy, Sarlangue, and
+  Cazanave}]{lahouati2020spread}
+Marin Lahouati, Antoine De~Coucy, Jean Sarlangue, and Charles Cazanave. 2020.
+\newblock Spread of vaccine hesitancy in france: What about youtube™?
+\newblock \emph{Vaccine}, 38(36):5779--5782.
+
+\bibitem[{Mitchell et~al.(2016)Mitchell, Gottfried, Barthel, and
+  Shearer}]{mitchell2016modern}
+Amy Mitchell, Jeffrey Gottfried, Michael Barthel, and Elisa Shearer. 2016.
+\newblock The modern news consumer: News attitudes and practices in the digital
+  era.
+
+\bibitem[{Porter et~al.(2019)Porter, Wood, and Bahador}]{porter2019can}
+Ethan Porter, Thomas~J Wood, and Babak Bahador. 2019.
+\newblock Can presidential misinformation on climate change be corrected?
+  evidence from internet and phone experiments.
+\newblock \emph{Research \& Politics}, 6(3):2053168019864784.
+
+\end{thebibliography}

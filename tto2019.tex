@@ -1,0 +1,73 @@
+%
+% File tto2019.tex
+%
+%% Based on the style files for ACL 2019, ACL 2018, NAACL 2018/19, which were
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{tto2019}
+\usepackage{times}
+\usepackage{latexsym}
+
+\usepackage{url}
+
+%\aclfinalcopy % Uncomment this line for the final submission
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+\title{Persistence of online misinformation: \\ Investigating Facebook's actions against ``repeat offenders''}
+
+\author{Héloïse Théro \\
+  médialab - Sciences Po \\
+  Paris, France \\
+  \texttt{thero.heloise@gmail.com} \\\And
+  Emmanuel Vincent \\
+  médialab - Sciences Po \\
+  Paris, France \\
+  \texttt{emmanuel.vincent@sciencespo.fr} \\}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Like most web platforms, Facebook is under pressure to regulate misinformation. According to the company, pages that repeatedly share misinformation (“repeat offenders”) will have their distribution reduced, but little is known about the implementation or the efficacy of this measure. We aimed to investigate the implementation and consequences of this policy using a first of its kind analysis, combining data from a fact-checking organization, users’ self-declaration and CrowdTangle data. We did not observe that accounts repeatedly sharing misinformation had reduced engagement metrics, but a drastic 50\% drop was observed around June 9, 2020. No public information was given by Facebook about this sudden decrease. Overall, we find no evidence so far that Facebook’s reduced distribution policy against repeat offenders is having any impact on misinformation distribution.
+\end{abstract}
+
+\section{General introduction}
+
+With an ever-increasing proportion of the public getting their information online, mainly through search engines, social media and video platforms \citep{mitchell2016modern}, the spread of misinformation through these platforms has received growing attention. Recent studies and the political context of January 2021 show how the presence of misinformation online can contribute to negative societal consequences by fueling false beliefs, such as the idea that massive voter fraud occurred during the US 2020 presidential election, which contributed to the January 6, 2021 insurrection at the U.S. Capitol \citep{benkler2020mail} and other false stories about presidential candidates \citep{allcott2017social}. Misinformation has also confused the public about the reality of climate change \citep{brulle30years, porter2019can} and stoked skepticism about vaccine safety among the public \citep{featherstone2020feeling, lahouati2020spread}. In April 2020, a questionnaire from the Reuters Institute found that people in the UK use online sources more often than offline sources when looking for information about the coronavirus. Among social media platforms, Facebook was the most widely used with 24\% of the respondents saying they used Facebook to access COVID-19 information in the last seven days \citep{fletcher2020information}. The structural importance of Facebook to the media landscape is confirmed by Parse.ly’s dashboard, showing that the visitors to their 2500+ online media sites are referred by Facebook in 25\% of the cases, second to Google’s referral volume accounting for 54\% of traffic\footnote{https://www.parse.ly/resources/data-studies/referrer-dashboard, accessed on 2021-07-08.}.
+
+Lawmakers and regulators are increasingly pressuring platforms to limit the spread of disinformation. In the US, the House of Representatives organized hearings and convoked representatives of the main platforms to shed light on how they are being weaponized to spread ``misinformation and conspiracy theories online'' \citep{donovan2020}. In Europe, the European Commission has established a `Code of Practice on Disinformation'\footnote{https://ec.europa.eu/digital-single-market/en/code-practice-disinformation, accessed on 2021-01-18.} that enjoins platforms to voluntarily comply with a set of commitments \citep{heldt2019let}. However, there is little data available and few established processes to monitor the implementation of these measures and quantify their actual impact. This is what we propose to tackle in this paper by offering a methodology to monitor Facebook’s implementation of one of its core policies against misinformation. We chose to focus on Facebook as it is the biggest social media platform with more than 2 billion users worldwide.
+
+Facebook announced a three-part policy to fight against ‘misleading or harmful content’: they claim to \textit{remove} harmful information, \textit{reduce} the spread of misinformation and \textit{inform} people with additional context [20]. Facebook has developed the most extensive third-party fact-checking program with dozens of partner instutition to assist the company in this endeavour [21]. When a fact-checking partner flags a URL, a post or a video as misinformation, Facebook claims to display the posts marked as “False” or “Partly False” further down in users’ feed, further reducing the virality of these posts. Facebook also informs page or group owners when published posts on pages or groups that they manage are marked as misinformation, inviting them to correct the posts. Facebook’s \textit{reduce} policy is not only applied to individual posts, but also to organizations and communities that often publish posts containing misinformation, as indicated by this statement in their publishers’ help center [30,31]: 
+\begin{quote}
+``Pages and websites that repeatedly share misinformation rated False or Altered will have some restrictions, including having their distribution reduced.''
+\end{quote}
+
+So far Facebook has not provided data showing how their reduce policy is implemented, which would allow researchers to quantify its impact on misinformation circulation. To the best of our knowledge, the impact of the reduce policy has not yet been audited directly. It is in this way that the present research paper distinguishes itself from the articles that measured overall levels of misinformation on the platform [32,33,34]. In this paper, we first investigated how Facebook enforces its “‘repeat offenders’ policy” by combining data from a Facebook fact-checking partner identifying URLs sharing misinformation and tracking engagement metrics of the Facebook accounts that repeatedly share such misinformation. We then further investigated the effects of Facebook’s policy on engagement metrics of a set of Facebook pages claiming to be under reduced distribution.
+
+\section{Investigating the `reduce’ policy on Facebook groups repeatedly sharing misinformation}
+
+\section{Investigating the `reduce’ policy on self-declared ‘repeat offenders’ Facebook pages}
+
+\section{General discussion}
+
+\bibliography{acl2019}
+\bibliographystyle{acl_natbib}
+
+\end{document}
