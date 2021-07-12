@@ -1,10 +1,15 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{14}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{Allcott and Gentzkow(2017)}]{allcott2017social}
 Hunt Allcott and Matthew Gentzkow. 2017.
 \newblock Social media and fake news in the 2016 election.
 \newblock \emph{Journal of economic perspectives}, 31(2):211--36.
+
+\bibitem[{Allcott et~al.(2019)Allcott, Gentzkow, and Yu}]{allcott2019trends}
+Hunt Allcott, Matthew Gentzkow, and Chuan Yu. 2019.
+\newblock Trends in the diffusion of misinformation on social media.
+\newblock \emph{Research \& Politics}, 6(2):2053168019848554.
 
 \bibitem[{Benkler et~al.(2020)Benkler, Tilton, Etling, Roberts, Clark, Faris,
   Kaiser, and Schmitt}]{benkler2020mail}
@@ -24,6 +29,8 @@ R~Brulle. 2018.
 J.~Donovan, N.~Jankowicz, C.~Otis, and M.~Smith. 2020.
 \newblock House intelligence committee open virtual hearing: “misinformation,
   conspiracy theories, and ‘infodemics’: Stopping the spread online”.
+\newblock
+  \url{https://intelligence.house.gov/news/documentsingle.aspx?DocumentID=1092}.
 
 \bibitem[{Featherstone and Zhang(2020)}]{featherstone2020feeling}
 Jieyu~Ding Featherstone and Jingwen Zhang. 2020.
@@ -43,6 +50,13 @@ Am{\'e}lie Heldt. 2019.
 \newblock Let's meet halfway: Sharing new responsibilities in a digital age.
 \newblock \emph{Journal of Information Policy}, 9:336--369.
 
+\bibitem[{Kornbluh et~al.(2020)Kornbluh, Goldstein, and
+  Weiner}]{kornbluh2020new}
+K~Kornbluh, A~Goldstein, and E~Weiner. 2020.
+\newblock New study by digital new deal finds engagement with deceptive outlets
+  higher on facebook today than run-up to 2016 election. gmf the german
+  marshall fund of the united states. viitattu 16.12. 2020.
+
 \bibitem[{Lahouati et~al.(2020)Lahouati, De~Coucy, Sarlangue, and
   Cazanave}]{lahouati2020spread}
 Marin Lahouati, Antoine De~Coucy, Jean Sarlangue, and Charles Cazanave. 2020.
@@ -54,11 +68,22 @@ Marin Lahouati, Antoine De~Coucy, Jean Sarlangue, and Charles Cazanave. 2020.
 Amy Mitchell, Jeffrey Gottfried, Michael Barthel, and Elisa Shearer. 2016.
 \newblock The modern news consumer: News attitudes and practices in the digital
   era.
+\newblock \emph{Pew Research Center}.
 
 \bibitem[{Porter et~al.(2019)Porter, Wood, and Bahador}]{porter2019can}
 Ethan Porter, Thomas~J Wood, and Babak Bahador. 2019.
 \newblock Can presidential misinformation on climate change be corrected?
   evidence from internet and phone experiments.
 \newblock \emph{Research \& Politics}, 6(3):2053168019864784.
+
+\bibitem[{Resnick et~al.(2018)Resnick, Ovadya, and Gilchrist}]{resnick2018iffy}
+Paul Resnick, Aviv Ovadya, and Garlin Gilchrist. 2018.
+\newblock Iffy quotient: A platform health metric for misinformation.
+\newblock \emph{Center for Social Media Responsibility}, 17.
+
+\bibitem[{Team(2021)}]{team2020crowdtangle}
+CrowdTangle Team. 2021.
+\newblock Crowdtangle.
+\newblock \emph{Facebook, Menlo Park, California, United States}.
 
 \end{thebibliography}
