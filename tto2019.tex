@@ -18,7 +18,7 @@
 
 \usepackage{url}
 
-%\aclfinalcopy % Uncomment this line for the final submission
+\aclfinalcopy % Uncomment this line for the final submission
 
 %\setlength\titlebox{5cm}
 % You can expand the titlebox if you need extra space
@@ -31,12 +31,11 @@
 \title{Persistence of online misinformation: \\ Investigating Facebook's actions against ``repeat offenders''}
 
 \author{Héloïse Théro \\
-  médialab - Sciences Po \\
-  Paris, France \\
+  médialab - Sciences Po, Paris, France \\
   \texttt{thero.heloise@gmail.com} \\\And
   Emmanuel Vincent \\
-  médialab - Sciences Po \\
-  Paris, France \\
+  médialab - Sciences Po, Paris, France \\
+  Science Feedback \\
   \texttt{emmanuel.vincent@sciencespo.fr} \\}
 
 \date{}
@@ -84,10 +83,48 @@ Based on this `two strikes in 90 days' rule and the list of strike dates known b
 
 Figure 1's upper panel displays the engagement metrics for one `repeat offender' example group named ‘Australian Climate Sceptics Group’. The known strike dates are shown as red lines at the bottom, and the inferred ‘repeat offender’ periods are shaded in red. The daily engagement metrics (number of reactions, shares and comments per post averaged per day) vary throughout the measuring period, but they do not appear to be related with the alternance of `repeat offender' and `no strike' periods.
 
+The results showed a global lack of influence of fact-checks on the engagement metrics of repeat offenders. In the following section we chose to focus on the accounts which we are certain are under `repeat offender' status. 
+
 \section{Investigating the `reduce’ policy on self-declared ‘repeat offenders’ Facebook pages}
+
+\subsection{Methods}
+
+We analyzed a set of pages that have publicly shared a message complaining about being placed under ‘repeat offender’ status and including a screenshot as evidence. We had observed this behaviour in two popular pages (“Mark Levin” and “100 Percent FED Up”) and sought more of such examples. To assemble a list of self-declared repeat offenders, we searched Facebook via the CrowdTangle API, using the `/posts/search' endpoint of the API on November 25, 2020, for posts published since January 1, 2020 with the following keywords:
+\begin{itemize}
+\item `reduced distribution' AND (`restricted' OR `censored' OR `silenced')
+\item `Your page has reduced distribution'
+\end{itemize}
+
+We manually opened the hundreds of resulting posts, and kept the posts we found to meet the following criteria:
+\begin{itemize}
+\item they shared a screenshot of the Facebook message received
+\item the Facebook message indicated `Your page has reduced distribution and other restrictions because of repeatedly sharing of false news.'
+\item the page name was visible on the screenshot message
+\end{itemize}
+
+We obtained a list of 94 pages associated with one of these posts. We found only Facebook pages in this case, and no groups. A search using the terms `Your group has reduced distribution' did not yield any result.
+
+To verify whether Facebook applied any restriction to these pages, we collected all the posts that these 94 pages published between January 1, 2019 and December 31, 2020 from the CrowdTangle API using the `/posts' endpoint. The collection was run on January 11, 2021. We were only able to collect data from 83 of these pages, as 11 were deleted from the CrowdTangle database since our search in November. This highlights an important issue when studying misinformation trends on Facebook: some data disappears as accounts are deleted or changed to ‘private’.
+
+The date of the last violation notification was used as the inferred start date of reduced distribution when the date was visible in the screenshot. When the screenshot did not include the date of the last violation notification, we used the date of the post as the inferred start date of reduced distribution. 
+
+\subsection{Results}
+
+When quantifying the impact of the reduction, the engagement metrics were averaged over the XXX days preceding and following the reduced distribution start date.
 
 \section{General discussion}
 
+Facebook, the most widely used social media platform in the world, has announced a series of measures to curb the spread of misinformation, notably by reducing the visibility of `repeat offenders': accounts that repeatedly share false information. However, the effects of platforms' diverse policies to tackle misinformation remains understudied \citep{pasquetto2020tackling}. Our study aims to address this knowledge gap by verifying the application and measuring the consequences of Facebook's `reduce' policy on the targeted accounts' engagement metrics.
+
+As a first step, we investigated the reach of more than 300 Facebook groups and pages having repeatedly shared false information using a fact-checker's dataset. The sharing of two false news links over a three-month period is supposed to be penalized by reduced distribution of their content. However, we find no compelling evidence that this policy of Facebook is actually leading to a significant reduction in the number of reactions and comments received by the posts of repeat offenders, which would be an expected outcome of reduced distribution. We did observe a significant decrease of moderate magnitude (18\%) in the number of shares for posts published by an account while under a presumptive repeat offender status. This decrease in share numbers only is unlikely the result of some kind of restriction imposed by Facebook, which would have resulted in decreases across all metrics. A plausible hypothesis is that the moderate drop in share numbers could be related to a change in some users’ behaviour who have lost confidence in the publisher’s reliability, consistent with Mena~\shortcite{mena2020cleaning}. This is an hypothesis that would need to be tested in a future study. A limitation of the results is that we only took into account the links labelled as `False' by one fact-checking organization (Science Feedback), while Facebook partners with over 60 fact-checking organizations\footnote{https://about.fb.com/news/2020/04/covid-19-misinfo-update/}.
+
+As a second step, we searched for accounts claiming to be under reduced distribution, which has the benefit of not being dependent on a single fact-checker’s data. We found 83 pages that shared a notification they received from Facebook announcing their account was under reduced distribution, often to express their indignation about it. No evidence was found that Facebook’s measures have significant consequences on the pages’ engagement metrics. However these pages appear to publish less frequently in the week and month following reception of this notification. Two hypotheses, among others, could be put forward to explain this observation. One hypothesis is that page owners might see less value in investing time to create posts if they expect them to have a reduced reach. The other hypothesis is that they might have decided to shift their publications to another platform \citep{rogers2020deplatforming, rauchfleisch2021deplatforming}, as the pages often invited their followers to join them on new platforms, such as Parler or MeWe, when sharing the screenshot of Facebook's `reduced distribution' notification.
+
+By analyzing the evolution of the repeat offenders’ engagement metrics, we discovered a drastic drop around June 9, 2020. This `June drop' does not correspond to any official communication by Facebook on the matter. It indicates that Facebook has very likely taken internal decisions that heavily impact the organic reach of repeat offenders' pages and groups, in ways that differ from its stated policy. More transparency from Facebook would be needed to understand the nature and origin of this change. It would also bring clarity on how rules aimed at limiting the spread of misinformation are being enforced.
+
+Online misinformation introduces various threats to societies around the world, and the role of platforms in its distribution and regulation has been the subject of intense debate over the past few years \citep{rogers2020deplatforming, de2020internet}. Consistent with other studies finding that misinformation persists at high levels on Facebook and other platforms \citep{kornbluh2020new, resnick2018iffy}, we find no evidence that Facebook is reducing the distribution of content from known spreaders of misinformation. One step Facebook could take to reduce misinformation on its platform would be to more rigorously enforce their repeat offenders policies. In the meantime, we advocate for scientists to pay greater attention to monitoring the actions, or lack thereof, by platforms against misinformation. 
+
+ 
 \bibliography{acl2019}
 \bibliographystyle{acl_natbib}
 

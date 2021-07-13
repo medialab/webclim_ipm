@@ -1,4 +1,4 @@
-\begin{thebibliography}{14}
+\begin{thebibliography}{19}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{Allcott and Gentzkow(2017)}]{allcott2017social}
@@ -23,6 +23,12 @@ R~Brulle. 2018.
 \newblock 30 years ago global warming became front-page news--and both
   republicans and democrats took it seriously.
 \newblock \emph{The Conversation}.
+
+\bibitem[{De~Gregorio and Stremlau(2020)}]{de2020internet}
+Giovanni De~Gregorio and Nicole Stremlau. 2020.
+\newblock Internet shutdowns in africa| internet shutdowns and the limits of
+  law.
+\newblock \emph{International Journal of Communication}, 14:20.
 
 \bibitem[{Donovan et~al.(2020)Donovan, Jankowicz, Otis, and
   Smith}]{donovan2020}
@@ -63,6 +69,12 @@ Marin Lahouati, Antoine De~Coucy, Jean Sarlangue, and Charles Cazanave. 2020.
 \newblock Spread of vaccine hesitancy in france: What about youtube™?
 \newblock \emph{Vaccine}, 38(36):5779--5782.
 
+\bibitem[{Mena(2020)}]{mena2020cleaning}
+Paul Mena. 2020.
+\newblock Cleaning up social media: The effect of warning labels on likelihood
+  of sharing false news on facebook.
+\newblock \emph{Policy \& internet}, 12(2):165--183.
+
 \bibitem[{Mitchell et~al.(2016)Mitchell, Gottfried, Barthel, and
   Shearer}]{mitchell2016modern}
 Amy Mitchell, Jeffrey Gottfried, Michael Barthel, and Elisa Shearer. 2016.
@@ -70,16 +82,36 @@ Amy Mitchell, Jeffrey Gottfried, Michael Barthel, and Elisa Shearer. 2016.
   era.
 \newblock \emph{Pew Research Center}.
 
+\bibitem[{Pasquetto et~al.(2020)Pasquetto, Swire-Thompson, Amazeen, Benevenuto,
+  Brashier, Bond, Bozarth, Budak, Ecker, Fazio et~al.}]{pasquetto2020tackling}
+Irene~V Pasquetto, Briony Swire-Thompson, Michelle~A Amazeen, Fabr\'icio
+  Benevenuto, Nadia~M Brashier, Robert~M Bond, Lia~C Bozarth, Ceren Budak,
+  Ullrich~KH Ecker, Lisa~K Fazio, et~al. 2020.
+\newblock Tackling misinformation: What researchers could do with social media
+  data.
+\newblock \emph{The Harvard Kennedy School Misinformation Review}.
+
 \bibitem[{Porter et~al.(2019)Porter, Wood, and Bahador}]{porter2019can}
 Ethan Porter, Thomas~J Wood, and Babak Bahador. 2019.
 \newblock Can presidential misinformation on climate change be corrected?
   evidence from internet and phone experiments.
 \newblock \emph{Research \& Politics}, 6(3):2053168019864784.
 
+\bibitem[{Rauchfleisch and Kaiser(2021)}]{rauchfleisch2021deplatforming}
+Adrian Rauchfleisch and Jonas Kaiser. 2021.
+\newblock Deplatforming the far-right: An analysis of youtube and bitchute.
+\newblock \emph{Available at SSRN}.
+
 \bibitem[{Resnick et~al.(2018)Resnick, Ovadya, and Gilchrist}]{resnick2018iffy}
 Paul Resnick, Aviv Ovadya, and Garlin Gilchrist. 2018.
 \newblock Iffy quotient: A platform health metric for misinformation.
 \newblock \emph{Center for Social Media Responsibility}, 17.
+
+\bibitem[{Rogers(2020)}]{rogers2020deplatforming}
+Richard Rogers. 2020.
+\newblock Deplatforming: Following extreme internet celebrities to telegram and
+  alternative social media.
+\newblock \emph{European Journal of Communication}, 35(3):213--229.
 
 \bibitem[{Team(2021)}]{team2020crowdtangle}
 CrowdTangle Team. 2021.
