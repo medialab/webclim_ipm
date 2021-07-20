@@ -19,7 +19,7 @@
 
 \usepackage{url}
 
-\aclfinalcopy % Uncomment this line for the final submission
+%\aclfinalcopy % Uncomment this line for the final submission
 
 %\setlength\titlebox{5cm}
 % You can expand the titlebox if you need extra space
@@ -96,7 +96,7 @@ We analyzed a set of pages that have publicly shared a message complaining about
 \item `Your page has reduced distribution'
 \end{itemize}
 
-We manually opened the hundreds of resulting posts, and kept the posts we found to meet the following criteria (see Figure \ref{screenshot_reduce_example} for an example):
+We manually opened the hundreds of resulting posts, and kept the posts we found to meet the following criteria (see Figure \ref{reduce_example_screenshot} for an example):
 \begin{itemize}
 \item they shared a screenshot of the Facebook message received
 \item the Facebook message indicated `Your page has reduced distribution and other restrictions because of repeatedly sharing of false news.'
@@ -105,9 +105,9 @@ We manually opened the hundreds of resulting posts, and kept the posts we found 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=\linewidth]{./../figure/screenshot_reduce_example.png}
+\includegraphics[width=\linewidth]{./../figure/reduce_example_screenshot.png}
 \caption{Screenshot of a \href{https://www.facebook.com/64162630683/posts/10156872415530684}{post} shared by the `I Love Carbon Dioxide' Facebook page sharing a reduced distribution notification from Facebook.}
-\label{screenshot_reduce_example}
+\label{reduce_example_screenshot}
 \end{figure}
 
 We obtained a list of 94 pages associated with one of these posts. We found only Facebook pages in this case, and no groups. A search using the terms `Your group has reduced distribution' did not yield any result.
@@ -117,6 +117,13 @@ To verify whether Facebook applied any restriction to these pages, we collected 
 The date of the last violation notification was used as the inferred start date of reduced distribution when the date was visible in the screenshot. When the screenshot did not include the date of the last violation notification, we used the date of the post as the inferred start date of reduced distribution. 
 
 \subsection{Results}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\linewidth]{./../figure/reduce_example_timeseries.png}
+\caption{Average engagement metrics per post for the “I Love Carbon Dioxide” page, with the reduced distribution start date shown in red.}
+\label{reduce_example_timeseries}
+\end{figure}
 
 When quantifying the impact of the reduction, the engagement metrics were averaged over the XXX days preceding and following the reduced distribution start date.
 
