@@ -25,18 +25,13 @@ def save_figure(figure_name, dpi=None):
         .format(figure_path.split('/')[-1], figure_path.split('/')[-2]))
 
 
-def rolling_average_per_day(df, column):
-    return df.groupby(by=["date"])[column].mean()#.rolling(window=5, win_type='triang', center=True).mean()
-
-
-def plot_one_group(ax, posts_df, account_id):
+def plot_engagement_timeserie(ax, posts_df):
     
-    posts_df_group = posts_df[posts_df["account_id"] == account_id]
-    
-    plt.plot(rolling_average_per_day(posts_df_group, 'engagement'), color="royalblue")
+    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), color="royalblue")
 
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
-              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01')
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
+              np.datetime64('2021-01-01')
              ]
     plt.xticks(xticks, rotation=30, ha='right')
     plt.xlim(

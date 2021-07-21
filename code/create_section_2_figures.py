@@ -5,14 +5,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
-from utils import import_data, save_figure, plot_one_group
+from utils import import_data, save_figure, plot_engagement_timeserie
 
 
 def import_crowdtangle_group_data():
 
     posts_wi_date_df = import_data(file_name="posts_self_declared_wi_date.csv")
-    print('\nThere are {} Facebook pages with the last strike date visible on the screenshot.'.\
-        format(posts_wi_date_df.account_id.nunique()))
 
     posts_wo_date_df = import_data(file_name="posts_self_declared_wo_date.csv")
     list_wo_name = [
@@ -32,10 +30,9 @@ def import_crowdtangle_group_data():
         'Robertson Family Values'
     ]
     posts_wo_date_df = posts_wo_date_df[~posts_wo_date_df['account_name'].isin(list_wo_name)]
-    print('There are {} Facebook pages without the last strike date visible on the screenshot.'.\
-        format(posts_wo_date_df.account_id.nunique()))
 
     posts_df = pd.concat([posts_wi_date_df, posts_wo_date_df])
+    print("There are 'reduced distribution' {} Facebook pages.".format(posts_df.account_id.nunique()))
 
     posts_df['date'] = pd.to_datetime(posts_df['date'])
     posts_df['engagement'] = posts_df[["share", "comment", "reaction"]].sum(axis=1)
@@ -43,10 +40,9 @@ def import_crowdtangle_group_data():
     return posts_df
 
 
-def create_reduce_example_timeseries_figure(posts_df):
+def plot_reduce_example_timeseries(posts_df):
 
     account_name = 'I Love Carbon Dioxide'
-    account_id = posts_df[posts_df['account_name']==account_name].account_id.unique()[0]
     reduced_distribution_date = '2020-04-28'
 
     plt.figure(figsize=(6, 4))
@@ -54,8 +50,12 @@ def create_reduce_example_timeseries_figure(posts_df):
     
     plt.title("'" + account_name + "' Facebook page")
 
-    plot_one_group(ax, posts_df, account_id)
+    account_id = posts_df[posts_df['account_name']==account_name].account_id.unique()[0]
+    posts_df_group = posts_df[posts_df["account_id"] == account_id]
+    plot_engagement_timeserie(ax, posts_df_group)
+
     plt.ylim(0, 3000)
+    plt.axvline(x=np.datetime64(reduced_distribution_date), color='C3', linestyle='--')
 
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
               np.datetime64('2020-01-01'), np.datetime64('2020-09-01'), np.datetime64('2021-01-01'),
@@ -64,10 +64,6 @@ def create_reduce_example_timeseries_figure(posts_df):
     plt.xticks(xticks, rotation=30, ha='right')
     plt.gca().get_xticklabels()[-1].set_color('red')
 
-    plt.axvline(x=np.datetime64(reduced_distribution_date), 
-                color='C3', linestyle='--', linewidth=2)
-
-    plt.legend()
     plt.tight_layout()
     save_figure('reduce_example_timeseries')
 
@@ -109,7 +105,7 @@ def calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
     return sumup_df
 
 
-def create_engagement_percentage_change_figure(posts_df, pages_df):
+def plot_engagement_percentage_change(posts_df, pages_df):
 
     sumup_df = calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
 
@@ -148,9 +144,9 @@ def create_engagement_percentage_change_figure(posts_df, pages_df):
 if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
-    create_reduce_example_timeseries_figure(posts_df)
+    plot_reduce_example_timeseries(posts_df)
 
     pages_df = import_data(file_name="page_list_part_2.csv")
     pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
-    create_engagement_percentage_change_figure(posts_df, pages_df)
+    plot_engagement_percentage_change(posts_df, pages_df)
