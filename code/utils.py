@@ -33,14 +33,7 @@ def plot_one_group(ax, posts_df, account_id):
     
     posts_df_group = posts_df[posts_df["account_id"] == account_id]
     
-    plt.plot(rolling_average_per_day(posts_df_group, 'reaction'), 
-            label="Reactions per post", color="C0")
-
-    plt.plot(rolling_average_per_day(posts_df_group, 'share'), 
-            label="Shares per post", color="C1")
-
-    plt.plot(rolling_average_per_day(posts_df_group, 'comment'), 
-            label="Comments per post", color="C2")
+    plt.plot(rolling_average_per_day(posts_df_group, 'engagement'), color="royalblue")
 
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
               np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01')
@@ -51,6 +44,7 @@ def plot_one_group(ax, posts_df, account_id):
         np.datetime64(datetime.datetime.strptime('2021-01-01', '%Y-%m-%d') + datetime.timedelta(days=4))
     )
 
+    plt.ylabel("Average engagement per post", size='large')
     plt.locator_params(axis='y', nbins=4)
     ax.grid(axis="y")
 

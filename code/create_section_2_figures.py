@@ -35,6 +35,7 @@ def import_crowdtangle_group_data():
     posts_df = pd.concat([posts_wi_date_df, posts_wo_date_df])
 
     posts_df['date'] = pd.to_datetime(posts_df['date'])
+    posts_df['engagement'] = posts_df['share'] + posts_df['comment'] + posts_df['reaction']
 
     return posts_df
 
@@ -45,13 +46,13 @@ def create_reduce_example_timeseries_figure(posts_df):
     account_id = posts_df[posts_df['account_name']==account_name].account_id.unique()[0]
     reduced_distribution_date = '2020-04-28'
 
-    plt.figure(figsize=(7, 4))
+    plt.figure(figsize=(6, 4))
     ax = plt.subplot()
     
-    plt.title("Engagement metrics for the '" + account_name + "' Facebook page")
+    plt.title("'" + account_name + "' Facebook page")
 
     plot_one_group(ax, posts_df, account_id)
-    plt.ylim(0, 2000)
+    plt.ylim(0, 3000)
 
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
               np.datetime64('2020-01-01'), np.datetime64('2020-09-01'), np.datetime64('2021-01-01'),
