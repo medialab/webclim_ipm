@@ -118,13 +118,22 @@ The date of the last violation notification was used as the inferred start date 
 
 \subsection{Results}
 
-Figure \ref{reduce_example_screenshot} shows the reduced distribution Facebook notification shared by the ‘I Love Carbon Dioxide’ page on April 28, 2020, and Figure \ref{reduce_example_timeseries} the average engagement per post of that page over the past two years. The engagement do not appear to be reduced after April 28, 2020.
+Figure \ref{reduce_example_screenshot} shows the reduced distribution Facebook notification shared by the ‘I Love Carbon Dioxide’ page on April 28, 2020, and Figure \ref{reduce_example_timeseries} the average engagement per post of that page over the past two years. The engagement do not appear to be reduced after April 28, 2020. If we compare the engagement between 30 days before and 30 days after April 28, 2020, the percentage change is only 3\%, indicating almost no change between these two periods.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\linewidth]{./../figure/reduce_example_timeseries.png}
 \caption{Average engagement (the sum of comments, shares, likes, ...) per post for the “I Love Carbon Dioxide” page, with the reduced distribution start date shown in red.}
 \label{reduce_example_timeseries}
+\end{figure}
+
+We then calculated the percentage change 30 days before and after the reduced distribution start date for the 82 Facebook pages that published at least one post during these periods (see Figure \ref{reduce_percentage_change}. The average percentage change was -17\% and the median -23\%.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\linewidth]{./../figure/reduce_percentage_change.png}
+\caption{Percentage changes between the average engagement per post 30 days before the `reduced distribution' start date and 30 days after. Each dot represents a Facebook page.}
+\label{reduce_percentage_change}
 \end{figure}
 
 % When quantifying the impact of the reduction, the engagement metrics were averaged over the XXX days preceding and following the reduced distribution start date.

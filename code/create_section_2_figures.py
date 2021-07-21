@@ -1,3 +1,5 @@
+import datetime
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -35,7 +37,7 @@ def import_crowdtangle_group_data():
     posts_df = pd.concat([posts_wi_date_df, posts_wo_date_df])
 
     posts_df['date'] = pd.to_datetime(posts_df['date'])
-    posts_df['engagement'] = posts_df['share'] + posts_df['comment'] + posts_df['reaction']
+    posts_df['engagement'] = posts_df[["share", "comment", "reaction"]].sum(axis=1)
 
     return posts_df
 
@@ -66,10 +68,84 @@ def create_reduce_example_timeseries_figure(posts_df):
 
     plt.legend()
     plt.tight_layout()
-    save_figure('reduce_example_timeseries', dpi=100)
+    save_figure('reduce_example_timeseries')
+
+
+def calculate_engagement_percentage_change(posts_df, pages_df, period_length=30):
+
+    sumup_df = pd.DataFrame(columns=[
+        'account_name', 
+        'engagement_before', 
+        'engagement_after'
+    ])
+
+    for account_id in posts_df['account_id'].unique():
+
+        account_name = posts_df[posts_df['account_id']==account_id].account_name.unique()[0]
+        reduced_distribution_date = pages_df[pages_df['page_name'] == account_name]['date'].values[0]
+        reduced_distribution_date = datetime.datetime.strptime(str(reduced_distribution_date)[:10], '%Y-%m-%d')
+        posts_df_group = posts_df[posts_df["account_id"] == account_id]
+
+        posts_df_group_before = posts_df_group[
+            (posts_df_group['date'] > reduced_distribution_date - datetime.timedelta(days=period_length)) &
+            (posts_df_group['date'] < reduced_distribution_date)
+        ]
+        posts_df_group_after = posts_df_group[
+            (posts_df_group['date'] > reduced_distribution_date) &
+            (posts_df_group['date'] < reduced_distribution_date + datetime.timedelta(days=period_length))
+        ]
+
+        if (len(posts_df_group_before) > 0) & (len(posts_df_group_after) > 0):
+            
+            sumup_df = sumup_df.append({
+                'account_name': account_name, 
+                'engagement_before': np.mean(posts_df_group_before['engagement']),
+                'engagement_after': np.mean(posts_df_group_after['engagement']),
+            }, ignore_index=True)
+            
+    sumup_df['percentage_change_engagament'] = ((sumup_df['engagement_after'] - sumup_df['engagement_before'])/
+                                                sumup_df['engagement_before']) * 100
+    return sumup_df
+
+
+def create_engagement_percentage_change_figure(posts_df, pages_df):
+
+    sumup_df = calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
+    print(len(sumup_df))
+    print(np.mean(sumup_df['percentage_change_engagament']))
+    print(np.median(sumup_df['percentage_change_engagament']))
+
+    plt.figure(figsize=(6, 3))
+    ax = plt.subplot(111)
+
+    random_y = list(np.random.random(len(sumup_df)))
+    plt.plot(sumup_df['percentage_change_engagament'].values, random_y, 'o', color='royalblue', alpha=0.4)
+
+    plt.scatter(sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0], 
+            random_y[34], marker='o', facecolors='none', edgecolors='black')
+    plt.text(sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0], 
+            random_y[34] + 0.1, 'I Love Carbon Dioxide', ha='center', va='center')
+
+    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
+    plt.xticks([-100, 0, 100], 
+            ['-100 %', ' 0 %', '+100 %'])
+    plt.xlabel("Engagement percentage change\nafter the 'reduced distribution' start date", size='large')
+
+    plt.xlim(-120, 135)
+    plt.yticks([])
+    plt.ylim(-.2, 1.2)
+    ax.set_frame_on(False)
+
+    plt.tight_layout()
+    save_figure('reduce_percentage_change')
 
 
 if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
     create_reduce_example_timeseries_figure(posts_df)
+
+    pages_df = import_data(file_name="page_list_part_2.csv")
+    pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
+
+    create_engagement_percentage_change_figure(posts_df, pages_df)

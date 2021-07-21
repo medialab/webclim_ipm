@@ -48,7 +48,4 @@ def plot_one_group(ax, posts_df, account_id):
     plt.locator_params(axis='y', nbins=4)
     ax.grid(axis="y")
 
-    ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-    ax.spines['bottom'].set_visible(False)
+    ax.set_frame_on(False)
