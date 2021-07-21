@@ -3,6 +3,7 @@ import datetime
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.stats as stats
 
 from utils import import_data, save_figure, plot_one_group
 
@@ -111,9 +112,6 @@ def calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
 def create_engagement_percentage_change_figure(posts_df, pages_df):
 
     sumup_df = calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
-    print(len(sumup_df))
-    print(np.mean(sumup_df['percentage_change_engagament']))
-    print(np.median(sumup_df['percentage_change_engagament']))
 
     plt.figure(figsize=(6, 3))
     ax = plt.subplot(111)
@@ -138,6 +136,13 @@ def create_engagement_percentage_change_figure(posts_df, pages_df):
 
     plt.tight_layout()
     save_figure('reduce_percentage_change')
+
+    print('Number of Facebook pages:', len(sumup_df))
+    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
+    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    
+    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
 
 
 if __name__=="__main__":
