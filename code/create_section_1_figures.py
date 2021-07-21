@@ -32,12 +32,19 @@ def plot_repeat_average_timeseries(posts_df):
     plt.figure(figsize=(6, 4))
     ax = plt.subplot()
 
-    plt.title('')
+    plt.title("'Repeat offender' Facebook accounts")
 
     plot_engagement_timeserie(ax, posts_df)
 
     plt.ylim(0, 60)
     plt.axvline(x=np.datetime64('2020-06-09'), color='C3', linestyle='--')
+
+    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'), 
+              np.datetime64('2021-01-01'), np.datetime64('2020-06-09')
+             ]
+    plt.xticks(xticks, rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
 
     plt.tight_layout()
     save_figure('repeat_average_timeseries')
