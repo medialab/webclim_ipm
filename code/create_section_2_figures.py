@@ -84,12 +84,12 @@ def calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
         posts_df_group = posts_df[posts_df["account_id"] == account_id]
 
         posts_df_group_before = posts_df_group[
-            (posts_df_group['date'] > reduced_distribution_date - datetime.timedelta(days=period_length)) &
+            (posts_df_group['date'] >= reduced_distribution_date - datetime.timedelta(days=period_length)) &
             (posts_df_group['date'] < reduced_distribution_date)
         ]
         posts_df_group_after = posts_df_group[
             (posts_df_group['date'] > reduced_distribution_date) &
-            (posts_df_group['date'] < reduced_distribution_date + datetime.timedelta(days=period_length))
+            (posts_df_group['date'] <= reduced_distribution_date + datetime.timedelta(days=period_length))
         ]
 
         if (len(posts_df_group_before) > 0) & (len(posts_df_group_after) > 0):
@@ -132,6 +132,8 @@ def plot_engagement_percentage_change(posts_df, pages_df):
 
     plt.tight_layout()
     save_figure('reduce_percentage_change')
+
+    print("drop for 'I Love Carbon Dioxide':", sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0])
 
     print('Number of Facebook pages:', len(sumup_df))
     print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
