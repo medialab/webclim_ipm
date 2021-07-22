@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
-from utils import import_data, save_figure, plot_engagement_timeserie
+from utils import import_data, save_figure, plot_engagement_timeserie, calculate_june_drop
 
 
 def import_crowdtangle_group_data():
@@ -32,7 +32,7 @@ def import_crowdtangle_group_data():
     posts_wo_date_df = posts_wo_date_df[~posts_wo_date_df['account_name'].isin(list_wo_name)]
 
     posts_df = pd.concat([posts_wi_date_df, posts_wo_date_df])
-    print("There are 'reduced distribution' {} Facebook pages.".format(posts_df.account_id.nunique()))
+    print("There are {} 'reduced distribution' Facebook pages.".format(posts_df.account_id.nunique()))
 
     posts_df['date'] = pd.to_datetime(posts_df['date'])
     posts_df['engagement'] = posts_df[["share", "comment", "reaction"]].sum(axis=1)
@@ -134,6 +134,7 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     plt.tight_layout()
     save_figure('reduce_percentage_change')
 
+    print('\nREDUCE DROP:')
     print("drop for 'I Love Carbon Dioxide':", sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0])
 
     print('Number of Facebook pages:', len(sumup_df))
@@ -153,3 +154,9 @@ if __name__=="__main__":
     pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
     plot_engagement_percentage_change(posts_df, pages_df)
+
+    print('\nJUNE DROP:')
+    sumup_df = calculate_june_drop(posts_df)
+    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)

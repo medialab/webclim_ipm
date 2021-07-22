@@ -3,8 +3,9 @@ import datetime
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import scipy.stats as stats
 
-from utils import import_data, save_figure, plot_engagement_timeserie
+from utils import import_data, save_figure, plot_engagement_timeserie, calculate_june_drop
 
 
 def import_crowdtangle_group_data():
@@ -52,42 +53,54 @@ def plot_repeat_average_timeseries(posts_df):
     save_figure('repeat_average_timeseries')
 
 
-def calculate_june_drop(posts_df, period_length=30, drop_date='2020-06-09'):
+def plot_repeat_june_drop_percentage_change(posts_df):
 
-    drop_date = datetime.datetime.strptime(drop_date, '%Y-%m-%d')
+    sumup_df = calculate_june_drop(posts_df)
 
-    sumup_df = pd.DataFrame(columns=[
-        'account_name', 
-        'engagement_before', 
-        'engagement_after'
-    ])
+    posts_page_df = import_data(file_name="posts_fake_news_2021_page.csv")
+    sumup_pages_df = sumup_df[sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
+    sumup_groups_df = sumup_df[~sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
 
-    for account_id in posts_df['account_id'].unique():
+    plt.figure(figsize=(6, 2.8))
+    ax = plt.subplot(111)
+    plt.title("'Repeat offender' Facebook accounts")
 
-        account_name = posts_df[posts_df['account_id']==account_id].account_name.unique()[0]
-        posts_df_group = posts_df[posts_df["account_id"] == account_id]
+    plt.plot(sumup_groups_df['percentage_change_engagament'].values, 
+             list(np.random.random(len(sumup_groups_df))), 
+             'o', markerfacecolor='royalblue', markeredgecolor='blue', alpha=0.4)
+    plt.plot(sumup_pages_df['percentage_change_engagament'].values, 
+             list(np.random.random(len(sumup_pages_df))), 
+             'o', markerfacecolor='royalblue', markeredgecolor='red', alpha=0.4)
 
-        posts_df_group_before = posts_df_group[
-            (posts_df_group['date'] >= drop_date - datetime.timedelta(days=period_length)) &
-            (posts_df_group['date'] < drop_date)
-        ]
-        posts_df_group_after = posts_df_group[
-            (posts_df_group['date'] > drop_date) &
-            (posts_df_group['date'] <= drop_date + datetime.timedelta(days=period_length))
-        ]
-        print(posts_df_group_before['date'].nunique(), posts_df_group_after['date'].nunique())
+    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
+    plt.xticks([-100, 0, 100], 
+            ['-100 %', ' 0 %', '+100 %'])
+    plt.xlabel("Engagement percentage change after June 9, 2020", size='large')
 
-    #     if (len(posts_df_group_before) > 0) & (len(posts_df_group_after) > 0):
-            
-    #         sumup_df = sumup_df.append({
-    #             'account_name': account_name, 
-    #             'engagement_before': np.mean(posts_df_group_before['engagement']),
-    #             'engagement_after': np.mean(posts_df_group_after['engagement']),
-    #         }, ignore_index=True)
-            
-    # sumup_df['percentage_change_engagament'] = ((sumup_df['engagement_after'] - sumup_df['engagement_before'])/
-    #                                             sumup_df['engagement_before']) * 100
-    # return sumup_df
+    plt.xlim(-120, 135)
+    plt.yticks([])
+    plt.ylim(-.2, 1.2)
+    ax.set_frame_on(False)
+
+    plt.tight_layout()
+    save_figure('repeat_june_drop_percentage_change')
+
+    print('\nJUNE DROP:')
+
+    print('Number of Facebook account:', len(sumup_df))
+    print('Number of Facebook account with a decrease:', len(sumup_df[sumup_df['percentage_change_engagament'] < 0]))
+    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
+    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    
+    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
+
+    print('Median engagement percentage changes for groups:', 
+          np.median(sumup_groups_df['percentage_change_engagament']),
+          ', n =', len(sumup_groups_df))
+    print('Median engagement percentage changes for pages:', 
+          np.median(sumup_pages_df['percentage_change_engagament']),
+          ', n =', len(sumup_pages_df))
 
 
 if __name__=="__main__":
@@ -95,5 +108,5 @@ if __name__=="__main__":
     posts_df = import_crowdtangle_group_data()
     # create_repeat_example_timeseries_figure(posts_df)
 
-    # plot_repeat_average_timeseries(posts_df)
-    calculate_june_drop(posts_df)
+    plot_repeat_average_timeseries(posts_df)
+    plot_repeat_june_drop_percentage_change(posts_df)

@@ -44,3 +44,40 @@ def plot_engagement_timeserie(ax, posts_df):
     ax.grid(axis="y")
 
     ax.set_frame_on(False)
+
+
+def calculate_june_drop(posts_df, period_length=30, drop_date='2020-06-09'):
+
+    drop_date = datetime.datetime.strptime(drop_date, '%Y-%m-%d')
+
+    sumup_df = pd.DataFrame(columns=[
+        'account_name', 
+        'engagement_before', 
+        'engagement_after'
+    ])
+
+    for account_id in posts_df['account_id'].unique():
+
+        account_name = posts_df[posts_df['account_id']==account_id].account_name.unique()[0]
+        posts_df_group = posts_df[posts_df["account_id"] == account_id]
+
+        posts_df_group_before = posts_df_group[
+            (posts_df_group['date'] >= drop_date - datetime.timedelta(days=period_length)) &
+            (posts_df_group['date'] < drop_date)
+        ]
+        posts_df_group_after = posts_df_group[
+            (posts_df_group['date'] > drop_date) &
+            (posts_df_group['date'] <= drop_date + datetime.timedelta(days=period_length))
+        ]
+
+        if (len(posts_df_group_before) > 0) & (len(posts_df_group_after) > 0) & (np.mean(posts_df_group_before['engagement']) > 0):
+            
+            sumup_df = sumup_df.append({
+                'account_name': account_name, 
+                'engagement_before': np.mean(posts_df_group_before['engagement']),
+                'engagement_after': np.mean(posts_df_group_after['engagement']),
+            }, ignore_index=True)
+            
+    sumup_df['percentage_change_engagament'] = ((sumup_df['engagement_after'] - sumup_df['engagement_before'])/
+                                                sumup_df['engagement_before']) * 100
+    return sumup_df
