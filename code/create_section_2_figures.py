@@ -145,6 +145,32 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
 
 
+def plot_reduce_average_timeseries(posts_df):
+
+    drop_date='2020-06-09'
+
+    plt.figure(figsize=(6, 4))
+    ax = plt.subplot()
+
+    plt.title("'Reduced distribution' Facebook pages")
+
+    plot_engagement_timeserie(ax, posts_df)
+
+    plt.ylim(0, 4200)
+
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+
+    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'), 
+              np.datetime64('2021-01-01'), np.datetime64(drop_date)
+             ]
+    plt.xticks(xticks, rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+
+    plt.tight_layout()
+    save_figure('reduce_average_timeseries')
+
+
 if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
@@ -153,7 +179,9 @@ if __name__=="__main__":
     pages_df = import_data(file_name="page_list_part_2.csv")
     pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
-    plot_engagement_percentage_change(posts_df, pages_df)
+    # plot_engagement_percentage_change(posts_df, pages_df)
+
+    plot_reduce_average_timeseries(posts_df)
 
     print('\nJUNE DROP:')
     sumup_df = calculate_june_drop(posts_df)
