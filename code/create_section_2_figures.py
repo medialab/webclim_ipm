@@ -111,6 +111,7 @@ def plot_engagement_percentage_change(posts_df, pages_df):
 
     plt.figure(figsize=(6, 3))
     ax = plt.subplot(111)
+    plt.title("'Reduced distribution' Facebook pages")
 
     random_y = list(np.random.random(len(sumup_df)))
     plt.plot(sumup_df['percentage_change_engagament'].values, random_y, 'o', color='royalblue', alpha=0.4)
