@@ -1,3 +1,5 @@
+import datetime
+
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
@@ -135,6 +137,102 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
     save_figure('repeat_example_timeseries')
 
 
+def keep_repeat_offender_posts(posts_df_group, repeat_offender_periods):
+    
+    if len(repeat_offender_periods) == 0:
+        return pd.DataFrame()
+
+    repeat_offender_df_list = []
+    for repeat_offender_period in repeat_offender_periods:
+        new_df = posts_df_group[(posts_df_group['date'] >= repeat_offender_period[0]) &
+                                (posts_df_group['date'] <= repeat_offender_period[1])]
+        if len(new_df) > 0:
+            repeat_offender_df_list.append(new_df)
+    
+    if len(repeat_offender_df_list) > 0:
+        return pd.concat(repeat_offender_df_list)
+    else:
+        return pd.DataFrame()
+
+
+def keep_free_posts(posts_df_group, repeat_offender_periods):
+        
+    if len(repeat_offender_periods) == 0:
+        return posts_df_group
+
+    free_df_list = []
+    for ro_index in range(len(repeat_offender_periods) + 1):
+        if ro_index == 0:
+            new_df = posts_df_group[posts_df_group['date'] < repeat_offender_periods[0][0]]
+        elif ro_index == len(repeat_offender_periods):
+            new_df = posts_df_group[posts_df_group['date'] > repeat_offender_periods[-1][1]]
+        else:
+            new_df = posts_df_group[(posts_df_group['date'] > repeat_offender_periods[ro_index - 1][1]) &
+                                    (posts_df_group['date'] < repeat_offender_periods[ro_index][0])]
+        if len(new_df) > 0:
+            free_df_list.append(new_df)
+    
+    if len(free_df_list) > 0:
+        return pd.concat(free_df_list)
+    else:
+        return pd.DataFrame()
+
+
+def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
+
+    sumup_df = pd.DataFrame(columns=[
+        'account_name', 
+        'engagement_repeat', 
+        'engagement_free'
+    ])
+
+    for account_id in posts_df['account_id'].unique():
+
+        account_name = posts_df[posts_df['account_id']==account_id].account_name.unique()[0]
+        posts_df_group = posts_df[posts_df["account_id"] == account_id]
+
+        fake_news_dates = compute_fake_news_dates(posts_url_df, url_df, account_id)
+        repeat_offender_periods = compute_repeat_offender_periods(fake_news_dates)
+        repeat_offender_periods = merge_overlapping_periods(repeat_offender_periods)
+
+        repeat_offender_df = keep_repeat_offender_posts(posts_df_group, repeat_offender_periods)
+        if len(repeat_offender_df) > 0:
+            repeat_offender_df = repeat_offender_df[repeat_offender_df['date'] < datetime.datetime.strptime('2020-06-09', '%Y-%m-%d')]
+
+        free_df = keep_free_posts(posts_df_group, repeat_offender_periods)
+        if len(free_df) > 0:
+            free_df = free_df[free_df['date'] < datetime.datetime.strptime('2020-06-09', '%Y-%m-%d')]
+
+        if (len(repeat_offender_df) > 0) & (len(free_df) > 0):            
+            sumup_df = sumup_df.append({
+                'account_name': account_name, 
+                'engagement_repeat': np.mean(repeat_offender_df['engagement']),
+                'engagement_free': np.mean(free_df['engagement']),
+            }, ignore_index=True)
+            
+    sumup_df['percentage_change_engagament'] = ((sumup_df['engagement_repeat'] - sumup_df['engagement_free'])/
+                                                sumup_df['engagement_free']) * 100
+    return sumup_df
+
+
+def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
+
+    sumup_df = calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
+    print('\nREPEAT VS FREE PERIODS:')
+
+    print('Australian Climate Sceptics Group percentage change:', 
+          sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
+
+    print('Number of Facebook accounts:', len(sumup_df))
+    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
+    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    
+    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
+
+    return None
+
+
 def plot_repeat_average_timeseries(posts_df):
 
     drop_date='2020-06-09'
@@ -168,6 +266,23 @@ def plot_repeat_june_drop_percentage_change(posts_df):
     sumup_pages_df = sumup_df[sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
     sumup_groups_df = sumup_df[~sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
 
+    print('\nJUNE DROP:')
+
+    print('Number of Facebook account:', len(sumup_df))
+    print('Number of Facebook account with a decrease:', len(sumup_df[sumup_df['percentage_change_engagament'] < 0]))
+    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
+    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    
+    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
+
+    print('Median engagement percentage changes for groups:', 
+          np.median(sumup_groups_df['percentage_change_engagament']),
+          ', n =', len(sumup_groups_df))
+    print('Median engagement percentage changes for pages:', 
+          np.median(sumup_pages_df['percentage_change_engagament']),
+          ', n =', len(sumup_pages_df))
+
     plt.figure(figsize=(6, 2.8))
     ax = plt.subplot(111)
     plt.title("'Repeat offender' Facebook accounts")
@@ -192,23 +307,6 @@ def plot_repeat_june_drop_percentage_change(posts_df):
     plt.tight_layout()
     save_figure('repeat_june_drop_percentage_change')
 
-    print('\nJUNE DROP:')
-
-    print('Number of Facebook account:', len(sumup_df))
-    print('Number of Facebook account with a decrease:', len(sumup_df[sumup_df['percentage_change_engagament'] < 0]))
-    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
-    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
-    
-    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
-    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
-
-    print('Median engagement percentage changes for groups:', 
-          np.median(sumup_groups_df['percentage_change_engagament']),
-          ', n =', len(sumup_groups_df))
-    print('Median engagement percentage changes for pages:', 
-          np.median(sumup_pages_df['percentage_change_engagament']),
-          ', n =', len(sumup_pages_df))
-
 
 if __name__=="__main__":
 
@@ -218,7 +316,8 @@ if __name__=="__main__":
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
     url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
-    plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
+    # plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
+    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
     # plot_repeat_average_timeseries(posts_df)
     # plot_repeat_june_drop_percentage_change(posts_df)
