@@ -127,10 +127,10 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
     repeat_offender_periods = merge_overlapping_periods(repeat_offender_periods)
     for period in repeat_offender_periods:
         plt.axvspan(period[0], period[1], ymin=1/11, facecolor='C3', alpha=0.1)
-    
-    patch1 = mpatches.Patch(facecolor='white', alpha=0.4, edgecolor='k')
-    patch2 = mpatches.Patch(facecolor='pink', alpha=0.4, edgecolor='k')
-    plt.legend([patch1, patch2], ["'No strike' periods", "'Repeat offender' periods"],
+
+    patch1 = mpatches.Patch(facecolor='pink', alpha=0.4, edgecolor='k')
+    patch2 = mpatches.Patch(facecolor='white', alpha=0.4, edgecolor='k')
+    plt.legend([patch1, patch2], ["'Repeat offender' periods", "'No strike' periods"],
                loc='upper left', framealpha=1)
 
     plt.tight_layout()
@@ -256,7 +256,7 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
     plt.xticks([-100, 0, 100], 
             ['-100 %', ' 0 %', '+100 %'])
-    plt.xlabel("Engagement percentage change\nbetween 'repeat offender' and 'no strike' periods", size='large')
+    plt.xlabel("Engagement percentage change\nbetween the 'repeat offender' and 'no strike' periods", size='large')
 
     plt.xlim(-120, 135)
     plt.yticks([])
