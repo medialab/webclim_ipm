@@ -114,7 +114,7 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
 
     fake_news_dates = compute_fake_news_dates(posts_url_df, url_df, account_id)
     for date in fake_news_dates:
-        plt.arrow(x=date, y=0, dx=0, dy=-15, color='C3')
+        plt.plot([date, date], [-15, -.5], color='C3')
     plt.text(
         s='Known strikes', color='C3', fontweight='bold',
         x=np.datetime64('2019-09-15'), horizontalalignment='right', 
@@ -220,5 +220,5 @@ if __name__=="__main__":
 
     plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
 
-    plot_repeat_average_timeseries(posts_df)
-    plot_repeat_june_drop_percentage_change(posts_df)
+    # plot_repeat_average_timeseries(posts_df)
+    # plot_repeat_june_drop_percentage_change(posts_df)
