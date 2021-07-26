@@ -218,6 +218,11 @@ def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
 def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
 
     sumup_df = calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
+
+    posts_page_df = import_data(file_name="posts_fake_news_2021_page.csv")
+    sumup_pages_df = sumup_df[sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
+    sumup_groups_df = sumup_df[~sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
+
     print('\nREPEAT VS FREE PERIODS:')
 
     print('Australian Climate Sceptics Group percentage change:', 
@@ -230,7 +235,36 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
     w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
     print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
 
-    return None
+    print('Median engagement percentage changes for groups:', 
+          np.median(sumup_groups_df['percentage_change_engagament']),
+          ', n =', len(sumup_groups_df))
+    print('Median engagement percentage changes for pages:', 
+          np.median(sumup_pages_df['percentage_change_engagament']),
+          ', n =', len(sumup_pages_df))
+
+    plt.figure(figsize=(6, 2.8))
+    ax = plt.subplot(111)
+    plt.title("'Repeat offender' Facebook accounts")
+
+    plt.plot(sumup_groups_df['percentage_change_engagament'].values, 
+             list(np.random.random(len(sumup_groups_df))), 
+             'o', markerfacecolor='royalblue', markeredgecolor='blue', alpha=0.4)
+    plt.plot(sumup_pages_df['percentage_change_engagament'].values, 
+             list(np.random.random(len(sumup_pages_df))), 
+             'o', markerfacecolor='royalblue', markeredgecolor='red', alpha=0.4)
+
+    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
+    plt.xticks([-100, 0, 100], 
+            ['-100 %', ' 0 %', '+100 %'])
+    plt.xlabel("Engagement percentage change\nbetween 'repeat offender' and 'no strike' periods", size='large')
+
+    plt.xlim(-120, 135)
+    plt.yticks([])
+    plt.ylim(-.2, 1.2)
+    ax.set_frame_on(False)
+
+    plt.tight_layout()
+    save_figure('repeat_vs_free_percentage_change')
 
 
 def plot_repeat_average_timeseries(posts_df):
@@ -316,8 +350,8 @@ if __name__=="__main__":
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
     url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
-    # plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
+    plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
     plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
-    # plot_repeat_average_timeseries(posts_df)
-    # plot_repeat_june_drop_percentage_change(posts_df)
+    plot_repeat_average_timeseries(posts_df)
+    plot_repeat_june_drop_percentage_change(posts_df)

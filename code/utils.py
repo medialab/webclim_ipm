@@ -20,9 +20,10 @@ def save_figure(figure_name, dpi=None):
     
     plt.savefig(figure_path, dpi=dpi)
 
-    print('\n\n' + figure_name.upper())
+    print('\n' + figure_name.upper())
     print("The '{}' figure has been saved in the '{}' folder."\
         .format(figure_path.split('/')[-1], figure_path.split('/')[-2]))
+    print()
 
 
 def plot_engagement_timeserie(ax, posts_df):

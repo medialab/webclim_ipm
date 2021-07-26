@@ -109,6 +109,16 @@ def plot_engagement_percentage_change(posts_df, pages_df):
 
     sumup_df = calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
 
+    print('\nREDUCE DROP:')
+    print("drop for 'I Love Carbon Dioxide':", sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0])
+
+    print('Number of Facebook pages:', len(sumup_df))
+    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
+    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    
+    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
+
     plt.figure(figsize=(6, 3))
     ax = plt.subplot(111)
     plt.title("'Reduced distribution' Facebook pages")
@@ -133,16 +143,6 @@ def plot_engagement_percentage_change(posts_df, pages_df):
 
     plt.tight_layout()
     save_figure('reduce_percentage_change')
-
-    print('\nREDUCE DROP:')
-    print("drop for 'I Love Carbon Dioxide':", sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0])
-
-    print('Number of Facebook pages:', len(sumup_df))
-    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
-    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
-    
-    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
-    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
 
 
 def plot_reduce_average_timeseries(posts_df):
@@ -179,7 +179,7 @@ if __name__=="__main__":
     pages_df = import_data(file_name="page_list_part_2.csv")
     pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
-    # plot_engagement_percentage_change(posts_df, pages_df)
+    plot_engagement_percentage_change(posts_df, pages_df)
 
     plot_reduce_average_timeseries(posts_df)
 
