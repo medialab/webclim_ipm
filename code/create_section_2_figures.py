@@ -124,10 +124,14 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     plt.title("'Reduced distribution' Facebook pages")
 
     random_y = list(np.random.random(len(sumup_df)))
-    plt.plot(sumup_df['percentage_change_engagament'].values, random_y, 'o', color='royalblue', alpha=0.4)
+    plt.plot(sumup_df['percentage_change_engagament'].values, 
+             random_y, 
+             'o', markerfacecolor='royalblue', markeredgecolor='royalblue', alpha=0.6,
+             label='Facebook pages')
+    plt.legend(loc='upper right')
 
-    plt.scatter(sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0], 
-            random_y[34], marker='o', facecolors='none', edgecolors='black')
+    plt.plot(sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0], 
+            random_y[34], 'o', markerfacecolor='none', markeredgecolor='black', alpha=0.4)
     plt.text(sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0], 
             random_y[34] + 0.1, 'I Love Carbon Dioxide', ha='center', va='center')
 
