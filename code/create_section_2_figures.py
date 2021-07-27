@@ -179,7 +179,7 @@ if __name__=="__main__":
     pages_df = import_data(file_name="page_list_part_2.csv")
     pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
-    plot_engagement_percentage_change(posts_df, pages_df)
+    # plot_engagement_percentage_change(posts_df, pages_df)
 
     plot_reduce_average_timeseries(posts_df)
 
