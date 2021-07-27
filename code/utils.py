@@ -40,6 +40,50 @@ def timeserie_template(ax):
     ax.set_frame_on(False)
 
 
+def plot_average_timeseries(posts_df):
+
+    drop_date='2020-06-09'
+
+    plt.figure(figsize=(6, 10))
+    plt.title("'Reduced distribution' Facebook pages")
+
+    ax = plt.subplot(3, 1, 1)
+    plt.plot(posts_df.groupby(by=["date", "account_id"])['engagement'].sum().groupby(by=['date']).mean(), 
+             color="royalblue")
+    plt.ylabel("Engagement per day", size='large')
+    timeserie_template(ax)
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+
+    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
+              np.datetime64('2021-01-01')
+             ]
+    plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+
+    ax = plt.subplot(3, 1, 2)
+    plt.plot(posts_df["date"].value_counts().sort_index()/posts_df.groupby(by=["date"])["account_id"].nunique(),
+             color='grey')
+    plt.ylabel("Number of posts per day", size='large')
+    timeserie_template(ax)
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+
+    plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+
+    ax = plt.subplot(3, 1, 3)
+    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), 
+             color="royalblue")
+    plt.ylabel("Engagement per post", size='large')
+    timeserie_template(ax)
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+
+    plt.xticks(xticks, rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+
+    plt.tight_layout()
+
+
 def calculate_june_drop(posts_df, period_length=30, drop_date='2020-06-09'):
 
     drop_date = datetime.datetime.strptime(drop_date, '%Y-%m-%d')

@@ -7,7 +7,7 @@ import pandas as pd
 import scipy.stats as stats
 
 from utils import (import_data, save_figure, 
-                   timeserie_template, percentage_change_template, 
+                   timeserie_template, percentage_change_template, plot_average_timeseries,
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
@@ -290,28 +290,7 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
 
 def plot_repeat_average_timeseries(posts_df):
 
-    drop_date='2020-06-09'
-
-    plt.figure(figsize=(6, 4))
-    ax = plt.subplot()
-
-    plt.title("'Repeat offender' Facebook accounts")
-
-    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), color="royalblue")
-    plt.ylabel("Average engagement per post", size='large')
-    timeserie_template(ax)
-
-    plt.ylim(0, 60)
-    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-
-    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
-              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'), 
-              np.datetime64('2021-01-01'), np.datetime64(drop_date)
-             ]
-    plt.xticks(xticks, rotation=30, ha='right')
-    plt.gca().get_xticklabels()[-1].set_color('red')
-
-    plt.tight_layout()
+    plot_average_timeseries(posts_df)
     save_figure('repeat_average_timeseries')
 
 
@@ -355,11 +334,11 @@ if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
 
-    posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv")
-    posts_url_df = clean_crowdtangle_url_data(posts_url_df)
-    url_df = import_data(file_name="appearances_2021-01-04_.csv") 
+    # posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv")
+    # posts_url_df = clean_crowdtangle_url_data(posts_url_df)
+    # url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
-    plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
+    # plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
     # plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
     plot_repeat_average_timeseries(posts_df)

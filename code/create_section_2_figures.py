@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 
 from utils import (import_data, save_figure, 
-                   timeserie_template, percentage_change_template, 
+                   timeserie_template, percentage_change_template, plot_average_timeseries,
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
@@ -150,52 +150,7 @@ def plot_engagement_percentage_change(posts_df, pages_df):
 
 def plot_reduce_average_timeseries(posts_df):
 
-    drop_date='2020-06-09'
-
-    plt.figure(figsize=(6, 11))
-    plt.title("'Reduced distribution' Facebook pages")
-
-    ax = plt.subplot(3, 1, 1)
-    # posts_df.groupby(by=["date", "account_id"])['engagement'].sum().groupby(by=['date']).mean()
-    # posts_df.groupby(by=["date"])["engagement"].sum()/posts_df.groupby(by=["date"])["account_id"].nunique()
-    plt.plot(posts_df.groupby(by=["date", "account_id"])['engagement'].sum().groupby(by=['date']).mean(), 
-             color="royalblue")
-    plt.ylabel("Engagement per day", size='large')
-    timeserie_template(ax)
-    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-
-    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
-              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
-              np.datetime64('2021-01-01')
-             ]
-    plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
-    plt.gca().get_xticklabels()[-1].set_color('red')
-
-    ax = plt.subplot(3, 1, 2)
-    plt.plot(posts_df["date"].value_counts().sort_index()/posts_df.groupby(by=["date"])["account_id"].nunique(),
-             color='grey')
-    plt.ylabel("Number of posts per day", size='large')
-    timeserie_template(ax)
-    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-
-    plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
-    plt.gca().get_xticklabels()[-1].set_color('red')
-
-    ax = plt.subplot(3, 1, 3)
-    # posts_df.groupby(by=["date"])["engagement"].mean()/posts_df.groupby(by=["date"])["account_id"].nunique()
-    # posts_df.groupby(by=["date"])['engagement'].mean()
-    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), 
-             color="royalblue")
-    plt.ylabel("Engagement per post", size='large')
-    timeserie_template(ax)
-
-    plt.ylim(0, 4200)
-    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-
-    plt.xticks(xticks, rotation=30, ha='right')
-    plt.gca().get_xticklabels()[-1].set_color('red')
-
-    plt.tight_layout()
+    plot_average_timeseries(posts_df)
     save_figure('reduce_average_timeseries')
 
 
