@@ -138,6 +138,7 @@ def plot_engagement_percentage_change(posts_df, pages_df):
              linewidth=2, markersize=12, markeredgewidth=2)
 
     percentage_change_template(ax)
+    plt.ylim(-.2, 1.2)
     plt.xlabel("Engagement percentage change\nafter the 'reduced distribution' start date", size='large')
 
     plt.tight_layout()

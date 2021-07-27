@@ -217,6 +217,23 @@ def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
     return sumup_df
 
 
+def plot_percentage_changes(sumup_groups_df, sumup_pages_df):
+
+    plt.figure(figsize=(6, 4))
+    ax = plt.subplot(111)
+
+    plt.plot(sumup_groups_df['percentage_change_engagament'].values, 
+             list(np.random.random(len(sumup_groups_df))), 
+             'o', markerfacecolor='royalblue', markeredgecolor='blue', alpha=0.6,
+             label='Facebook groups')
+    plt.plot(sumup_pages_df['percentage_change_engagament'].values, 
+             list(np.random.random(len(sumup_pages_df))/5 - 0.3), 
+             'o', markerfacecolor='lightcoral', markeredgecolor='red', alpha=0.6,
+             label='Facebook pages')
+
+    percentage_change_template(ax)
+    plt.ylim(-.45, 1.25)
+
 def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
 
     sumup_df = calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
@@ -246,22 +263,9 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
     w, p = stats.wilcoxon(sumup_pages_df['percentage_change_engagament'])
     print('Wilcoxon test against zero for the engagement percentage changes for pages: w =', w, ', p =', p)
 
-    plt.figure(figsize=(6, 4))
-    ax = plt.subplot(111)
+    plot_percentage_changes(sumup_groups_df, sumup_pages_df)
     plt.title("'Repeat offender' Facebook accounts")
-
-    plt.plot(sumup_groups_df['percentage_change_engagament'].values, 
-             list(np.random.random(len(sumup_groups_df))), 
-             'o', markerfacecolor='royalblue', markeredgecolor='blue', alpha=0.6,
-             label='Facebook groups')
-    plt.plot(sumup_pages_df['percentage_change_engagament'].values, 
-             list(np.random.random(len(sumup_pages_df))), 
-             'o', markerfacecolor='lightcoral', markeredgecolor='red', alpha=0.6,
-             label='Facebook pages')
-
-    percentage_change_template(ax)
     plt.xlabel("Engagement percentage change\nbetween the 'repeat offender' and 'no strike' periods", size='large')
-
     plt.tight_layout()
     save_figure('repeat_vs_free_percentage_change')
 
@@ -320,22 +324,9 @@ def plot_repeat_june_drop_percentage_change(posts_df):
     w, p = stats.wilcoxon(sumup_pages_df['percentage_change_engagament'])
     print('Wilcoxon test against zero for the engagement percentage changes for pages: w =', w, ', p =', p)
 
-    plt.figure(figsize=(6, 4))
-    ax = plt.subplot(111)
+    plot_percentage_changes(sumup_groups_df, sumup_pages_df)
     plt.title("'Repeat offender' Facebook accounts")
-
-    plt.plot(sumup_groups_df['percentage_change_engagament'].values, 
-             list(np.random.random(len(sumup_groups_df))), 
-             'o', markerfacecolor='royalblue', markeredgecolor='blue', alpha=0.6,
-             label='Facebook groups')
-    plt.plot(sumup_pages_df['percentage_change_engagament'].values, 
-             list(np.random.random(len(sumup_pages_df))), 
-             'o', markerfacecolor='lightcoral', markeredgecolor='red', alpha=0.6,
-             label='Facebook pages')
-
-    percentage_change_template(ax)
     plt.xlabel("Engagement percentage change after June 9, 2020", size='large')
-    
     plt.tight_layout()
     save_figure('repeat_june_drop_percentage_change')
 
@@ -348,8 +339,8 @@ if __name__=="__main__":
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
     url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
-    plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
+    # plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
     plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
-    plot_repeat_average_timeseries(posts_df)
+    # plot_repeat_average_timeseries(posts_df)
     plot_repeat_june_drop_percentage_change(posts_df)
