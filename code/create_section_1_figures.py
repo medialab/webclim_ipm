@@ -242,7 +242,7 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
           np.median(sumup_pages_df['percentage_change_engagament']),
           ', n =', len(sumup_pages_df))
 
-    plt.figure(figsize=(6, 2.8))
+    plt.figure(figsize=(6, 4))
     ax = plt.subplot(111)
     plt.title("'Repeat offender' Facebook accounts")
 
@@ -319,7 +319,7 @@ def plot_repeat_june_drop_percentage_change(posts_df):
           np.median(sumup_pages_df['percentage_change_engagament']),
           ', n =', len(sumup_pages_df))
 
-    plt.figure(figsize=(6, 2.8))
+    plt.figure(figsize=(6, 4))
     ax = plt.subplot(111)
     plt.title("'Repeat offender' Facebook accounts")
 
