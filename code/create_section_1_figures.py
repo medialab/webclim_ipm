@@ -7,7 +7,7 @@ import pandas as pd
 import scipy.stats as stats
 
 from utils import (import_data, save_figure, 
-                   plot_engagement_timeserie, percentage_change_template, 
+                   timeserie_template, percentage_change_template, 
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
@@ -113,7 +113,10 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
 
     account_id = posts_df[posts_df['account_name']==account_name].account_id.unique()[0]
     posts_df_group = posts_df[posts_df["account_id"] == account_id]
-    plot_engagement_timeserie(ax, posts_df_group)
+
+    plt.plot(posts_df_group.groupby(by=["date"])['engagement'].mean(), color="royalblue")
+    plt.ylabel("Average engagement per post", size='large')
+    timeserie_template(ax)
     plt.ylim(-15, 150)
 
     fake_news_dates = compute_fake_news_dates(posts_url_df, url_df, account_id)
@@ -134,6 +137,12 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
     patch2 = mpatches.Patch(facecolor='white', alpha=0.4, edgecolor='k')
     plt.legend([patch1, patch2], ["'Repeat offender' periods", "'No strike' periods"],
                loc='upper left', framealpha=1)
+
+    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
+              np.datetime64('2021-01-01')
+             ]
+    plt.xticks(xticks, rotation=30, ha='right')
 
     plt.tight_layout()
     save_figure('repeat_example_timeseries')
@@ -288,7 +297,9 @@ def plot_repeat_average_timeseries(posts_df):
 
     plt.title("'Repeat offender' Facebook accounts")
 
-    plot_engagement_timeserie(ax, posts_df)
+    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), color="royalblue")
+    plt.ylabel("Average engagement per post", size='large')
+    timeserie_template(ax)
 
     plt.ylim(0, 60)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
@@ -348,7 +359,7 @@ if __name__=="__main__":
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
     url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
-    # plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
+    plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
     # plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
     plot_repeat_average_timeseries(posts_df)

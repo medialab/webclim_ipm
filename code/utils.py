@@ -27,21 +27,13 @@ def save_figure(figure_name, dpi=None):
     print()
 
 
-def plot_engagement_timeserie(ax, posts_df):
+def timeserie_template(ax):
     
-    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), color="royalblue")
-
-    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
-              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
-              np.datetime64('2021-01-01')
-             ]
-    plt.xticks(xticks, rotation=30, ha='right')
     plt.xlim(
         np.datetime64(datetime.datetime.strptime('2018-12-31', '%Y-%m-%d') - datetime.timedelta(days=4)), 
         np.datetime64(datetime.datetime.strptime('2021-01-01', '%Y-%m-%d') + datetime.timedelta(days=4))
     )
 
-    plt.ylabel("Average engagement per post", size='large')
     plt.locator_params(axis='y', nbins=4)
     ax.grid(axis="y")
 
