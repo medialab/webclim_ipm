@@ -5,7 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
-from utils import import_data, save_figure, plot_engagement_timeserie, calculate_june_drop
+from utils import (import_data, save_figure, plot_engagement_timeserie, 
+                   calculate_june_drop, calculate_confidence_interval_median)
 
 
 def import_crowdtangle_group_data():
@@ -128,11 +129,17 @@ def plot_engagement_percentage_change(posts_df, pages_df):
              random_y, 
              'o', markerfacecolor='royalblue', markeredgecolor='blue', alpha=0.6,
              label='Facebook pages')
+
+    low, high = calculate_confidence_interval_median(sumup_df['percentage_change_engagament'].values)
+    plt.plot([low, np.median(sumup_df['percentage_change_engagament']), high], 
+             [0.5 for x in range(3)], '|-', color='navy', 
+             linewidth=2, markersize=12, markeredgewidth=2)
+
     plt.legend(loc='upper right')
 
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
-    plt.xticks([-100, 0, 100], 
-            ['-100 %', ' 0 %', '+100 %'])
+    plt.xticks([-100, -75, -50, -25, 0, 25, 50, 75, 100, 125], 
+            ['-100%', '-75%', '-50%', '-25%', ' 0%', '+25%', '+50%', '+75%', '+100%', '+125%'])
     plt.xlabel("Engagement percentage change\nafter the 'reduced distribution' start date", size='large')
 
     plt.xlim(-120, 135)

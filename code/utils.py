@@ -1,5 +1,6 @@
 import os
 import datetime
+import random
 
 import pandas as pd
 import numpy as np
@@ -82,3 +83,13 @@ def calculate_june_drop(posts_df, period_length=30, drop_date='2020-06-09'):
     sumup_df['percentage_change_engagament'] = ((sumup_df['engagement_after'] - sumup_df['engagement_before'])/
                                                 sumup_df['engagement_before']) * 100
     return sumup_df
+
+
+def calculate_confidence_interval_median(sample):
+
+    medians = []
+    for bootstrap_index in range(1000):
+        resampled_sample = random.choices(sample, k=len(sample))
+        medians.append(np.median(resampled_sample))
+
+    return np.percentile(medians, 5), np.percentile(medians, 95)
