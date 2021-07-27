@@ -109,6 +109,7 @@ def calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
 def plot_engagement_percentage_change(posts_df, pages_df):
 
     sumup_df = calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
+    # sumup_df.to_csv('list_pages_decrease_after_notification.csv', index=False)
 
     print('\nREDUCE DROP:')
     print("drop for 'I Love Carbon Dioxide':", sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0])
