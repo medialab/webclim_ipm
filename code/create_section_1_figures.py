@@ -250,11 +250,11 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
 
     plt.plot(sumup_groups_df['percentage_change_engagament'].values, 
              list(np.random.random(len(sumup_groups_df))), 
-             'o', markerfacecolor='royalblue', markeredgecolor='limegreen', alpha=0.6,
+             'o', markerfacecolor='royalblue', markeredgecolor='blue', alpha=0.6,
              label='Facebook groups')
     plt.plot(sumup_pages_df['percentage_change_engagament'].values, 
              list(np.random.random(len(sumup_pages_df))), 
-             'o', markerfacecolor='royalblue', markeredgecolor='royalblue', alpha=0.6,
+             'o', markerfacecolor='lightcoral', markeredgecolor='red', alpha=0.6,
              label='Facebook pages')
     plt.legend(loc='upper right')
 
@@ -331,11 +331,11 @@ def plot_repeat_june_drop_percentage_change(posts_df):
 
     plt.plot(sumup_groups_df['percentage_change_engagament'].values, 
              list(np.random.random(len(sumup_groups_df))), 
-             'o', markerfacecolor='royalblue', markeredgecolor='limegreen', alpha=0.6,
+             'o', markerfacecolor='royalblue', markeredgecolor='blue', alpha=0.6,
              label='Facebook groups')
     plt.plot(sumup_pages_df['percentage_change_engagament'].values, 
              list(np.random.random(len(sumup_pages_df))), 
-             'o', markerfacecolor='royalblue', markeredgecolor='royalblue', alpha=0.6,
+             'o', markerfacecolor='lightcoral', markeredgecolor='red', alpha=0.6,
              label='Facebook pages')
     plt.legend(loc='upper right')
 
