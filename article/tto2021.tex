@@ -45,15 +45,17 @@
 \maketitle
 
 \begin{abstract}
+{\color{red}
 Like most web platforms, Facebook is under pressure to regulate misinformation. 
 According to the company, pages that repeatedly share misinformation (“repeat offenders”) will have their distribution reduced, but little is known about the implementation or the efficacy of this measure. 
 We aimed to investigate the implementation and consequences of this policy using a first of its kind analysis, combining data from a fact-checking organization, users’ self-declaration and CrowdTangle data. 
 We did not observe that accounts repeatedly sharing misinformation had reduced engagement metrics, but a drastic 50\% drop was observed around June 9, 2020. 
 No public information was given by Facebook about this sudden decrease. 
 Overall, we find no evidence so far that Facebook’s reduced distribution policy against repeat offenders is having any impact on misinformation distribution.
+}
 \end{abstract}
 
-\section{General introduction}
+\section{Introduction}
 
 With an ever-increasing proportion of the public getting their information online, mainly through search engines, social media and video platforms \citep{mitchell2016modern}, the spread of misinformation through these platforms has received growing attention. 
 Recent studies and the political context of January 2021 show how the presence of misinformation online can contribute to negative societal consequences by fueling false beliefs, such as the idea that massive voter fraud occurred during the US 2020 presidential election, which contributed to the January 6, 2021 insurrection at the U.S. Capitol \citep{benkler2020mail} and other false stories about presidential candidates \citep{allcott2017social}. 
@@ -134,7 +136,9 @@ We then calculated the percentage change between the `repeat offender' and the `
 The average percentage change was 7\%, and the median -6\%, both values being very close to zero. 
 A Wilcoxon test confirmed that the percentage changes were not significantly different than zero (W = $16051$, p-value = $0.74$).
 
-{\color{red} Groups vs. pages statistics}
+There appeared to be a difference between Facebook groups and pages, as the median percentage change for Facebook groups was -3 \%, while the median for Facebook pages was -43 \%. 
+When applied only on the Facebook pages' percentage changes, the Wilcoxon test was significant (W = $21$, p-value = $0.0034$). 
+It should be noted that our sample contained only 18 Facebook pages, which is not enough to draw firm conclusions.
 
 \begin{figure}[!h]
 \centering
@@ -156,7 +160,10 @@ The engagement per post remained rather constant until June 9, 2020, where it su
 We looked at the accounts individually, and calculated the percentage change in engagement for each account between 30 days before June 9, 2020 and 30 days after (Figure \ref{repeat_june_drop_percentage_change}). 
 The average percentage change was - 21\%, and the median - 43\%. Most of the accounts (219 out of 289) experienced a decrease in engagement\footnote{A decrease in engagement on June 9, 2020 can be seen for the `Australian Climate Sceptics Group' in Figure \ref{repeat_example_timeseries} (the percentage change was -60 \% for this example).}.
 A Wilcoxon test revealed these percentage changes to be very significantly different than zero (W = $9012$, p-value = $4.6 \times 10^{-17}$).
-It appears that Facebook pages were less affected by this decrease than Facebook groups, they may have not be concerned by the measure (median percentage change for pages: -5\%, for groups: -45\%), but we had only 18 pages in our sample, which is not enough to draw firm conclusions.
+
+It appears that the Facebook pages were less affected by this decrease than Facebook groups, as their median percentage change was -5 \% (n = 18), while the median for the Facebook groups was -45 \% (n = 271). 
+When tested separately, the Facebook pages' percentage changes were not different than zero (W = $73$, p-value = $0.61$).
+The Facebook pages may have not be concerned by the measure taken on June 9, 2020.
 
 \begin{figure}[!h]
 \centering
@@ -247,8 +254,9 @@ It confirms that Facebook pages appeared to be not affected by the reduce measur
 \end{figure}
 
 
-\section{General discussion}
+\section{Discussion}
 
+{\color{red}
 Facebook, the most widely used social media platform in the world, has announced a series of measures to curb the spread of misinformation, notably by reducing the visibility of `repeat offenders': accounts that repeatedly share false information. However, the effects of platforms' diverse policies to tackle misinformation remains understudied \citep{pasquetto2020tackling}. 
 Our study aims to address this knowledge gap by verifying the application and measuring the consequences of Facebook's `reduce' policy on the targeted accounts' engagement metrics.
 
@@ -278,7 +286,7 @@ Online misinformation introduces various threats to societies around the world, 
 Consistent with other studies finding that misinformation persists at high levels on Facebook and other platforms \citep{kornbluh2020new, resnick2018iffy}, we find no evidence that Facebook is reducing the distribution of content from known spreaders of misinformation. 
 One step Facebook could take to reduce misinformation on its platform would be to more rigorously enforce their repeat offenders policies. 
 In the meantime, we advocate for scientists to pay greater attention to monitoring the actions, or lack thereof, by platforms against misinformation. 
-
+}
  
 \bibliography{biblio}
 \bibliographystyle{acl_natbib}
