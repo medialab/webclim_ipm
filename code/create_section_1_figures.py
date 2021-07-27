@@ -302,6 +302,8 @@ def plot_repeat_june_drop_percentage_change(posts_df):
 
     print('\nJUNE DROP:')
 
+    print("Drop for 'Australian Climate Sceptics Group':", sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
+
     print('Number of Facebook account:', len(sumup_df))
     print('Number of Facebook account with a decrease:', len(sumup_df[sumup_df['percentage_change_engagament'] < 0]))
     print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
