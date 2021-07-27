@@ -5,7 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
-from utils import (import_data, save_figure, plot_engagement_timeserie, 
+from utils import (import_data, save_figure, 
+                   plot_engagement_timeserie, percentage_change_template, 
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
@@ -136,17 +137,8 @@ def plot_engagement_percentage_change(posts_df, pages_df):
              [0.5 for x in range(3)], '|-', color='navy', 
              linewidth=2, markersize=12, markeredgewidth=2)
 
-    plt.legend(loc='upper right')
-
-    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
-    plt.xticks([-100, -75, -50, -25, 0, 25, 50, 75, 100, 125], 
-            ['-100%', '-75%', '-50%', '-25%', ' 0%', '+25%', '+50%', '+75%', '+100%', '+125%'])
+    percentage_change_template(ax)
     plt.xlabel("Engagement percentage change\nafter the 'reduced distribution' start date", size='large')
-
-    plt.xlim(-120, 135)
-    plt.yticks([])
-    plt.ylim(-.2, 1.2)
-    ax.set_frame_on(False)
 
     plt.tight_layout()
     save_figure('reduce_percentage_change')

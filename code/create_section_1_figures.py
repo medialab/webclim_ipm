@@ -6,7 +6,9 @@ import numpy as np
 import pandas as pd
 import scipy.stats as stats
 
-from utils import import_data, save_figure, plot_engagement_timeserie, calculate_june_drop
+from utils import (import_data, save_figure, 
+                   plot_engagement_timeserie, percentage_change_template, 
+                   calculate_june_drop, calculate_confidence_interval_median)
 
 
 def import_crowdtangle_group_data():
@@ -256,17 +258,9 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
              list(np.random.random(len(sumup_pages_df))), 
              'o', markerfacecolor='lightcoral', markeredgecolor='red', alpha=0.6,
              label='Facebook pages')
-    plt.legend(loc='upper right')
 
-    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
-    plt.xticks([-100, 0, 100], 
-            ['-100 %', ' 0 %', '+100 %'])
+    percentage_change_template(ax)
     plt.xlabel("Engagement percentage change\nbetween the 'repeat offender' and 'no strike' periods", size='large')
-
-    plt.xlim(-120, 135)
-    plt.yticks([])
-    plt.ylim(-.2, 1.2)
-    ax.set_frame_on(False)
 
     plt.tight_layout()
     save_figure('repeat_vs_free_percentage_change')
@@ -325,6 +319,7 @@ def plot_repeat_june_drop_percentage_change(posts_df):
           ', n =', len(sumup_pages_df))
     w, p = stats.wilcoxon(sumup_pages_df['percentage_change_engagament'])
     print('Wilcoxon test against zero for the engagement percentage changes for pages: w =', w, ', p =', p)
+
     plt.figure(figsize=(6, 4))
     ax = plt.subplot(111)
     plt.title("'Repeat offender' Facebook accounts")
@@ -337,18 +332,10 @@ def plot_repeat_june_drop_percentage_change(posts_df):
              list(np.random.random(len(sumup_pages_df))), 
              'o', markerfacecolor='lightcoral', markeredgecolor='red', alpha=0.6,
              label='Facebook pages')
-    plt.legend(loc='upper right')
 
-    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
-    plt.xticks([-100, 0, 100], 
-            ['-100 %', ' 0 %', '+100 %'])
+    percentage_change_template(ax)
     plt.xlabel("Engagement percentage change after June 9, 2020", size='large')
-
-    plt.xlim(-120, 135)
-    plt.yticks([])
-    plt.ylim(-.2, 1.2)
-    ax.set_frame_on(False)
-
+    
     plt.tight_layout()
     save_figure('repeat_june_drop_percentage_change')
 

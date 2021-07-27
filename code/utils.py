@@ -93,3 +93,19 @@ def calculate_confidence_interval_median(sample):
         medians.append(np.median(resampled_sample))
 
     return np.percentile(medians, 5), np.percentile(medians, 95)
+
+
+def percentage_change_template(ax):
+
+    plt.legend(loc='upper right')
+
+    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
+
+    plt.xticks([-100, -75, -50, -25, 0, 25, 50, 75, 100, 125], 
+            ['-100%', '-75%', '-50%', '-25%', ' 0%', '+25%', '+50%', '+75%', '+100%', '+125%'])
+    plt.xlim(-120, 135)
+
+    plt.yticks([])
+    plt.ylim(-.2, 1.2)
+
+    ax.set_frame_on(False)
