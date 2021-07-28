@@ -242,11 +242,11 @@ def plot_percentage_changes(sumup_groups_df, sumup_pages_df):
 
     plt.plot(sumup_pages_df['percentage_change_engagament'].values, 
              list(np.random.random(len(sumup_pages_df))/5 - 0.3), 
-             'o', markerfacecolor='lightcoral', markeredgecolor='red', alpha=0.6,
+             'o', markerfacecolor='skyblue', markeredgecolor='deepskyblue', alpha=0.6,
              label='Facebook pages')
     low, high = calculate_confidence_interval_median(sumup_pages_df['percentage_change_engagament'].values)
     plt.plot([low, np.median(sumup_pages_df['percentage_change_engagament']), high], 
-             [-0.2 for x in range(3)], '|-', color='darkred', 
+             [-0.2 for x in range(3)], '|-', color='dodgerblue', 
              linewidth=2, markersize=12, markeredgewidth=2)
 
     percentage_change_template(ax)
@@ -381,7 +381,7 @@ if __name__=="__main__":
     url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
     plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
-    # plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
+    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
     plot_repeat_average_timeseries(posts_df)
-    # plot_repeat_june_drop_percentage_change(posts_df)
+    plot_repeat_june_drop_percentage_change(posts_df)
