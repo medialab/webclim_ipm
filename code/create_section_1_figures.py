@@ -295,12 +295,12 @@ def plot_repeat_average_timeseries(posts_df):
     plt.figure(figsize=(6, 8))
 
     ax = plt.subplot(3, 1, 1)
-    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), 
+    plt.plot(posts_df.groupby(by=["date", "account_id"])['engagement'].sum().groupby(by=['date']).mean(), 
              color="royalblue")
-    plt.ylabel("Engagement per post", size='large')
+    plt.ylabel("Engagement per day", size='large')
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    plt.ylim(0, 60)
+    plt.ylim(0, 3200)
 
     plt.title("'Repeat offender' Facebook accounts")
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
@@ -322,12 +322,12 @@ def plot_repeat_average_timeseries(posts_df):
     plt.gca().get_xticklabels()[-1].set_color('red')
 
     ax = plt.subplot(3, 1, 3)
-    plt.plot(posts_df.groupby(by=["date", "account_id"])['engagement'].sum().groupby(by=['date']).mean(), 
+    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), 
              color="royalblue")
-    plt.ylabel("Engagement per day", size='large')
+    plt.ylabel("Engagement per post", size='large')
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    plt.ylim(0, 3200)
+    plt.ylim(0, 60)
 
     plt.xticks(xticks, rotation=30, ha='right')
     plt.gca().get_xticklabels()[-1].set_color('red')
@@ -381,7 +381,7 @@ if __name__=="__main__":
     url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
     plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
-    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
+    # plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
     plot_repeat_average_timeseries(posts_df)
-    plot_repeat_june_drop_percentage_change(posts_df)
+    # plot_repeat_june_drop_percentage_change(posts_df)
