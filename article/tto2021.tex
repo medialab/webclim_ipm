@@ -71,7 +71,7 @@ This is what we propose to tackle in this paper by offering a methodology to mon
 We chose to focus on Facebook as it is the biggest social media platform with more than 2 billion users worldwide.
 
 Facebook announced a three-part policy to fight against ‘misleading or harmful content’: they claim to \textit{remove} harmful information, \textit{reduce} the spread of misinformation and \textit{inform} people with additional context\footnote{https://about.fb.com/news/2018/05/inside-feed-reduce-remove-inform/}. 
-Facebook has developed the most extensive third-party fact-checking program with dozens of partner instutition to assist the company in this endeavour\footnote{https://www.facebook.com/business/help/341102040382165}. 
+Facebook has developed the most extensive third-party fact-checking program with dozens of partner institution to assist the company in this endeavour\footnote{https://www.facebook.com/business/help/341102040382165}. 
 When a fact-checking partner flags a URL, a post or a video as misinformation, Facebook claims to display the posts marked as “False” or “Partly False” further down in users’ feed, further reducing the virality of these posts. 
 Facebook also informs page or group owners when published posts on pages or groups that they manage are marked as misinformation, inviting them to correct the posts. 
 Facebook’s \textit{reduce} policy is not only applied to individual posts, but also to organizations and communities that often publish posts containing misinformation, as indicated by this statement in their publishers’ help center\footnote{https://www.facebook.com/business/help/2593586717571940, https://www.facebook.com/business/help/297022994952764}: 
@@ -83,7 +83,7 @@ So far Facebook has not provided data showing how their reduce policy is impleme
 To the best of our knowledge, the impact of the reduce policy has not yet been audited directly. 
 It is in this way that the present research paper distinguishes itself from the articles that measured overall levels of misinformation on the platform \citep{allcott2019trends, kornbluh2020new, resnick2018iffy}. 
 
-CrowdTangle, a public insights tool owned and operated by Facebook, was used to access Facebook data \citep{team2020crowdtangle}. 
+We used CrowdTangle, a public insights tool owned and operated by Facebook, to access Facebook data \citep{team2020crowdtangle}. 
 CrowdTangle exclusively tracks public content, and provides access to engagement metrics (such as number of likes, shares and comments), but not to the reach (number of views) of content\footnote{https://help.crowdtangle.com/en/articles/3192685-citing-crowdtangle-data, https://help.crowdtangle.com/en/
 articles/4558716-understanding-and-citing-crowdtangle-data}. 
 We first investigated how Facebook enforces its ‘reduce’ policy by combining data from a Facebook fact-checking partner identifying URLs sharing misinformation and tracking engagement metrics of the Facebook accounts that repeatedly share such misinformation. 
@@ -95,7 +95,7 @@ To investigate the effect of fact-checking on Facebook accounts that repeatedly 
 
 \subsection{Methods}
 
-Science Feedback is an fact-checking organization, in which academics are verifying the credibility of science-related claims and articles. 
+Science Feedback is a fact-checking organization, in which academics are verifying the credibility of science-related claims and articles. 
 Out of the 4,000+ URLs labeled by Science Feedback, we relied on the 2,452 URLs labeled as `False', which we call ``false news links''. 
 Were excluded the URLs labeled as `Partly False', `Missing Context', `False headlines' or `True', as well as the URLs marked as `False' but `corrected to True' by the publisher, since these labels do not contribute to the repeat offender status according to Facebook's guidelines. 
 The list of false news links was obtained on January 4, 2021 and cover links flagged in 2019 and 2020.
@@ -129,12 +129,12 @@ Any given time in which an account shared two or more false news links over the 
 Figure \ref{repeat_example_timeseries}'s displays the engagement metrics for one `repeat offender' example group named \href{https://www.facebook.com/groups/108655705888371/}{`Australian Climate Sceptics Group'}. 
 The known strike dates are shown as red lines at the bottom, and the inferred ‘repeat offender’ periods are shaded in red. 
 The average engagement per post vary throughout the measuring period, but they do not appear to be related with the alternance of `repeat offender' and `no strike' periods (see Figure \ref{repeat_example_timeseries}).
-If we compared the engagement between the `repeat offender' and the `no strike' periods, we actually found an increase of engagement by 61 \% during the `repeat offender' periods.
+When comparing the average engagement metrics between the `repeat offender' and the `no strike' periods, we actually observe a 61 \% increase in engagement during the `repeat offender' periods.
 
-We then calculated the percentage change between the `repeat offender' and the `no strike' periods for each of the 256 Facebook accounts that published at least one post during these periods (see Figure \ref{repeat_vs_free_percentage_change})
-\footnote{The percentage changes were calculated on the periods between January 1, 2019 and June 8, 2020. Because of the drop in engagement described subsequentially, the last semester of 2020 was excluded for its vastly diminished and not representative engagement level (see Figure \ref{repeat_average_timeseries}).}.
-The average percentage change was 7\%, and the median -6\%, both values being very close to zero. 
-A Wilcoxon test confirmed that the percentage changes were not significantly different than zero (W = $16051$, p-value = $0.74$).
+To generalize, we calculate the percentage change between the `repeat offender' and the `no strike' periods for each of the 256 Facebook accounts that published at least one post during each periods (see Figure \ref{repeat_vs_free_percentage_change})
+\footnote{The percentage changes were calculated on the periods between January 1, 2019 and June 8, 2020. Because of the drop in engagement described further down, the second semester of 2020 was excluded for its vastly diminished and not representative engagement level (see Figure \ref{repeat_average_timeseries}).}.
+The average percentage change is 7\%, and the median -6\%, both values being very close to zero. 
+A Wilcoxon test confirmed that these percentage changes are not significantly different from zero (W = $16051$, p-value = $0.74$).
 
 \begin{figure}[!h]
 \centering
