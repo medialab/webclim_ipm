@@ -119,11 +119,6 @@ Any given time in which an account shared two or more false news links over the 
 
 \subsection{Results}
 
-Figure \ref{repeat_example_timeseries}'s displays the engagement metrics for one `repeat offender' example group named \href{https://www.facebook.com/groups/108655705888371/}{`Australian Climate Sceptics Group'}. 
-The known strike dates are shown as red lines at the bottom, and the inferred ‘repeat offender’ periods are shaded in red. 
-The average engagement per post vary throughout the measuring period, but they do not appear to be related with the alternance of `repeat offender' and `no strike' periods (see Figure \ref{repeat_example_timeseries}).
-If we compared the engagement between the `repeat offender' and the `no strike' periods, we actually found an increase of engagement by 61 \% during the `repeat offender' periods.
-
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\linewidth]{./../figure/repeat_example_timeseries.png}
@@ -131,13 +126,15 @@ If we compared the engagement between the `repeat offender' and the `no strike' 
 \label{repeat_example_timeseries}
 \end{figure}
 
-We then calculated the percentage change between the `repeat offender' and the `no strike' periods for each of the 256 Facebook accounts that published at least one post during these periods (see Figure \ref{repeat_vs_free_percentage_change})\footnote{The percentage changes were calculated on the periods between January 1, 2019 and June 8, 2020. Because of the drop in engagement described subsequentially, the last semester of 2020 was excluded for its vastly diminished and not representative engagement level (see Figure \ref{repeat_average_timeseries}).}.
+Figure \ref{repeat_example_timeseries}'s displays the engagement metrics for one `repeat offender' example group named \href{https://www.facebook.com/groups/108655705888371/}{`Australian Climate Sceptics Group'}. 
+The known strike dates are shown as red lines at the bottom, and the inferred ‘repeat offender’ periods are shaded in red. 
+The average engagement per post vary throughout the measuring period, but they do not appear to be related with the alternance of `repeat offender' and `no strike' periods (see Figure \ref{repeat_example_timeseries}).
+If we compared the engagement between the `repeat offender' and the `no strike' periods, we actually found an increase of engagement by 61 \% during the `repeat offender' periods.
+
+We then calculated the percentage change between the `repeat offender' and the `no strike' periods for each of the 256 Facebook accounts that published at least one post during these periods (see Figure \ref{repeat_vs_free_percentage_change})
+\footnote{The percentage changes were calculated on the periods between January 1, 2019 and June 8, 2020. Because of the drop in engagement described subsequentially, the last semester of 2020 was excluded for its vastly diminished and not representative engagement level (see Figure \ref{repeat_average_timeseries}).}.
 The average percentage change was 7\%, and the median -6\%, both values being very close to zero. 
 A Wilcoxon test confirmed that the percentage changes were not significantly different than zero (W = $16051$, p-value = $0.74$).
-
-There appeared to be a difference between Facebook groups and pages, as the median percentage change for Facebook groups was -3 \%, while the median for Facebook pages was -43 \%. 
-When applied only on the Facebook pages' percentage changes, the Wilcoxon test was significant (W = $21$, p-value = $0.0034$). 
-It should be noted that our sample contained only 18 Facebook pages, which is not enough to draw firm conclusions.
 
 \begin{figure}[!h]
 \centering
@@ -146,17 +143,27 @@ It should be noted that our sample contained only 18 Facebook pages, which is no
 \label{repeat_vs_free_percentage_change}
 \end{figure}
 
-To see whether the strikes would otherwise influence an account's distribution over time, we also plotted the average engagement per post for each day of the 2019-2020 period aggregated over the 307 `repeat offender' accounts (Figure \ref{repeat_average_timeseries}). 
+There appeared to be a difference between Facebook groups and pages, as the median percentage change for Facebook groups was -3 \%, while the median for Facebook pages was -43 \%. 
+When applied only on the Facebook pages' percentage changes, the Wilcoxon test was significant (W = $21$, p-value = $0.0034$). 
+It should be noted that our sample contained only 18 Facebook pages, which is not enough to draw firm conclusions.
+
+To see whether the strikes would otherwise influence an account's distribution over time, we also plotted the average engagement per post for each day of the 2019-2020 period aggregated over the 307 `repeat offender' accounts (Figure \ref{repeat_average_timeseries} Top panel). 
 The engagement per post remained rather constant until June 9, 2020, where it suddenly experienced a massive drop that brings their levels back to a half of the early 2019 values.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\linewidth]{./../figure/repeat_average_timeseries.png}
-\caption{Average engagement per post for each day in 2019 and 2020 aggregated over the 307 Facebook accounts that repeatedly shared false news links. The dotted line marks the date of June 9, 2020, when a sudden drop in engagement is observed.}
+\caption{Metrics aggregated over the 307 Facebook accounts that repeatedly shared false news links. (Top panel) Average engagement per post. (Middel panel) Number of posts per day. (Bottom panel) Engagement per day. The dotted line marks the date of June 9, 2020, when a sudden drop in engagement is observed.}
 \label{repeat_average_timeseries}
 \end{figure}
 
-We looked at the accounts individually, and calculated the percentage change in engagement for each account between 30 days before June 9, 2020 and 30 days after (Figure \ref{repeat_june_drop_percentage_change}). 
+To contextualize this decrease in engagement, we also plotted the average number of posts published each day, and the total engagement per day generated by these accounts. 
+The engagement per day (Figure \ref{repeat_average_timeseries} Bottom panel) can be decomposed as the number of posts (Middle panel) times the engagement per post (Top panel). 
+The number of posts per day has more than doubled between September 2019 and June 2020, showing an increase in activity for the observed misinformation accounts. 
+As the engagement per post stayed stable, the total engagement they generated per day has also doubled during the same period.
+In a context where the overall engagement for these misinformation accounts was rising, the massive decrease observed in the engagement per post on June 9, 2020 actually brought the engagement level back to its early 2019 values, instead of decreasing it.
+
+We looked at the accounts individually, and calculated the percentage change in engagement per post for each account between 30 days before June 9, 2020 and 30 days after (Figure \ref{repeat_june_drop_percentage_change}). 
 The average percentage change was - 21\%, and the median - 43\%. Most of the accounts (219 out of 289) experienced a decrease in engagement\footnote{A decrease in engagement on June 9, 2020 can be seen for the `Australian Climate Sceptics Group' in Figure \ref{repeat_example_timeseries} (the percentage change was -60 \% for this example).}.
 A Wilcoxon test revealed these percentage changes to be very significantly different than zero (W = $9012$, p-value = $4.6 \times 10^{-17}$).
 
@@ -240,18 +247,9 @@ We thus found a small decrease in engagement following the `reduced distribution
 \label{reduce_percentage_change}
 \end{figure}
  
-We further investigated whether an important drop in engagement also occurred on June 9, 2020. 
-No sudden decrease in engagement was observed in the average engagement per post in the 2019-2020 period (see Figure \ref{reduce_average_timeseries}).
-The median percentage change was 3\%, and no significantly different than zero.
+We further investigated whether an important drop in engagement also occurred on this set of Facebook pages.
+When we compared 30 days before and after June 9, 2020, the median percentage change was 3\%, and no significantly different than zero (W = $1093$, p-value = $0.055$).
 It confirms that Facebook pages appeared to be not affected by the reduce measure implemented on the Facebook groups investigated in the previous section.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=\linewidth]{./../figure/reduce_average_timeseries.png}
-\caption{Average engagement per post for each day in 2019 and 2020 aggregated over the 83 Facebook pages that shared a `reduced distribution' notification from Facebook.}
-\label{reduce_average_timeseries}
-\end{figure}
-
 
 \section{Discussion}
 

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 
 from utils import (import_data, save_figure, 
-                   timeserie_template, percentage_change_template, plot_average_timeseries,
+                   timeserie_template, percentage_change_template,
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
@@ -47,7 +47,7 @@ def plot_reduce_example_timeseries(posts_df):
     account_name = 'I Love Carbon Dioxide'
     reduced_distribution_date = '2020-04-28'
 
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(6, 3.5))
     ax = plt.subplot()
     
     plt.title("'" + account_name + "' Facebook page")
@@ -56,7 +56,7 @@ def plot_reduce_example_timeseries(posts_df):
     posts_df_group = posts_df[posts_df["account_id"] == account_id]
 
     plt.plot(posts_df_group.groupby(by=["date"])['engagement'].mean(), color="royalblue")
-    plt.ylabel("Average engagement per post", size='large')
+    plt.ylabel("Engagement per post", size='large')
     timeserie_template(ax)
 
     plt.ylim(0, 3000)
@@ -148,26 +148,18 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     save_figure('reduce_percentage_change')
 
 
-def plot_reduce_average_timeseries(posts_df):
-
-    plot_average_timeseries(posts_df)
-    save_figure('reduce_average_timeseries')
-
-
 if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
-    # plot_reduce_example_timeseries(posts_df)
+    plot_reduce_example_timeseries(posts_df)
 
-    # pages_df = import_data(file_name="page_list_part_2.csv")
-    # pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
+    pages_df = import_data(file_name="page_list_part_2.csv")
+    pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
-    # plot_engagement_percentage_change(posts_df, pages_df)
+    plot_engagement_percentage_change(posts_df, pages_df)
 
-    plot_reduce_average_timeseries(posts_df)
-
-    # print('\nJUNE DROP:')
-    # sumup_df = calculate_june_drop(posts_df)
-    # print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
-    # w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
-    # print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
+    print('\nJUNE DROP:')
+    sumup_df = calculate_june_drop(posts_df)
+    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)

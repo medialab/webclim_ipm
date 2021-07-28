@@ -7,7 +7,7 @@ import pandas as pd
 import scipy.stats as stats
 
 from utils import (import_data, save_figure, 
-                   timeserie_template, percentage_change_template, plot_average_timeseries,
+                   timeserie_template, percentage_change_template,
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
@@ -106,7 +106,7 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
 
     account_name = 'Australian Climate Sceptics Group'
 
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(6, 3.8))
     ax = plt.subplot()
     
     plt.title("'" + account_name + "' Facebook group")
@@ -115,7 +115,7 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
     posts_df_group = posts_df[posts_df["account_id"] == account_id]
 
     plt.plot(posts_df_group.groupby(by=["date"])['engagement'].mean(), color="royalblue")
-    plt.ylabel("Average engagement per post", size='large')
+    plt.ylabel("Engagement per post", size='large')
     timeserie_template(ax)
     plt.ylim(-15, 150)
 
@@ -290,7 +290,49 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
 
 def plot_repeat_average_timeseries(posts_df):
 
-    plot_average_timeseries(posts_df)
+    drop_date='2020-06-09'
+
+    plt.figure(figsize=(6, 8))
+
+    ax = plt.subplot(3, 1, 1)
+    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), 
+             color="royalblue")
+    plt.ylabel("Engagement per post", size='large')
+    timeserie_template(ax)
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+    plt.ylim(0, 60)
+
+    plt.title("'Repeat offender' Facebook accounts")
+    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
+              np.datetime64('2021-01-01'), drop_date
+             ]
+    plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+
+    ax = plt.subplot(3, 1, 2)
+    plt.plot(posts_df["date"].value_counts().sort_index()/posts_df.groupby(by=["date"])["account_id"].nunique(),
+             color='grey')
+    plt.ylabel("Number of posts per day", size='large')
+    timeserie_template(ax)
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+    plt.ylim(0, 99)
+
+    plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+
+    ax = plt.subplot(3, 1, 3)
+    plt.plot(posts_df.groupby(by=["date", "account_id"])['engagement'].sum().groupby(by=['date']).mean(), 
+             color="royalblue")
+    plt.ylabel("Engagement per day", size='large')
+    timeserie_template(ax)
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+    plt.ylim(0, 3200)
+
+    plt.xticks(xticks, rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+
+    plt.tight_layout()
     save_figure('repeat_average_timeseries')
 
 
@@ -334,11 +376,11 @@ if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
 
-    # posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv")
-    # posts_url_df = clean_crowdtangle_url_data(posts_url_df)
-    # url_df = import_data(file_name="appearances_2021-01-04_.csv") 
+    posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv")
+    posts_url_df = clean_crowdtangle_url_data(posts_url_df)
+    url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
-    # plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
+    plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
     # plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
     plot_repeat_average_timeseries(posts_df)
