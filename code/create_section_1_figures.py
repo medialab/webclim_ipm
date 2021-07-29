@@ -275,6 +275,9 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
     print('Median engagement percentage changes for groups:', 
           np.median(sumup_groups_df['percentage_change_engagament']),
           ', n =', len(sumup_groups_df))
+    w, p = stats.wilcoxon(sumup_groups_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes for groups: w =', w, ', p =', p)
+
     print('Median engagement percentage changes for pages:', 
           np.median(sumup_pages_df['percentage_change_engagament']),
           ', n =', len(sumup_pages_df))
@@ -359,6 +362,9 @@ def plot_repeat_june_drop_percentage_change(posts_df):
     print('Median engagement percentage changes for groups:', 
           np.median(sumup_groups_df['percentage_change_engagament']),
           ', n =', len(sumup_groups_df))
+    w, p = stats.wilcoxon(sumup_groups_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes for groups: w =', w, ', p =', p)
+
     print('Median engagement percentage changes for pages:', 
           np.median(sumup_pages_df['percentage_change_engagament']),
           ', n =', len(sumup_pages_df))
@@ -381,7 +387,7 @@ if __name__=="__main__":
     url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
     plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
-    # plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
+    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
     plot_repeat_average_timeseries(posts_df)
-    # plot_repeat_june_drop_percentage_change(posts_df)
+    plot_repeat_june_drop_percentage_change(posts_df)
