@@ -1,4 +1,3 @@
-
 # Data collection
 
 ### To collect the Condor data for Facebook misinformation groups and pages (section 3)
@@ -13,10 +12,11 @@ python code/write_crowdtangle_lists.py
 
 The middle command will run for around 6h.
 
-Create the list of groups and pages on CrowdTangle with the same names as what was printed in the console, and updload the CSV created in the data folder in the CrowdTangle interface. Then run (first do `minet ct lists` to get the correct list ids to ask for):
+Create the list of groups and pages on CrowdTangle with the same names as what was printed in the console, and updload the CSV created in the data folder in the CrowdTangle interface ("settings" at the top right > "batch upload"). Then run (first do `minet ct lists` to get the correct list ids to ask for):
 
 ```
 ./code/collect_ct_data_for_accounts.sh 1590764
+./code/collect_ct_data_for_accounts.sh 1591619
 ```
 
-Each command will run for around X-X hours.
+Each command will run for X to 22 hours.
