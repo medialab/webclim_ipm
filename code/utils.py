@@ -15,6 +15,14 @@ def import_data(file_name):
     return df
 
 
+def export_data(df, file_name):
+    csv_path = os.path.join('.', 'data', file_name + '.csv')
+    df.to_csv(csv_path, index=False)
+    print("The '{}' file has been printed in the '{}' folder.".format(
+        csv_path.split('/')[-1], csv_path.split('/')[-2])
+    )
+
+
 def save_figure(figure_name, dpi=None):
 
     figure_path = os.path.join('.', 'figure', figure_name + '.png')
