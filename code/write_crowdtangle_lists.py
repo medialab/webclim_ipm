@@ -42,3 +42,11 @@ if __name__=="__main__":
     list_name = "heloise_condor_pages"
     top4_df = extract_account_list_from_value_counts_serie(s[s >= 35], list_name)
     export_data(top4_df, list_name)
+
+    list_name = "heloise_condor_groups_4"
+    top5_df = extract_account_list_from_value_counts_serie(s[(s >= 24) & (s < 35)], list_name)
+    export_data(top5_df, list_name)
+
+    list_name = "heloise_condor_pages_2"
+    top6_df = extract_account_list_from_value_counts_serie(s[(s >= 24) & (s < 35)], list_name)
+    export_data(top6_df, list_name)

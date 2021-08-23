@@ -21,6 +21,8 @@ Then do `minet ct lists` to get the correct list ids to ask for, and run:
 ./code/collect_ct_data_for_accounts.sh 1591619
 ./code/collect_ct_data_for_accounts.sh 1592120
 ./code/collect_ct_data_for_accounts.sh 1592111
+./code/collect_ct_data_for_accounts.sh 1593557
+./code/collect_ct_data_for_accounts.sh 1593558
 ```
 
 The lenght of each command was respectively:
@@ -28,3 +30,5 @@ The lenght of each command was respectively:
 - 15 hours (51 groups)
 - 1 hour (13 pages)
 - 2 days (276 groups)
+- X hours (22 pages)
+- X days (296 groups)
