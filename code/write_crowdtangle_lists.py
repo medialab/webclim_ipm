@@ -39,7 +39,7 @@ if __name__=="__main__":
     top3_df = extract_account_list_from_value_counts_serie(s[(s >= 35) & (s < 64)], list_name)
     export_data(top3_df, list_name)
 
-    list_name = "heloise_condor_pages"
+    list_name = "heloise_condor_pages_1"
     top4_df = extract_account_list_from_value_counts_serie(s[s >= 35], list_name)
     export_data(top4_df, list_name)
 
