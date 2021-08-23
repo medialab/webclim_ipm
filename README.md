@@ -27,4 +27,4 @@ The lenght of each command was respectively:
 - 22 hours (49 groups)
 - 15 hours (51 groups)
 - 1 hour (13 pages)
-- X days and X hours (276 groups)
+- 2 days (276 groups)
