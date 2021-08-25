@@ -8,6 +8,8 @@
 *.synctex.gz
 
 __pycache__
+.ipynb_checkpoints/
+*.ipynb
 
 *.csv
 *.csv#
