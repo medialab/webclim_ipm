@@ -31,4 +31,18 @@ The lenght of each command was respectively:
 - 1 hour (13 pages)
 - 2 days (276 groups)
 - 1 hour (22 pages)
-- 1.5 days (296 groups)
+- 1.5 days (295 groups)
+
+Finally the obtained files can be reduced by running:
+```
+python code/clean_crowdtangle_account_data.py posts_condor_1590764 posts_condor_group_1
+python code/clean_crowdtangle_account_data.py posts_condor_1591619 posts_condor_group_2
+python code/clean_crowdtangle_account_data.py posts_condor_1592120 posts_condor_page_1
+python code/clean_crowdtangle_account_data.py posts_condor_1592111 posts_condor_group_3
+python code/clean_crowdtangle_account_data.py posts_condor_1593557 posts_condor_page_2
+python code/clean_crowdtangle_account_data.py posts_condor_1593558 posts_condor_group_4
+
+```
+
+# Analysis and figures
+
