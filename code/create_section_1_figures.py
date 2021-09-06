@@ -45,7 +45,7 @@ def clean_crowdtangle_url_data(post_url_df):
     return post_url_df
 
 
-def compute_fake_news_dates(post_url_df, url_df, account_id):
+def compute_fake_news_dates(post_url_df, url_df, url_column, date_column, account_id):
 
     post_url_group_df = post_url_df[post_url_df["account_id"]==account_id]
     fake_news_dates = []
@@ -56,7 +56,7 @@ def compute_fake_news_dates(post_url_df, url_df, account_id):
         # We consider the date of the Facebook post or posts:
         potential_dates.append(post_url_group_df[post_url_group_df["url"] == url]["date"].values[0])
         # We consider the date of the fact-check:
-        potential_dates.append(url_df[url_df['url']==url]["Date of publication"].values[0])
+        potential_dates.append(url_df[url_df[url_column]==url][date_column].values[0])
 
         potential_dates = [np.datetime64(date) for date in potential_dates]
         date_to_plot = np.max(potential_dates)
@@ -102,7 +102,7 @@ def merge_overlapping_periods(overlapping_periods):
         return merged_periods
 
 
-def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
+def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df, url_column, date_column, figure_name):
 
     account_name = 'Australian Climate Sceptics Group'
 
@@ -119,7 +119,7 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
     timeserie_template(ax)
     plt.ylim(-15, 150)
 
-    fake_news_dates = compute_fake_news_dates(posts_url_df, url_df, account_id)
+    fake_news_dates = compute_fake_news_dates(posts_url_df, url_df, url_column, date_column, account_id)
     for date in fake_news_dates:
         plt.plot([date, date], [-15, -.5], color='C3')
     plt.text(
@@ -145,7 +145,7 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
     plt.xticks(xticks, rotation=30, ha='right')
 
     plt.tight_layout()
-    save_figure('sf_example_timeseries')
+    save_figure(figure_name)
 
 
 def keep_repeat_offender_posts(posts_df_group, repeat_offender_periods):
@@ -189,7 +189,7 @@ def keep_free_posts(posts_df_group, repeat_offender_periods):
         return pd.DataFrame()
 
 
-def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
+def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, url_column, date_column):
 
     sumup_df = pd.DataFrame(columns=[
         'account_name', 
@@ -202,7 +202,7 @@ def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
         account_name = posts_df[posts_df['account_id']==account_id].account_name.unique()[0]
         posts_df_group = posts_df[posts_df["account_id"] == account_id]
 
-        fake_news_dates = compute_fake_news_dates(posts_url_df, url_df, account_id)
+        fake_news_dates = compute_fake_news_dates(posts_url_df, url_df, url_column, date_column, account_id)
         repeat_offender_periods = compute_repeat_offender_periods(fake_news_dates)
         repeat_offender_periods = merge_overlapping_periods(repeat_offender_periods)
 
@@ -252,18 +252,18 @@ def plot_percentage_changes(sumup_groups_df, sumup_pages_df):
     percentage_change_template(ax)
     plt.ylim(-.45, 1.25)
 
-def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
 
-    sumup_df = calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
+def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df, url_column, date_column, figure_name):
 
-    posts_page_df = import_data(file_name="posts_fake_news_2021_page.csv")
+    sumup_df = calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, url_column, date_column)
+
     sumup_pages_df = sumup_df[sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
     sumup_groups_df = sumup_df[~sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
 
     print('\nREPEAT VS FREE PERIODS:')
 
-    print('Australian Climate Sceptics Group percentage change:', 
-          sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
+    # print('Australian Climate Sceptics Group percentage change:', 
+    #       sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
 
     print('Number of Facebook accounts:', len(sumup_df))
     print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
@@ -285,10 +285,10 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
     print('Wilcoxon test against zero for the engagement percentage changes for pages: w =', w, ', p =', p)
 
     plot_percentage_changes(sumup_groups_df, sumup_pages_df)
-    plt.title("'Repeat offender' Facebook accounts")
+    plt.title("{} 'Repeat offender' Facebook accounts".format(len(sumup_df)))
     plt.xlabel("Engagement percentage change\nbetween the 'repeat offender' and 'no strike' periods", size='large')
     plt.tight_layout()
-    save_figure('sf_repeat_vs_free_percentage_change')
+    save_figure(figure_name)
 
 
 def plot_average_timeseries(posts_df, figure_name):
@@ -385,8 +385,12 @@ if __name__=="__main__":
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
     url_df = import_data(file_name="appearances_2021-01-04_.csv") 
 
-    plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
-    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
+    plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df,
+                                          'url', 'Date of publication',
+                                          'sf_example_timeseries')
+    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df,
+                                          'url', 'Date of publication',
+                                          'sf_repeat_vs_free_percentage_change')
 
     plot_average_timeseries(posts_df, 'sf_average_timeseries')
     plot_june_drop_percentage_change(posts_df, posts_page_df, 'sf_june_drop_percentage_change')

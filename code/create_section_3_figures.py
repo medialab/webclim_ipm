@@ -3,6 +3,8 @@ import pandas as pd
 from utils import (import_data, save_figure)
 from create_section_1_figures import (
     import_crowdtangle_group_data,
+    clean_crowdtangle_url_data,
+    plot_repeat_vs_free_percentage_change,
     plot_average_timeseries,
     plot_june_drop_percentage_change
 )
@@ -47,12 +49,13 @@ if __name__=="__main__":
     # posts_df, posts_page_df = import_crowdtangle_group_data_all()
     posts_df, posts_page_df = import_crowdtangle_group_data_only_new()
 
-    # posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv")
-    # posts_url_df = clean_crowdtangle_url_data(posts_url_df)
-    # url_df = import_data(file_name="appearances_2021-01-04_.csv") 
+    posts_url_df  = import_data(file_name="posts_url_2021-08-16.csv")
+    posts_url_df = clean_crowdtangle_url_data(posts_url_df)
+    url_df = import_data(file_name="tpfc-recent-clean.csv") 
 
-    # plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
-    # plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
+    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df,
+                                          'clean_url', 'tpfc_first_fact_check',
+                                          'condor_repeat_vs_free_percentage_change')
 
     plot_average_timeseries(posts_df, 'condor_average_timeseries')
     plot_june_drop_percentage_change(posts_df, posts_page_df, 'condor_june_drop_percentage_change')
