@@ -28,7 +28,7 @@ def import_crowdtangle_group_data():
     posts_df['date'] = pd.to_datetime(posts_df['date'])
     posts_df['engagement'] = posts_df[["share", "comment", "reaction"]].sum(axis=1)
 
-    return posts_df
+    return posts_df, posts_page_df
 
 
 def clean_crowdtangle_url_data(post_url_df):
@@ -145,7 +145,7 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
     plt.xticks(xticks, rotation=30, ha='right')
 
     plt.tight_layout()
-    save_figure('repeat_example_timeseries')
+    save_figure('sf_example_timeseries')
 
 
 def keep_repeat_offender_posts(posts_df_group, repeat_offender_periods):
@@ -288,10 +288,10 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df):
     plt.title("'Repeat offender' Facebook accounts")
     plt.xlabel("Engagement percentage change\nbetween the 'repeat offender' and 'no strike' periods", size='large')
     plt.tight_layout()
-    save_figure('repeat_vs_free_percentage_change')
+    save_figure('sf_repeat_vs_free_percentage_change')
 
 
-def plot_repeat_average_timeseries(posts_df):
+def plot_average_timeseries(posts_df, figure_name):
 
     drop_date='2020-06-09'
 
@@ -305,7 +305,7 @@ def plot_repeat_average_timeseries(posts_df):
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
     plt.ylim(0, 3200)
 
-    plt.title("'Repeat offender' Facebook accounts")
+    plt.title("{} 'Repeat offender' Facebook accounts".format(str(posts_df.account_id.nunique())))
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
               np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
               np.datetime64('2021-01-01'), drop_date
@@ -336,20 +336,19 @@ def plot_repeat_average_timeseries(posts_df):
     plt.gca().get_xticklabels()[-1].set_color('red')
 
     plt.tight_layout()
-    save_figure('repeat_average_timeseries')
+    save_figure(figure_name)
 
 
-def plot_repeat_june_drop_percentage_change(posts_df):
+def plot_june_drop_percentage_change(posts_df, posts_page_df, figure_name):
 
     sumup_df = calculate_june_drop(posts_df)
 
-    posts_page_df = import_data(file_name="posts_fake_news_2021_page.csv")
     sumup_pages_df = sumup_df[sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
     sumup_groups_df = sumup_df[~sumup_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
 
     print('\nJUNE DROP:')
 
-    print("Drop for 'Australian Climate Sceptics Group':", sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
+    # print("Drop for 'Australian Climate Sceptics Group':", sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
 
     print('Number of Facebook account:', len(sumup_df))
     print('Number of Facebook account with a decrease:', len(sumup_df[sumup_df['percentage_change_engagament'] < 0]))
@@ -372,15 +371,15 @@ def plot_repeat_june_drop_percentage_change(posts_df):
     print('Wilcoxon test against zero for the engagement percentage changes for pages: w =', w, ', p =', p)
 
     plot_percentage_changes(sumup_groups_df, sumup_pages_df)
-    plt.title("'Repeat offender' Facebook accounts")
+    plt.title("{} 'Repeat offender' Facebook accounts".format(len(sumup_df)))
     plt.xlabel("Engagement percentage change after June 9, 2020", size='large')
     plt.tight_layout()
-    save_figure('repeat_june_drop_percentage_change')
+    save_figure(figure_name)
 
 
 if __name__=="__main__":
 
-    posts_df = import_crowdtangle_group_data()
+    posts_df, posts_page_df = import_crowdtangle_group_data()
 
     posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv")
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
@@ -389,5 +388,5 @@ if __name__=="__main__":
     plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
     plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df)
 
-    plot_repeat_average_timeseries(posts_df)
-    plot_repeat_june_drop_percentage_change(posts_df)
+    plot_average_timeseries(posts_df, 'sf_average_timeseries')
+    plot_june_drop_percentage_change(posts_df, posts_page_df, 'sf_june_drop_percentage_change')
