@@ -106,7 +106,7 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df, url_co
 
     account_name = 'Australian Climate Sceptics Group'
 
-    plt.figure(figsize=(6, 3.8))
+    plt.figure(figsize=(7, 3.8))
     ax = plt.subplot()
     
     plt.title("'" + account_name + "' Facebook group")
@@ -115,7 +115,7 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df, url_co
     posts_df_group = posts_df[posts_df["account_id"] == account_id]
 
     plt.plot(posts_df_group.groupby(by=["date"])['engagement'].mean(), color="royalblue")
-    plt.ylabel("Engagement per post", size='large')
+    plt.ylabel("Engagement per post")
     timeserie_template(ax)
     plt.ylim(-15, 150)
 
@@ -228,7 +228,7 @@ def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, u
 
 def plot_percentage_changes(sumup_groups_df, sumup_pages_df):
 
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(7, 4))
     ax = plt.subplot(111)
 
     plt.plot(sumup_groups_df['percentage_change_engagament'].values, 
@@ -250,10 +250,10 @@ def plot_percentage_changes(sumup_groups_df, sumup_pages_df):
              linewidth=2, markersize=12, markeredgewidth=2)
 
     percentage_change_template(ax)
-    plt.ylim(-.45, 1.25)
+    plt.ylim(-.45, 1.35)
 
 
-def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df, url_column, date_column, figure_name):
+def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df, url_column, date_column, database_name, figure_name):
 
     sumup_df = calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, url_column, date_column)
 
@@ -285,27 +285,28 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_
     print('Wilcoxon test against zero for the engagement percentage changes for pages: w =', w, ', p =', p)
 
     plot_percentage_changes(sumup_groups_df, sumup_pages_df)
-    plt.title("{} 'Repeat offender' Facebook accounts".format(len(sumup_df)))
     plt.xlabel("Engagement percentage change\nbetween the 'repeat offender' and 'no strike' periods", size='large')
+    plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(len(sumup_df), database_name))
     plt.tight_layout()
     save_figure(figure_name)
 
 
-def plot_average_timeseries(posts_df, figure_name):
+def plot_average_timeseries(posts_df, database_name, figure_name):
 
     drop_date='2020-06-09'
 
-    plt.figure(figsize=(6, 8))
+    plt.figure(figsize=(7, 7))
 
     ax = plt.subplot(3, 1, 1)
     plt.plot(posts_df.groupby(by=["date", "account_id"])['engagement'].sum().groupby(by=['date']).mean(), 
              color="royalblue")
-    plt.ylabel("Engagement per day", size='large')
+    plt.ylabel("Engagement per day")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
     plt.ylim(0, 3200)
 
-    plt.title("{} 'Repeat offender' Facebook accounts".format(str(posts_df.account_id.nunique())))
+    plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(
+        str(posts_df.account_id.nunique()), database_name))
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
               np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
               np.datetime64('2021-01-01'), drop_date
@@ -316,7 +317,7 @@ def plot_average_timeseries(posts_df, figure_name):
     ax = plt.subplot(3, 1, 2)
     plt.plot(posts_df["date"].value_counts().sort_index()/posts_df.groupby(by=["date"])["account_id"].nunique(),
              color='grey')
-    plt.ylabel("Number of posts per day", size='large')
+    plt.ylabel("Number of posts per day")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
     plt.ylim(0, 99)
@@ -327,7 +328,7 @@ def plot_average_timeseries(posts_df, figure_name):
     ax = plt.subplot(3, 1, 3)
     plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), 
              color="royalblue")
-    plt.ylabel("Engagement per post", size='large')
+    plt.ylabel("Engagement per post")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
     plt.ylim(0, 60)
@@ -338,8 +339,7 @@ def plot_average_timeseries(posts_df, figure_name):
     plt.tight_layout()
     save_figure(figure_name)
 
-
-def plot_june_drop_percentage_change(posts_df, posts_page_df, figure_name):
+def plot_june_drop_percentage_change(posts_df, posts_page_df, database_name, figure_name):
 
     sumup_df = calculate_june_drop(posts_df)
 
@@ -371,7 +371,7 @@ def plot_june_drop_percentage_change(posts_df, posts_page_df, figure_name):
     print('Wilcoxon test against zero for the engagement percentage changes for pages: w =', w, ', p =', p)
 
     plot_percentage_changes(sumup_groups_df, sumup_pages_df)
-    plt.title("{} 'Repeat offender' Facebook accounts".format(len(sumup_df)))
+    plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(len(sumup_df), database_name))
     plt.xlabel("Engagement percentage change after June 9, 2020", size='large')
     plt.tight_layout()
     save_figure(figure_name)
@@ -390,7 +390,8 @@ if __name__=="__main__":
                                           'sf_example_timeseries')
     plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df,
                                           'url', 'Date of publication',
-                                          'sf_repeat_vs_free_percentage_change')
+                                          'Science Feedback', 'sf_repeat_vs_free_percentage_change')
 
-    plot_average_timeseries(posts_df, 'sf_average_timeseries')
-    plot_june_drop_percentage_change(posts_df, posts_page_df, 'sf_june_drop_percentage_change')
+    plot_average_timeseries(posts_df, 'Science Feedback', 'sf_average_timeseries')
+
+    plot_june_drop_percentage_change(posts_df, posts_page_df, 'Science Feedback', 'sf_june_drop_percentage_change')
