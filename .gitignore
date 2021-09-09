@@ -6,6 +6,7 @@
 *.log
 *.out
 *.synctex.gz
+*.spl
 
 __pycache__
 .ipynb_checkpoints/
