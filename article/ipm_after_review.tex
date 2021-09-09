@@ -2,6 +2,7 @@
 
 \usepackage{lineno,hyperref}
 \usepackage{xcolor}
+\usepackage[labelfont=bf]{caption}
 \modulolinenumbers[5]
 
 \journal{Journal of Information Processing and Management }
@@ -171,7 +172,6 @@ Hence it seems that Facebook only took action against these groups via this one-
 One limitation of the results described in this section is that we obtained the links labelled as `False' from only one fact-checking organization (Science Feedback), while Facebook partners with over 60 fact-checking organizations \cite{60factCheckingPartners}.
 The true `repeat offender' periods could thus be longer than the ones inferred, potentially changing the magnitude of the ‘reduce’ effect.
 
-
 \section{Investigating the reduce policy on accounts repeatedly sharing misinformation (Condor data)}
 
 \subsection{Methods}
@@ -221,6 +221,76 @@ Indeed we again find a sudden decrease in engagement for repeat offender Faceboo
 One limitation of the results is that this king of analysis is rather indirect, as we relied on the strike dates to infer the `repeat offender' periods, and we cannot know for certain whether the pages investigated were actually under a `repeat offender' status. 
 For example, one could imagine that the `two strikes in less than 90 days' rule may have changed over time, or that links fact-checked as `partly false' or `missing context' were also counted as strikes (only links fact-checked as `False' were taken into account in our analysis).
 In the next section, we used a different methodology to collect pages for which we are sure that they are under `repeat offender' status.
+
+\section{Investigating the reduce policy on pages declaring to be under `reduced distribution'} 
+
+\subsection{Methods}
+
+We noticed that two popular pages (`Mark Levin' and `100 Percent FED Up') have publicly shared a message claiming to be placed under `repeat offender' status with a screenshot as a piece of evidence.
+To gather a list of such self-declared repeat offenders, we searched on CrowdTangle for posts published since January 1, 2020 with the following keywords:
+\begin{itemize}
+\item `reduced distribution' AND (`restricted' OR `censored' OR `silenced')
+\item `Your page has reduced distribution'
+\end{itemize}
+For this we used the `/posts/search' endpoint of the API on November 25, 2020. 
+
+We manually opened the resulting posts, and kept the ones which met the following criteria (see Figure \ref{reduce_example} top panel for an example):
+\begin{itemize}
+\item The post should include a screenshot of the Facebook notification.
+\item In the screenshot, the Facebook notification should say: `Your page has reduced distribution and other restrictions because of repeatedly sharing of false news.'
+\item In the screenshot, the name of the page should be visible.
+\end{itemize}
+
+Doing so, we obtained a list of 94 pages. 
+We found only Facebook pages in this case, and no groups. 
+A search using the terms `Your group has reduced distribution' did not yield any result.
+
+To verify whether Facebook applied any restriction to these pages, we collected all the posts that these 94 pages have published between January 1, 2019 and December 31, 2020 from the CrowdTangle API using the `/posts' endpoint. 
+The collection was run on January 11, 2021.
+We were only able to collect data from 83 of these pages, as 11 were deleted from the CrowdTangle database since our search in November 2020. 
+This highlights an important issue when studying misinformation trends on Facebook: some data disappears as accounts are deleted or changed to ‘private’.
+
+The date of the last notification was used as the inferred start date of reduced distribution, when it appeared in the screenshot. 
+When it was not visible, we used the date of the post as the inferred start date of reduced distribution. 
+
+\subsection{Results}
+
+Figure \ref{reduce_example} shows a screenshot of the Facebook notification shared by the ‘I Love Carbon Dioxide’ page on April 28, 2020, and the average engagement per post of that page over the past two years. 
+The engagement does not appear to be reduced after April 28, 2020. 
+When we compare the engagement during a 30-day period before and after this date, the percentage change is $2\%$, indicating that the engagement is not affected by the `repeat offender' status.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.12]{./../figure/reduce_example_screenshot.png}
+\includegraphics[scale=0.5]{./../figure/reduce_example_timeseries.png}
+\caption{
+{\bf(Top panel)} Screenshot of a \href{https://archive.is/ie4dR}{post from the `I Love Carbon Dioxide' Facebook page} sharing a `reduced distribution' notification from Facebook. 
+{\bf(Bottom panel)} Average engagement per post for the “I Love Carbon Dioxide” page for each day in 2019 and 2020.
+The dotted red line represents the reduced distribution start date.}
+\label{reduce_example}
+\end{figure}
+
+To provide a general overview, we calculate the percentage change in engagement during a 30-day period before and after the reduced distribution start date for each of the 82 Facebook pages that published at least one post during each period (see Figure \ref{reduce_percentage_change}).
+The average percentage change is $-16\%$, the median is $-24\%$, and a Wilcoxon test reveals that the percentage changes are significantly different from zero (W = $911$, p-value = $0.00026$).
+We can thus suggest that the `reduced distribution' status is associated with a modest decrease in engagement. 
+
+However, there is a large heterogeneity across the different Facebook pages. The engagement of some popular pages have actually increased following the notification, such as the `Tucker Carlson Tonight' page with a $38\%$ increase (from 104k to 143k interactions per post).
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{./../figure/reduce_percentage_change.png}
+\caption{
+Percentage changes in average engagement per post during a 30-day period before and after the reduced distribution start date. 
+Each dot represents a Facebook page. 
+The bars show the median and its $90\%$ confidence interval.
+}
+\label{reduce_percentage_change}
+\end{figure}
+ 
+Finally, we verify whether an important drop in engagement also occurred in June 2020 for this set of Facebook pages.
+When we compare the engagement metrics before and after June 9, 2020, the percentage changes are not significantly different from zero (W = $1093$, p-value = $0.055$), and the median percentage change is $3\%$.
+This confirms that Facebook pages have most likely not been affected by the {\it reduce} measure implemented on June 9, 2020 and evidenced in the previous section.
+
 
 %\begin{enumerate}[(1)]
 %\item Group the authors per affiliation.

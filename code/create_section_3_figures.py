@@ -47,7 +47,7 @@ def plot_reduce_example_timeseries(posts_df):
     account_name = 'I Love Carbon Dioxide'
     reduced_distribution_date = '2020-04-28'
 
-    plt.figure(figsize=(6, 3.5))
+    plt.figure(figsize=(7, 3.8))
     ax = plt.subplot()
     
     plt.title("'" + account_name + "' Facebook page")
@@ -56,7 +56,7 @@ def plot_reduce_example_timeseries(posts_df):
     posts_df_group = posts_df[posts_df["account_id"] == account_id]
 
     plt.plot(posts_df_group.groupby(by=["date"])['engagement'].mean(), color="royalblue")
-    plt.ylabel("Engagement per post", size='large')
+    plt.ylabel("Engagement per post")
     timeserie_template(ax)
 
     plt.ylim(0, 3000)
@@ -125,9 +125,9 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
     print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
 
-    plt.figure(figsize=(6, 3))
+    plt.figure(figsize=(7, 3.5))
     ax = plt.subplot(111)
-    plt.title("'Reduced distribution' Facebook pages")
+    plt.title("{} 'reduced distribution' Facebook pages".format(len(sumup_df)))
 
     random_y = list(np.random.random(len(sumup_df)))
     plt.plot(sumup_df['percentage_change_engagament'].values, 
