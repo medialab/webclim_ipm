@@ -25,7 +25,7 @@
 
 \begin{abstract}
 
-{\color{red} SHORTEN AND ADD NEW CONDOR RESULTS}
+{\color{red} SHORTEN AND ADD NEW CONDOR RESULTS
 
 Like many web platforms, Facebook is under pressure to regulate misinformation. 
 According to the company, users that repeatedly share misinformation (`repeat offenders') will have their distribution reduced, but little is known about the implementation or the efficiency of this measure.
@@ -36,7 +36,7 @@ No public information was given by Facebook about this sudden decrease.
 This drop has cut the groups’ engagement per post in half, but it was compensated by the fact that the overall activity of `repeat offenders' has doubled between 2019 and 2020.
 Second, we identified pages that have been warned by Facebook and have shared a screenshot of the `reduced distribution' notification they have received. 
 We found that their engagement per post following the notification decreased by a modest amount (median of $-24\%$), with some popular pages actually gaining more engagement.
-Our results highlight easy steps Facebook could take to reduce misinformation, such as to enforce their `repeat offenders' policy more forcefully on pages, and to start applying it to groups.
+Our results highlight easy steps Facebook could take to reduce misinformation, such as to enforce their `repeat offenders' policy more forcefully on pages, and to start applying it to groups.}
 \end{abstract}
 
 \begin{keyword}
@@ -48,55 +48,42 @@ Misinformation\sep Content moderation\sep Algorithmic transparency\sep Facebook\
 
 \linenumbers
 
-\section{The Elsevier article class}
+\section{Introduction}
 
 This is how you add a footnote.\footnote{This is the footnote message.}
 
-Fully documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.
-
-\paragraph{Installation} If the document class \emph{elsarticle} is not available on your computer, you can download and install the system package \emph{texlive-publishers} (Linux) or install the \LaTeX\ package \emph{elsarticle} using the package manager of your \TeX\ installation, which is typically \TeX\ Live or Mik\TeX.
-
-\paragraph{Usage} Once the package is properly installed, you can use the document class \emph{elsarticle} to create a manuscript. Please make sure that your manuscript follows the guidelines in the Guide for Authors of the relevant journal. It is not necessary to typeset your manuscript in exactly the same way as an article, unless you are submitting to a camera-ready copy (CRC) journal.
-
-\paragraph{Functionality} The Elsevier article class is based on the standard article class and supports almost all of the functionality of that class. In addition, it features commands and options to format the
+\paragraph{Research questions}
 \begin{itemize}
-\item document style
-\item baselineskip
-\item front matter
-\item keywords and MSC codes
-\item theorems, definitions and proofs
-\item labels of enumerations
-\item citation style and labeling.
+\item Was the policy aiming to reduce the distribution of misinformation repeat offenders actually enforced by Facebook during the 2019-2020 period?
+\item If so, what was the magnitude of the reduction applied? And is there a difference between Facebook groups and Facebook pages?
+\item Does this action have an impact on the spread of misinformation on Facebook, i.e., can we see a global increase or decrease in engagement for the repeat offender accounts through time?
 \end{itemize}
 
-\section{Front matter}
+\section{Investigating the reduce policy on accounts repeatedly sharing misinformation (Condor data)}
 
-The author names and affiliations could be formatted in two ways:
-\begin{enumerate}[(1)]
-\item Group the authors per affiliation.
-\item Use footnotes to indicate the affiliations.
-\end{enumerate}
-See the front matter of this document for examples. You are recommended to conform your choice to the journal you are submitting to.
+\subsection{Methods}
 
-\subsection{Tables}
-All tables should be numbered with Arabic numerals. Every table should have a caption. Headings should be placed above tables, left justified. Only horizontal lines should be used within a table, to distinguish the column headings from the body of the table, and immediately above and below the table. Tables must be embedded into the text and not supplied separately.
+We used data from the Social Science One organization \cite{king2020new}, that builds partnerships between academia and private industries such as Facebook to share data and expertise. 
+In July 2021, we had access to a new version of the Condor dataset \cite{messing2020facebook}, which contains all URLs shared publicly by at least 100 Facebook users between 2017 and 2021, as well as their fact-checking metadata. 
+From this list, we extracted the 6,811 URLs that were shared in 2019 and 2020, that were fact-checked as `False' and whose country in which it was shared most frequently was either the USA, Canada, Great Britain or Australia.
 
-\subsection{Section headings}
-Section headings should be left justified, bold, with the first letter capitalized and numbered consecutively, starting with the Introduction. Sub-section headings should be in capital and lower-case italic letters, numbered 1.1, 1.2, etc, and left justified, with second and subsequent lines indented. All headings should have a minimum of three text lines after them before a page or column break. Ensure the text area is not blank except for the last page.
+We then replicated as closely as possible the methods used in the previous section. 
+Using CrowdTangle, we thus collected all the posts that shared one of the false links between January 1, 2019 and December 31, 2020, and focused on the 706 Facebook accounts (671 Facebook groups and 35 Facebook pages) that spread at least 24 false links. 
+Then we used CrowdTangle again to collect all the posts published by those accounts in 2019 and 2020. 
+Because the Condor dataset contained the date of the first fact-check done on a URL, we were able to infer the `repeat offender' periods for each account and therefore conduct the same analysis as in the previous section.
 
-\section{Figures and tables}
-The figures should have captions at the bottom and the tables should have captions at the top.
+Science Feedback being a third-party fact-checker working with Facebook, most of the URLs from Science Feedback were also contained in the Condor dataset ({\color{red}see Supplementary Figure X}). 
+Thus an important part of the `repeat offender' groups and pages obtained from the Condor URLs were actually the same as the accounts analyzed previously ({\color{red}see Supplementary Figure X}). 
+The point of this new analysis was to replicate the previous results with a more complete URL dataset and for this reason, we excluded the accounts whose engagement was already shown in the previous section. 
+We thus show here the results for 503 `novel' accounts: 476 groups and 27 pages.
 
-\section{Bibliography styles}
+\subsection{Results}
 
-There are various bibliography styles available. You can select the style of your choice in the preamble of this document. These styles are Elsevier styles based on standard styles like Harvard and Vancouver. Please use Bib\TeX\ to generate your bibliography and include DOIs whenever available.
 
-Here are two sample references: \cite{Feynman1963118,Dirac1953888}.
-
-\section{Acknowledgements}
-Acknowledgements and Reference heading should be left justified, bold, with the first letter capitalized but have no numbers. Text below continues as normal.
-
-\section*{References}
+%\begin{enumerate}[(1)]
+%\item Group the authors per affiliation.
+%\item Use footnotes to indicate the affiliations.
+%\end{enumerate}
 
 \bibliography{mybibfile}
 
