@@ -111,12 +111,10 @@ The areas shaded in red represent the `repeat offender' periods as defined by th
 \end{figure}
 
 To provide a general overview, we calculate the percentage change between the `repeat offender' and the `no strike' periods for each of the 256 Facebook accounts that have published at least one post during each period (see Figure \ref{repeat_vs_free_percentage_change}).\footnote{The percentage changes were calculated on the periods between January 1, 2019 and June 8, 2020. Because of the drop in engagement described further, the second semester of 2020 was excluded for its vastly diminished and not representative engagement level (see Figure \ref{repeat_average_timeseries}).}
-The average percentage change is $7\%$, and the median $-6\%$. 
-A Wilcoxon test shows that the values are not significantly different from zero (W = $16051$, p-value = $0.74$).
+The median percentage change is $-6\%$, and a Wilcoxon test shows that the values are not significantly different from zero (W = $16051$, p-value = $0.74$).
 
-When we consider groups and pages separately, the percentage changes are different for the two. 
-The median percentage change for Facebook groups is $-3\%$ (not significantly different from zero), while the median for Facebook pages is $-43\%$. 
-A Wilcoxon test applied only to the Facebook pages' percentage changes, shows they are significantly different from zero (W = $21$, p-value = $0.0034$).
+When we consider groups and pages separately, the results are different.
+For the 238 Facebook groups, the percentage changes are not significantly different from zero (W = $13561$, p-value = $0.54$), with a median of $-3\%$, while for the 18 Facebook pages, the percentage changes are significantly different from zero (W = $21$, p-value = $0.0034$), with a median of $-43\%$.
 
 \begin{figure}[!h]
 \centering
@@ -154,12 +152,12 @@ The metrics were aggregated over the 307 `repeat offender' Facebook accounts ide
 \end{figure}
 
 To further quantify this ‘June drop’, we calculated the percentage change in engagement for each account during a 30-day period before and after June 9, 2020 (Figure \ref{repeat_june_drop_percentage_change}). 
-The average percentage change is $-21\%$, and the median $-43\%$. 
-Most of the accounts (219 out of 289) experienced a decrease in engagement\footnote{A decrease in engagement on June 9, 2020 can be seen for the `Australian Climate Sceptics Group' in Figure \ref{repeat_example_timeseries} (the percentage change was $-60\%$ for this example).},
-and a Wilcoxon test indicates that these percentage changes are significantly different from zero (W = $9012$, p-value = $4.6 \times 10^{-17}$).
+The median percentage change is $-43\%$, and most of the accounts (219 out of 289) experienced a decrease in engagement\footnote{A decrease in engagement on June 9, 2020 can be seen for the `Australian Climate Sceptics Group' in Figure \ref{repeat_example_timeseries} (the percentage change was $-60\%$ for this example).}.
+A Wilcoxon test indicates that these percentage changes are significantly different from zero (W = $9012$, p-value = $4.6 \times 10^{-17}$).
 
-It appears that the Facebook pages are not affected by this decrease, with a median percentage change of $-5\%$, while the groups have a median percentage change of $-45\%$. 
-When tested separately, the Facebook pages' percentage changes are not significantly different from zero (W = $73$, p-value = $0.61$).
+Again the results differ between Facebook pages and Facebook groups.
+While the percentage changes for the 271 groups are significantly different than zero (W = $7599$, p-value = $5.1 \times 10^{-17}$), with a median of $-45\%$,
+the 18 pages appears to be not affected by the decrease (W = $73$, p-value = $0.61$), with a median percentage change of only $-5\%$.
 
 \begin{figure}[!h]
 \centering
@@ -174,7 +172,7 @@ The 289 `repeat offender' accounts represented here were identified by the Scien
 \end{figure}
 
 To verify whether this drop was specific to this set of groups, we compared these dynamics to those of a control set of accounts consisting of Facebook pages and groups associated with established news outlets that did not publish misinformation.
-No such drop in total or per post engagement metrics was observed around June 9, 2020.
+No such drop in total or per post engagement metrics was observed around June 9, 2020 ({\color{red} see Supplementary Figure X}).
 
 We can only explain such a massive change by a modification in how Facebook’s algorithm promoted the content from these groups starting on June 9, 2020.
 While we did observe a relationship between the strike dates and a decrease in engagement for `repeat offender' pages, we observed no such link for `repeat offender' groups.
@@ -219,9 +217,8 @@ Our first objective is to verify that the repeat offender policy was applied onl
 To do this, we calculate the percentage change in engagement between the `repeat offender' and the `no strike' periods for each of the 437 Facebook accounts that have published at least one post during each period (see Figure \ref{condor_repeat_vs_free_percentage_change}). 
 The median percentage change is $-5\%$, and the values are not significantly different from zero (W = $46495$, p-value = $0.61$).
 
-The changes in engagement are found to be different for the groups and the pages. 
-The median percentage change for the 414 Facebook groups is $-2\%$, while the median for the 23 Facebook pages is $-62\%$ (Figure \ref{condor_repeat_vs_free_percentage_change}). 
-A Wilcoxon test applied only to the percentage changes of the Facebook pages shows they are significantly different from zero (W = $29$, p-value = $0.00041$).
+The changes in engagement are also different for the groups and the pages (Figure \ref{condor_repeat_vs_free_percentage_change}). 
+The percentage changes for the 414 Facebook groups are not different than zero (W = $41561$, p-value = $0.57$), with a median of $-2\%$, while the values for the 23 Facebook pages are significantly different than zero (W = $29$, p-value = $0.00041$), and the median is $-62\%$.
 
 \begin{figure}[!h]
 \centering
@@ -243,7 +240,8 @@ Again, we observe that this measure set the engagement for ‘repeat offenders�
 The percentage change in engagement was then calculated for each account during a 30-day period before and after June 9, 2020 ({Figure \ref{condor_june_drop_percentage_change}).
 The median percentage change is $-26\%$, and $63\%$ of the accounts experienced a decrease in engagement, the results being a little more modest than what was found previously.
 The values are still significantly different from zero (W = $42651$, p-value = $3.8 \times 10^{-5}$).
-The 23 pages have a median percentage change of $-2\%$ (not significantly different from zero: W = $133$, p-value = $0.89$), while the 442 groups have a median percentage change of $-27\%$.
+
+When tested separately, the percentage changes for the 442 groups are significantly different from zero (W = $37889$, p-value = $3.8 \times 10^{-5}$) and the median is $-27\%$, whereas the values for the 23 pages are not different from zero (W = $133$, p-value = $0.89$), with a median of $-2\%$.
 
 \begin{figure}[!h]
 \centering
