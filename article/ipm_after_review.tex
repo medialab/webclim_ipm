@@ -9,6 +9,13 @@
 
 \bibliographystyle{elsarticle-num}
 
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{S\arabic{figure}}%
+     }
+
 \begin{document}
 
 \begin{frontmatter}
@@ -90,7 +97,9 @@ We first combined data from one of Facebook's fact-checking partners (Science Fe
 We then replicated this methodology using a more complete source of misinformation URLs obtained directly from Facebook (Condor data).
 Using another method to identify `repeat offender' accounts, we finally studied the engagement metrics of a set of Facebook pages claiming to be under reduced distribution.
 
-\paragraph{Research questions}
+
+\section{Research questions}
+
 \begin{itemize}
 \item Was the policy aiming to reduce the distribution of misinformation repeat offenders actually enforced by Facebook during the 2019-2020 period?
 \item If so, what was the magnitude of the reduction applied? And is there a difference between Facebook groups and Facebook pages?
@@ -211,7 +220,7 @@ The 289 `repeat offender' accounts represented here were identified by the Scien
 \end{figure}
 
 To verify whether this drop was specific to this set of groups, we compared these dynamics to those of a control set of accounts consisting of Facebook pages and groups associated with established news outlets that did not publish misinformation.
-No such drop in total or per post engagement metrics was observed around June 9, 2020 ({\color{red} see Supplementary Figure X}).
+No such drop in total or per post engagement metrics was observed around June 9, 2020 (see Supplementary Figure \ref{mainstream_average_timeseries}).
 
 We can only explain such a massive change by a modification in how Facebook’s algorithm promoted the content from these groups starting on June 9, 2020.
 While we did observe a relationship between the strike dates and a decrease in engagement for `repeat offender' pages, we observed no such link for `repeat offender' groups.
@@ -244,9 +253,7 @@ We thus show here the results for 503 `novel' accounts: 476 groups and 27 pages.
 \centering
 \includegraphics[scale=0.5]{./../figure/condor_repeat_vs_free_percentage_change.png}
 \caption{
-Percentage changes between the average engagement per post during the `repeat offender' periods and the `no strike' periods.
-Each deep blue dot represents a Facebook group, and each light blue dot a Facebook page.
-The bars show the medians for each set and their $90\%$ confidence intervals.
+Same metric as on Figure \ref{repeat_vs_free_percentage_change}
 The 437 `repeat offender' accounts represented here were identified by the Condor data, and have published at least one post during each period.
 }
 \label{condor_repeat_vs_free_percentage_change}
@@ -263,11 +270,7 @@ The percentage changes for the 414 Facebook groups are not different than zero (
 \centering
 \includegraphics[scale=0.5]{./../figure/condor_average_timeseries.png}
 \caption{
-{\bf(Top panel)} Average engagement per day. 
-{\bf(Middle panel)} Number of posts per day. 
-{\bf(Bottom panel)} Average engagement per post. 
-The dotted red line marks the date of June 9, 2020, when a sudden drop in engagement is observed.
-The metrics were aggregated over the 503 `repeat offender' Facebook accounts identified by the Condor data.
+Same metrics as on Figure \ref{repeat_average_timeseries} aggregated over the 503 `repeat offender' Facebook accounts identified by the Condor data.
 }
 \label{condor_average_timeseries}
 \end{figure}
@@ -286,9 +289,7 @@ When tested separately, the percentage changes for the 442 groups are significan
 \centering
 \includegraphics[scale=0.5]{./../figure/condor_june_drop_percentage_change.png}
 \caption{
-Percentage changes in the average engagement per post during a 30-day period before and after June 9, 2020. 
-Each deep blue dot represents a Facebook group, and each light blue dot a Facebook page.
-The bars show the medians for each set and their $90\%$ confidence intervals.
+Same metric as on Figure \ref{repeat_june_drop_percentage_change}.
 The 465 `repeat offender' accounts represented here were identified by the Condor data, and have published at least one post one month before and one month after June 9, 2020.
 }
 \label{condor_june_drop_percentage_change}
@@ -422,5 +423,39 @@ While our results provide information on the relative drop in engagement per pos
 %\end{enumerate}
 
 \bibliography{mybibfile}
+
+\newpage
+
+\beginsupplement
+
+\textbf{SUPPLEMENTARY INFORMATION}
+
+\section*{Engagement dynamics in 2019-2020 for a control set of accounts}
+
+We compared the dynamics of the `repeat offender' accounts to those of a control set of accounts, which consisted of Facebook pages and groups associated with established news outlets that we expect to have a more stable pattern of publishing and represent the baseline journalistic activity.
+To identify such a set, we used a report from NewsWhip \citep{NewsWhipReport} that identified the 10 media outlets that communicated the most during the early phase of the COVID-19 pandemic (first half of 2020), i.e., NBC, The Daily Mail, CNN, Fox News, The Independent, BBC, The New York Times, The Washington Post, Yahoo and The New York Post. 
+We call this set `established news'; this label does not imply the trustworthiness of these news sources, but rather that they are very widely read and shared online. 
+We searched the outlets' names on Facebook and created a list of 10 pages and six groups that displayed a verified `blue check'. 
+Using CrowdTangle, we collected all the posts published by these 16 accounts between January 1, 2019 and December 31, 2020.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{./../figure/supplementary_mainstream_average_timeseries.png}
+\caption{
+Same metrics as on Figure \ref{repeat_average_timeseries} aggregated over the 16 Facebook accounts associated with a variety of `established news' outlets (NBC, The Daily Mail, CNN, Fox News, The Independent, BBC, The New York Times, The Washington Post, Yahoo and The New York Post).
+}
+\label{mainstream_average_timeseries}
+\end{figure}
+
+The average engagement aggregated for this set of accounts is presented in Figure \ref{mainstream_average_timeseries}.
+Contrary to what we observe for the `repeat offender' accounts, there is no drop in total (upper panel) or per post (bottom panel) engagement around June 9, 2020 for the `established news' accounts. 
+This observation further supports the hypothesis that the drop observed for the `repeat offender' groups is specifically targeted at these misinformation groups, and not a feature that broadly affected Facebook groups.
+The number of posts per day per account is remarkably constant throughout the entire period, at around 55 posts per day per account (middle panel). 
+The total engagement remained relatively constant during 2019, while we observe an increase in 2020, which peaked in early November 2020, corresponding to the American presidential elections. 
+The sharp peak around Election Day is likely due to a change in behaviour of the audience that might have been actively seeking posts from established news outlets at that time, consistent with the `fly to quality' news effect observed at the start of the COVID-19 pandemic \citep{flyToQuality}.
+
+\section*{Overlap between the different sets of repeat offender accounts} 
+
+\section*{Characterization of the Facebook accounts studied} 
 
 \end{document}

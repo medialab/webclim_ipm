@@ -291,7 +291,7 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_
     save_figure(figure_name)
 
 
-def plot_average_timeseries(posts_df, database_name, figure_name):
+def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat offender'):
 
     drop_date='2020-06-09'
 
@@ -303,10 +303,15 @@ def plot_average_timeseries(posts_df, database_name, figure_name):
     plt.ylabel("Engagement per day")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    plt.ylim(0, 3200)
 
-    plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(
-        str(posts_df.account_id.nunique()), database_name))
+    if option == 'repeat offender':
+        plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(
+            str(posts_df.account_id.nunique()), database_name))
+        plt.ylim(0, 3200)
+    else:
+        plt.title("{} 'established news' Facebook accounts".format(str(posts_df.account_id.nunique())))
+        plt.ylim(0, 950000)
+    
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
               np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
               np.datetime64('2021-01-01'), drop_date
@@ -331,13 +336,17 @@ def plot_average_timeseries(posts_df, database_name, figure_name):
     plt.ylabel("Engagement per post")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    plt.ylim(0, 60)
+    if option == 'repeat offender':
+        plt.ylim(0, 60)
+    else:
+        plt.ylim(0, 15000)
 
     plt.xticks(xticks, rotation=30, ha='right')
     plt.gca().get_xticklabels()[-1].set_color('red')
 
     plt.tight_layout()
     save_figure(figure_name)
+
 
 def plot_june_drop_percentage_change(posts_df, posts_page_df, database_name, figure_name):
 

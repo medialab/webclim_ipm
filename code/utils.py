@@ -7,9 +7,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def import_data(file_name):
+def import_data(file_name, folder=None):
 
-    data_path = os.path.join(".", "data", file_name)
+    if folder:
+        data_path = os.path.join(".", "data", folder, file_name)
+    else:
+        data_path = os.path.join(".", "data", file_name)
+    
     df = pd.read_csv(data_path, low_memory=False)
 
     return df
