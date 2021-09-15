@@ -84,10 +84,13 @@ To the best of our knowledge, the impact of the {\it reduce} policy has not yet 
 Hence the present research article departs from articles studying the overall levels of misinformation on platforms \citep{allcott2019trends, kornbluh2020new, resnick2018iffy}, by focusing on monitoring a specific policy against misinformation.
 
 We used CrowdTangle, a public insights tool owned and operated by Facebook, to access Facebook data \citep{team2020crowdtangle}. 
-CrowdTangle exclusively tracks public content, and provides access to engagement metrics (such as the number of likes, shares and comments), but not to the reach (number of views) of content \citep{helpCT}. 
-We first investigated how Facebook enforces its ‘reduce’ policy by combining data from one of Facebook's fact-checking partners identifying URLs sharing misinformation and tracking engagement metrics of the Facebook accounts that repeatedly share such misinformation. 
-{\color{red} Add Condor section presentation.}
-We further investigated the effects of Facebook’s policy on engagement metrics of a set of Facebook pages claiming to be under reduced distribution.
+CrowdTangle exclusively tracks public content, and provides access to engagement metrics (such as the number of likes, shares and comments), but not to the reach (number of views) of content \citep{helpCT}.
+To investigate the effect of the reduce policy, we thus analyzed the engagement per post received by `repeat offender' accounts. 
+Indeed, one would expect this metric to decline if the accounts’ posts become less visible in Facebook’s feed.
+ 
+We first combined data from one of Facebook's fact-checking partners (Science Feedback) identifying URLs sharing misinformation and from CrowdTangle tracking engagement metrics of the Facebook accounts that repeatedly shared such misinformation.
+We then replicated this methodology using a more complete source of misinformation URLs obtained directly from Facebook (Condor data).
+Using another method to identify `repeat offender' accounts, we finally studied the engagement metrics of a set of Facebook pages claiming to be under reduced distribution.
 
 \paragraph{Research questions}
 \begin{itemize}
@@ -98,12 +101,11 @@ We further investigated the effects of Facebook’s policy on engagement metrics
 
 \section{Investigating the reduce policy on Facebook accounts repeatedly sharing misinformation (Science Feedback data)}
 
-To investigate the effect of fact-checking on Facebook accounts that repeatedly share misinformation, we first analyzed the engagement per post received by these accounts. One would expect this metric to decline if the accounts’ posts become less visible in Facebook’s feed.
+We used data from Science Feedback, which is part of Facebook’s third-party fact-checking program \cite{sciencefeedbackFbPartner}. 
+Science Feedback is a fact-checking organization, where academics review the credibility of science-related claims and articles.
 
 \subsection{Methods}
 
-We used data from Science Feedback, which is part of Facebook’s third-party fact-checking program \cite{sciencefeedbackFbPartner}. 
-Science Feedback is a fact-checking organization, where academics review the credibility of science-related claims and articles. 
 We obtained from Science Feedback a list of 4,000+ URLs reviewed by its team. 
 We relied on the 2,452 URLs marked as `False', which we refer to as `false news links', excluding the URLs marked as `Partly False', `Missing Context', `False headlines' or `True', as well as the URLs marked as `False' but `corrected' by the publisher, because these labels do not contribute to the `repeat offender' status according to Facebook's guidelines.
 Sharing a URL fact-checked as `Altered' also contribute to the `repeat offender' status \citep{factCheckingRules, repeatOffenderCommunication}, but we found no such rating in the Science Feedback data.
