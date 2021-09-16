@@ -309,9 +309,9 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
             str(posts_df.account_id.nunique()), database_name))
         plt.ylim(0, 3200)
     else:
-        plt.title("{} 'established news' Facebook accounts".format(str(posts_df.account_id.nunique())))
-        plt.ylim(0, 950000)
-    
+        plt.title("{} '{}' Facebook groups".format(str(posts_df.account_id.nunique()), option))
+        # plt.ylim(0, 950000)
+
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
               np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
               np.datetime64('2021-01-01'), drop_date
@@ -325,7 +325,7 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
     plt.ylabel("Number of posts per day")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    plt.ylim(0, 99)
+    # plt.ylim(0, 99)
 
     plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
     plt.gca().get_xticklabels()[-1].set_color('red')
@@ -338,8 +338,8 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
     if option == 'repeat offender':
         plt.ylim(0, 60)
-    else:
-        plt.ylim(0, 15000)
+    #else:
+        #plt.ylim(0, 15000)
 
     plt.xticks(xticks, rotation=30, ha='right')
     plt.gca().get_xticklabels()[-1].set_color('red')
