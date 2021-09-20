@@ -15,12 +15,12 @@ def import_crowdtangle_group_data():
 
     df_list = []
     for file_index in range(5):
-        df_list.append(import_data(file_name="posts_fake_news_2021_group_" + str(file_index + 1) + ".csv"))
+        df_list.append(import_data(file_name="posts_fake_news_2021_group_" + str(file_index + 1) + ".csv", folder="section_1_sf"))
     posts_group_df = pd.concat(df_list)
 
     print("\nThere are {} 'repeat offender' Facebook groups.".format(posts_group_df.account_id.nunique()))
 
-    posts_page_df = import_data(file_name="posts_fake_news_2021_page.csv")
+    posts_page_df = import_data(file_name="posts_fake_news_2021_page.csv", folder="section_1_sf")
     print("There are {} 'repeat offender' Facebook pages.".format(posts_page_df.account_id.nunique()))
 
     posts_df = pd.concat([posts_group_df, posts_page_df])
@@ -390,9 +390,9 @@ if __name__=="__main__":
 
     posts_df, posts_page_df = import_crowdtangle_group_data()
 
-    posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv")
+    posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv", folder="section_1_sf")
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
-    url_df = import_data(file_name="appearances_2021-01-04_.csv") 
+    url_df = import_data(file_name="appearances_2021-01-04_.csv", folder="section_1_sf") 
 
     plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df,
                                           'url', 'Date of publication',

@@ -9,7 +9,7 @@ from utils import (import_data, export_data)
 
 if __name__=="__main__":
 
-    df_condor = import_data('tpfc-recent.csv')
+    df_condor = import_data('tpfc-recent.csv', folder="section_2_condor")
     print(len(df_condor))
 
     df_condor = df_condor.dropna(subset=['clean_url'])
@@ -28,4 +28,4 @@ if __name__=="__main__":
     df_condor = df_condor[df_condor['date'] <= datetime.strptime('2020-12-31', '%Y-%m-%d')]
     print(len(df_condor))
 
-    export_data(df_condor, 'tpfc-recent-clean')
+    export_data(df_condor, 'tpfc-recent-clean', folder="section_2_condor")

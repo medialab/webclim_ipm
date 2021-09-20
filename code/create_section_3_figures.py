@@ -12,9 +12,9 @@ from utils import (import_data, save_figure,
 
 def import_crowdtangle_group_data():
 
-    posts_wi_date_df = import_data(file_name="posts_self_declared_wi_date.csv")
+    posts_wi_date_df = import_data(file_name="posts_self_declared_wi_date.csv", folder="section_3_self_declared")
 
-    posts_wo_date_df = import_data(file_name="posts_self_declared_wo_date.csv")
+    posts_wo_date_df = import_data(file_name="posts_self_declared_wo_date.csv", folder="section_3_self_declared")
     list_wo_name = [
         'Artists For A Free World',
         'Terrence K Williams',
@@ -153,7 +153,7 @@ if __name__=="__main__":
     posts_df = import_crowdtangle_group_data()
     plot_reduce_example_timeseries(posts_df)
 
-    pages_df = import_data(file_name="page_list_part_2.csv")
+    pages_df = import_data(file_name="page_list_section_3.csv", folder="section_3_self_declared")
     pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
     plot_engagement_percentage_change(posts_df, pages_df)

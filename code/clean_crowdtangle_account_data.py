@@ -33,6 +33,6 @@ if __name__=="__main__":
     INPUT_NAME = sys.argv[1]
     OUTPUT_NAME = sys.argv[2]
 
-    df = import_data(INPUT_NAME + '.csv')
+    df = import_data(INPUT_NAME + '.csv', folder="section_2_condor")
     clean_df = clean_columns(df)
-    export_data(clean_df, OUTPUT_NAME)
+    export_data(clean_df, OUTPUT_NAME, folder="section_2_condor")
