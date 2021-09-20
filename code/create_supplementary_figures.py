@@ -73,16 +73,13 @@ def plot_june_drop_percentage_change_groups(posts_df):
 if __name__=="__main__":
 
     # # Old mainstream data
-    # posts_df, posts_page_df = import_crowdtangle_group_data_old()
-    # plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'established news')
-    # plot_june_drop_percentage_change(posts_df, posts_page_df, 'supp', 'supplementary_mainstream_june_drop_percentage_change')
-
-    # New mainstream data 
-    posts_df = import_crowdtangle_group_data()
-    print(len(posts_df))
-    print(posts_df.account_id.nunique())
-
+    posts_df, posts_page_df = import_crowdtangle_group_data_old()
     plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
-    plot_june_drop_percentage_change_groups(posts_df)
+    plot_june_drop_percentage_change(posts_df, posts_page_df, 'control', 'supplementary_mainstream_june_drop_percentage_change')
+
+    # # New mainstream data 
+    # posts_df = import_crowdtangle_group_data()
+    # plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
+    # plot_june_drop_percentage_change_groups(posts_df)
 
 

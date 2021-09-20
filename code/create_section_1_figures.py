@@ -309,7 +309,7 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
             str(posts_df.account_id.nunique()), database_name))
         # plt.ylim(0, 3200)
     else:
-        plt.title("{} '{}' Facebook groups".format(str(posts_df.account_id.nunique()), option))
+        plt.title("{} '{}' Facebook accounts".format(str(posts_df.account_id.nunique()), option))
         # plt.ylim(0, 950000)
 
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
@@ -381,6 +381,9 @@ def plot_june_drop_percentage_change(posts_df, posts_page_df, database_name, fig
 
     plot_percentage_changes(sumup_groups_df, sumup_pages_df)
     plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(len(sumup_df), database_name))
+    if database_name=='control':
+        plt.title("{} 'control' Facebook accounts".format(len(sumup_df)))
+
     plt.xlabel("Engagement percentage change after June 9, 2020", size='large')
     plt.tight_layout()
     save_figure(figure_name)
