@@ -307,7 +307,7 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
     if option == 'repeat offender':
         plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(
             str(posts_df.account_id.nunique()), database_name))
-        plt.ylim(0, 3200)
+        # plt.ylim(0, 3200)
     else:
         plt.title("{} '{}' Facebook groups".format(str(posts_df.account_id.nunique()), option))
         # plt.ylim(0, 950000)
@@ -336,8 +336,8 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
     plt.ylabel("Engagement per post")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    if option == 'repeat offender':
-        plt.ylim(0, 60)
+    # if option == 'repeat offender':
+    #     plt.ylim(0, 60)
     #else:
         #plt.ylim(0, 15000)
 
@@ -402,5 +402,11 @@ if __name__=="__main__":
                                           'Science Feedback', 'sf_repeat_vs_free_percentage_change')
 
     plot_average_timeseries(posts_df, 'Science Feedback', 'sf_average_timeseries')
+
+    # posts_df_temp = posts_df[posts_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
+    # plot_average_timeseries(posts_df_temp, 'Science Feedback', 'sf_average_timeseries_pages')
+
+    # posts_df_temp = posts_df[~posts_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
+    # plot_average_timeseries(posts_df_temp, 'Science Feedback', 'sf_average_timeseries_groups')
 
     plot_june_drop_percentage_change(posts_df, posts_page_df, 'Science Feedback', 'sf_june_drop_percentage_change')

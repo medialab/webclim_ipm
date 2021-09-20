@@ -60,4 +60,10 @@ if __name__=="__main__":
 
     plot_average_timeseries(posts_df, 'Condor', 'condor_average_timeseries')
 
+    # posts_df_temp = posts_df[posts_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
+    # plot_average_timeseries(posts_df_temp, 'Condor', 'condor_average_timeseries_pages')
+
+    # posts_df_temp = posts_df[~posts_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
+    # plot_average_timeseries(posts_df_temp, 'Condor', 'condor_average_timeseries_groups')
+
     plot_june_drop_percentage_change(posts_df, posts_page_df, 'Condor', 'condor_june_drop_percentage_change')
