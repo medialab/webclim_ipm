@@ -1,7 +1,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib_venn import venn2, venn3
 import scipy.stats as stats
+import ural
 
 from utils import (import_data, save_figure, 
                    calculate_june_drop, calculate_confidence_interval_median,
@@ -70,6 +72,23 @@ def plot_june_drop_percentage_change_groups(posts_df):
     save_figure('supplementary_mainstream_june_drop_percentage_change')
 
 
+def plot_venn_diagram_url():
+
+    df_url_condor = import_data('tpfc-recent-clean.csv', folder="section_2_condor")
+    df_url_condor['uralized_url'] = df_url_condor['clean_url'].apply(lambda x: ural.normalize_url(x))
+    set_url_condor = set(df_url_condor.uralized_url.unique())
+
+    df_url_sf = import_data('appearances_2021-01-04_.csv', folder="section_1_sf")
+    df_url_sf['uralized_url'] = df_url_sf['url'].apply(lambda x: ural.normalize_url(x))
+    set_url_sf = set(df_url_sf.uralized_url.unique())
+
+    venn2(
+        subsets=[set_url_sf, set_url_condor], 
+        set_labels=('Science Feedback\nURLs ({})'.format(len(set_url_sf)), 'Condor\nURLs ({})'.format(len(set_url_condor)))
+    )
+    save_figure('supplementary_venn_urls')
+
+
 if __name__=="__main__":
 
     # # Old mainstream data
@@ -81,5 +100,9 @@ if __name__=="__main__":
     # posts_df = import_crowdtangle_group_data()
     # plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
     # plot_june_drop_percentage_change_groups(posts_df)
+
+    # Venn diagrams
+    plot_venn_diagram_url()
+
 
 

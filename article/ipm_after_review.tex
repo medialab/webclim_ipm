@@ -220,7 +220,7 @@ The 289 `repeat offender' accounts represented here were identified by the Scien
 \end{figure}
 
 To verify whether this drop was specific to this set of groups, we compared these dynamics to those of a control set of accounts consisting of Facebook pages and groups associated with established news outlets that did not publish misinformation.
-No such drop in total or per post engagement metrics was observed around June 9, 2020 (see Supplementary Figure \ref{mainstream_average_timeseries}).
+No such drop in total or per post engagement metrics was observed around June 9, 2020 (see Supplementary Figure \ref{june_drop_control}).
 
 We can only explain such a massive change by a modification in how Facebook’s algorithm promoted the content from these groups starting on June 9, 2020.
 While we did observe a relationship between the strike dates and a decrease in engagement for `repeat offender' pages, we observed no such link for `repeat offender' groups.
@@ -242,8 +242,8 @@ Using CrowdTangle, we thus collected all the posts that shared one of the false 
 Then we used CrowdTangle again to collect all the posts published by those accounts in 2019 and 2020. 
 Because the Condor dataset contained the date of the first fact-check done on a URL, we were able to infer the `repeat offender' periods for each account and therefore conduct the same analysis as in the previous section.
 
-Science Feedback being a third-party fact-checker working with Facebook, most of the URLs from Science Feedback were also contained in the Condor dataset ({\color{red}see Supplementary Figure X}). 
-Thus an important part of the `repeat offender' groups and pages obtained from the Condor URLs were actually the same as the accounts analyzed previously ({\color{red}see Supplementary Figure X}). 
+Science Feedback being a third-party fact-checker working with Facebook, some of the URLs from Science Feedback were also contained in the Condor dataset (see Supplementary Figure \ref{venn_urls}). 
+Thus a significant part of the `repeat offender' groups and pages obtained from the Condor URLs were actually the same as the accounts analyzed previously ({\color{red}see Supplementary Figure X}). 
 The point of this new analysis was to replicate the previous results with a more complete URL dataset and for this reason, we excluded the accounts whose engagement was already shown in the previous section. 
 We thus show here the results for 503 `novel' accounts: 476 groups and 27 pages.
 
@@ -450,11 +450,11 @@ Same metrics as on Figure \ref{repeat_average_timeseries} aggregated over the 14
 \label{june_drop_control}
 \end{figure}
 
-The median percentage change after June 9, 2020 was $-5\%$ for these `control' accounts, and the values were not different from zero for the groups (p-value = $0.63$) and the pages (p-value = $1$).
+The median percentage change after June 9, 2020 was $-5\%$ for these `control' accounts (see Figure \ref{june_drop_control}), and the values were not different from zero for the groups (p-value = $0.63$) and the pages (p-value = $1$).
 Contrary to what we observe for the `repeat offender' accounts, we found no drop in engagement in June 2020 for those accounts.
 This observation further supports the hypothesis that the drop observed for the `repeat offender' groups is specifically targeted at these misinformation groups, and not a feature that broadly affected Facebook groups.
 
-\section*{Overlap between the different sets of repeat offender accounts}
+\section*{Overlap between the lists of false URLs}
 
 In the two first methods, we used two different sources to get a list of False URLs fact-checked in 2019-2020, but there should be an overlap between these two lists. 
 Indeed, Science Feedback is a third-party fact-checker partnering with Facebook \citep{sciencefeedbackFbPartner}, and the URLs fact-checked by Science Feedback were transfered to Facebook.
@@ -464,6 +464,26 @@ However the only URLs that are in Condor are the ones shared by more than 100 us
 Moreover, as Condor is one of the largest social science research dataset ever constructed, issues related to data quality, validity and fidelity are expected to be found \cite{messing2020facebook}.
 For example it was recently revealed that the engagement data in Condor was only based on around half of the U.S. users and thus incomplete, because the views of the users that were not politically classified were not taken into account \citep{NYTrevelations}. 
 Although this error should not impact the list of URLs we used in this article, other issues might have altered the list of False URLs, and that reason could also explain why some URLs from Science Feedback were excluded from the Condor list.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{./../figure/supplementary_venn_urls.png}
+\caption{
+Overlap between the list of False URLs from Science Feedback and the list of False URLs from Condor.
+}
+\label{venn_urls}
+\end{figure}
+
+To compare the two lists of URLs, we first normalized all the URLs with the same method, and then built a Venn diagram from the two lists of normalized URLs (see Figure \ref{venn_urls}). 
+The overlap was found to be smaller than expected. 
+Indeed only $32\%$ of the URLs in Science Feedback were also in Condor, suggesting that most of the URLs fact-checked were shared by less than 100 users. 
+Furthermore, the URLs from Science Feedback represented only $11\%$ of all the URLs in Condor, which shows that Science Feedback is only one of the many third-party fact-check partners to Facebook.
+
+The small overlap between these two lists justifies the use of both data sources to identify `repeat offender' accounts.
+
+\section*{Overlap between the different sets of repeat offender accounts}
+
+
 
 \section*{Characterization of the accounts studied} 
 
