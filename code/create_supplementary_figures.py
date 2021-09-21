@@ -10,6 +10,9 @@ from utils import (import_data, save_figure,
                    percentage_change_template)
 from create_section_1_figures import plot_average_timeseries, plot_june_drop_percentage_change
 
+from create_section_1_figures import import_crowdtangle_group_data as import_crowdtangle_group_data_section_1
+from create_section_2_figures import import_crowdtangle_group_data_all as import_crowdtangle_group_data_section_2
+from create_section_3_figures import import_crowdtangle_group_data as import_crowdtangle_group_data_section_3
 
 def import_crowdtangle_group_data_old():
 
@@ -82,6 +85,7 @@ def plot_venn_diagram_url():
     df_url_sf['uralized_url'] = df_url_sf['url'].apply(lambda x: ural.normalize_url(x))
     set_url_sf = set(df_url_sf.uralized_url.unique())
 
+    plt.figure(figsize=(5, 3.5))
     venn2(
         subsets=[set_url_sf, set_url_condor], 
         set_labels=('Science Feedback\nURLs ({})'.format(len(set_url_sf)), 'Condor\nURLs ({})'.format(len(set_url_condor)))
@@ -89,12 +93,51 @@ def plot_venn_diagram_url():
     save_figure('supplementary_venn_urls')
 
 
+def plot_venn_diagram_group_and_page():
+
+    posts_df_1, posts_page_df_1 = import_crowdtangle_group_data_section_1()
+    posts_df_2, posts_page_df_2 = import_crowdtangle_group_data_section_2()
+    posts_page_df_3 = import_crowdtangle_group_data_section_3()
+    
+    plt.figure(figsize=(10, 5))
+
+    plt.subplot(1, 2, 1)
+    posts_group_df_1 = posts_df_1[~posts_df_1['account_name'].isin(list(posts_page_df_1["account_name"].unique()))]
+    set_group_1 = set(posts_group_df_1.account_id.unique())
+    posts_group_df_2 = posts_df_2[~posts_df_2['account_name'].isin(list(posts_page_df_2["account_name"].unique()))]
+    set_group_2 = set(posts_group_df_2.account_id.unique())
+    venn2(
+        subsets=[set_group_1, set_group_2], 
+        set_labels=(
+            'Science Feedback\nrepeat offenders\ngroups ({})'.format(len(set_group_1)),
+            'Condor\nrepeat offenders\ngroups ({})'.format(len(set_group_2))
+        )
+    )
+    plt.tight_layout()
+
+    plt.subplot(1, 2, 2)
+    set_page_1 = set(posts_page_df_1.account_id.unique())
+    set_page_2 = set(posts_page_df_2.account_id.unique())
+    set_page_3 = set(posts_page_df_3.account_id.unique())
+    venn3(
+        subsets=[set_page_1, set_page_2, set_page_3], 
+        set_labels=(
+            'Science Feedback\nrepeat offenders\npages ({})'.format(len(set_page_1)),
+            'Condor\nrepeat offenders\npages ({})'.format(len(set_page_2)), 
+            'Reduced distribution\npages ({})'.format(len(set_page_3))
+        )
+    )
+    plt.tight_layout()
+
+    save_figure('supplementary_venn_groups_and_pages')
+
+
 if __name__=="__main__":
 
     # # Old mainstream data
-    posts_df, posts_page_df = import_crowdtangle_group_data_old()
-    plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
-    plot_june_drop_percentage_change(posts_df, posts_page_df, 'control', 'supplementary_mainstream_june_drop_percentage_change')
+    # posts_df, posts_page_df = import_crowdtangle_group_data_old()
+    # plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
+    # plot_june_drop_percentage_change(posts_df, posts_page_df, 'control', 'supplementary_mainstream_june_drop_percentage_change')
 
     # # New mainstream data 
     # posts_df = import_crowdtangle_group_data()
@@ -103,6 +146,7 @@ if __name__=="__main__":
 
     # Venn diagrams
     plot_venn_diagram_url()
+    # plot_venn_diagram_group_and_page()
 
 
 
