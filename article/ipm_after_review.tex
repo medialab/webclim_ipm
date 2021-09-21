@@ -435,24 +435,29 @@ While our results provide information on the relative drop in engagement per pos
 
 \section*{Engagement dynamics in 2019-2020 for a control set of accounts}
 
-We compared the dynamics of the `repeat offender' accounts to those of a control set of accounts, which consisted of Facebook pages and groups associated with established news outlets that we expect to have a more stable pattern of publishing and represent the baseline journalistic activity.
-To identify such a set, we used a report from NewsWhip \citep{NewsWhipReport} that identified the 10 media outlets that communicated the most during the early phase of the COVID-19 pandemic (first half of 2020), i.e., NBC, The Daily Mail, CNN, Fox News, The Independent, BBC, The New York Times, The Washington Post, Yahoo and The New York Post. 
-We call this set `established news'; this label does not imply the trustworthiness of these news sources, but rather that they are very widely read and shared online. 
+We compared the dynamics of the `repeat offender' accounts to those of a control set of accounts, which consisted of Facebook pages and groups associated with established news outlets that we expect to have received no false fact-checks on their posts.
+
+To identify such a set, we used a report from NewsWhip \citep{NewsWhipReport} that identified the 10 media outlets that communicated the most during the early phase of the COVID-19 pandemic (first half of 2020), i.e., NBC, The Daily Mail, CNN, Fox News, The Independent, BBC, The New York Times, The Washington Post, Yahoo and The New York Post.
 We searched the outlets' names on Facebook and created a list of 10 pages and six groups that displayed a verified `blue check'.
-Using CrowdTangle, we collected all the posts published by these 16 accounts between January 1, 2019 and December 31, 2020.
+We also searched for more groups as they are the accounts supposed to be affected by the June drop.
+We added to this set 19 Facebook groups created before June 2020 that are either associated with a media outlet (such as \href{https://www.facebook.com/groups/brexitlatest/}{the `Brexit latest - the Independent' group}) or that have a science focus (such as \href{https://www.facebook.com/groups/437670336804119/}{the `WE ARE SCIENTISTS' group}).
+Using CrowdTangle, we collected all the posts published by these accounts between January 1, 2019 and December 31, 2020.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{./../figure/supplementary_mainstream_june_drop_percentage_change.png}
 \caption{
-Same metrics as on Figure \ref{repeat_june_drop_percentage_change} aggregated over the 14 Facebook accounts associated with a variety of established news outlets (NBC, The Daily Mail, CNN, Fox News, The Independent, BBC, The New York Times, The Washington Post, Yahoo and The New York Post) and that published at least once one month before and after June 9, 2020.
+Same metrics as on Figure \ref{repeat_june_drop_percentage_change} aggregated over the `control' Facebook accounts that published at least once during 30 days before and after June 9, 2020.
 }
 \label{june_drop_control}
 \end{figure}
 
-The median percentage change after June 9, 2020 was $-5\%$ for these `control' accounts (see Figure \ref{june_drop_control}), and the values were not different from zero for the groups (p-value = $0.63$) and the pages (p-value = $1$).
-Contrary to what we observe for the `repeat offender' accounts, we found no drop in engagement in June 2020 for those accounts.
+The percentage changes after June 9, 2020 are not significantly different from zero for groups (W = $95$, p-value = $0.32$, median = $-7\%$) and for pages (W = $27$, p-value = $1$, median = $-6\%$, see Figure \ref{june_drop_control}).
+Therefore, contrary to what we observe for the `repeat offender' groups, we found no drop in engagement in June 2020 for the `control' groups.
 This observation further supports the hypothesis that the drop observed for the `repeat offender' groups is specifically targeted at these misinformation groups, and not a feature that broadly affected Facebook groups.
+
+\section*{Engagement dynamics plotted separately for groups and pages}
+
 
 \section*{Overlap between the lists of false URLs}
 
@@ -478,8 +483,6 @@ To compare the two lists of URLs, we first normalized all the URLs with the same
 The overlap was found to be smaller than expected. 
 Indeed only $32\%$ of the URLs in Science Feedback were also in Condor, suggesting that most of the URLs fact-checked were shared by less than 100 users. 
 Furthermore, the URLs from Science Feedback represented only $11\%$ of all the URLs in Condor, which shows that Science Feedback is only one of the many third-party fact-check partners to Facebook.
-
-The small overlap between these two lists justifies the use of both data sources to identify `repeat offender' accounts.
 
 \section*{Overlap between the different sets of accounts analyzed}
 

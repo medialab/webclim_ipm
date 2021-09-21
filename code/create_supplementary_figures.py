@@ -14,29 +14,23 @@ from create_section_1_figures import import_crowdtangle_group_data as import_cro
 from create_section_2_figures import import_crowdtangle_group_data_all as import_crowdtangle_group_data_section_2
 from create_section_3_figures import import_crowdtangle_group_data as import_crowdtangle_group_data_section_3
 
-def import_crowdtangle_group_data_old():
+
+def import_crowdtangle_control_data():
 
     posts_group_df = import_data(file_name="posts_main_news_2021_group.csv", folder="supplementary")
-    print("There are {} 'mainstream' Facebook groups.".format(posts_group_df.account_id.nunique()))
+    posts_group_new_df = import_data(file_name="control_groups.csv", folder="supplementary")
+    posts_group_df = posts_group_df[~posts_group_df.account_id.isin(list(posts_group_new_df.account_id.unique()))]
+    print("There are {} 'mainstream' Facebook groups.".format(posts_group_df.account_id.nunique() + posts_group_new_df.account_id.nunique()))
 
     posts_page_df = import_data(file_name="posts_main_news_2021_page.csv", folder="supplementary")
     print("There are {} 'mainstream' Facebook pages.".format(posts_page_df.account_id.nunique()))
 
-    posts_df = pd.concat([posts_group_df, posts_page_df])
+    posts_df = pd.concat([posts_group_df, posts_group_new_df, posts_page_df])
 
     posts_df['date'] = pd.to_datetime(posts_df['date'])
     posts_df['engagement'] = posts_df[["share", "comment", "reaction"]].sum(axis=1)
 
     return posts_df, posts_page_df
-
-
-def import_crowdtangle_group_data():
-
-    posts_df = import_data(file_name="control_groups.csv", folder="supplementary")
-    posts_df['date'] = pd.to_datetime(posts_df['date'])
-    posts_df['engagement'] = posts_df[["share", "comment", "reaction"]].sum(axis=1)
-
-    return posts_df
 
 
 def plot_june_drop_percentage_change_groups(posts_df):
@@ -134,18 +128,13 @@ def plot_venn_diagram_group_and_page():
 
 if __name__=="__main__":
 
-    # # Old mainstream data
-    # posts_df, posts_page_df = import_crowdtangle_group_data_old()
-    # plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
-    # plot_june_drop_percentage_change(posts_df, posts_page_df, 'control', 'supplementary_mainstream_june_drop_percentage_change')
+    # # Control June drop
+    posts_df, posts_page_df = import_crowdtangle_control_data()
+    plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
+    plot_june_drop_percentage_change(posts_df, posts_page_df, 'control', 'supplementary_mainstream_june_drop_percentage_change')
 
-    # # New mainstream data 
-    # posts_df = import_crowdtangle_group_data()
-    # plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
-    # plot_june_drop_percentage_change_groups(posts_df)
-
-    # Venn diagrams
-    plot_venn_diagram_url()
+    # # Venn diagrams
+    # plot_venn_diagram_url()
     # plot_venn_diagram_group_and_page()
 
 
