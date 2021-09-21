@@ -206,6 +206,7 @@ A Wilcoxon test indicates that these percentage changes are significantly differ
 Again the results differ between Facebook pages and Facebook groups.
 While the percentage changes for the 271 groups are significantly different than zero (W = $7599$, p-value = $5.1 \times 10^{-17}$), with a median of $-45\%$,
 the 18 pages appears to be not affected by the decrease (W = $73$, p-value = $0.61$), with a median percentage change of only $-5\%$.
+Because of this difference between groups and pages, we have also plotted the engagement per post in 2019-2020 separately for groups and pages in Supplementary Figure \ref{engagement_groups_and_pages_sf}, and we can see that the engagement only drops for groups in June 2020.
 
 \begin{figure}[!h]
 \centering
@@ -284,6 +285,7 @@ The median percentage change is $-26\%$, and $63\%$ of the accounts experienced 
 The values are still significantly different from zero (W = $42651$, p-value = $3.8 \times 10^{-5}$).
 
 When tested separately, the percentage changes for the 442 groups are significantly different from zero (W = $37889$, p-value = $3.8 \times 10^{-5}$) and the median is $-27\%$, whereas the values for the 23 pages are not different from zero (W = $133$, p-value = $0.89$), with a median of $-2\%$.
+Also, when the engagement per post is plotted separately for groups and pages, we can see a drop in engagement only for groups (see Supplementary Figure \ref{engagement_groups_and_pages_condor}).
 
 \begin{figure}[!h]
 \centering
@@ -368,7 +370,7 @@ The 82 `reduced distribution' pages represented here were identified because the
 \end{figure}
  
 Finally, we verify whether an important drop in engagement also occurred in June 2020 for this set of Facebook pages.
-When we compare the engagement metrics before and after June 9, 2020, the percentage changes are not significantly different from zero (W = $1093$, p-value = $0.055$), and the median percentage change is $3\%$.
+When we compare the engagement metrics before and after June 9, 2020, the percentage changes are not significantly different from zero (W = $1093$, p-value = $0.055$), and the median percentage change is $3\%$ (also see Supplementary Figure \ref{engagement_groups_and_pages_reduce} to observe a lack of change in the engagement per post for these pages in 2019-2020).
 This confirms that Facebook pages have most likely not been affected by the {\it reduce} measure implemented on June 9, 2020 and evidenced in the previous sections.
 
 \section{Discussion}
@@ -433,6 +435,47 @@ While our results provide information on the relative drop in engagement per pos
 
 \textbf{SUPPLEMENTARY INFORMATION}
 
+\section*{Engagement dynamics plotted separately for groups and pages}
+
+In this article, we find a clear difference in how Facebook groups and pages are regulated by Facebook, which explains why the data is often plotted separately for these two kinds of accounts. 
+The only exceptions are the engagement dynamics shown in Figures \ref{repeat_average_timeseries} and \ref{condor_average_timeseries}, in which all the `repeat offender' accounts - groups and pages - are reprensented together.
+However, the June drop is only affecting Facebook groups and not pages, but this difference is not visible on the above mentioned figures representing all the accounts.
+
+This is why we have plotted here the engagement per posts separately for groups and pages for the accounts identified using the Science Feedback dataset (see Figure \ref{engagement_groups_and_pages_sf}) and for the accounts identified using the Condor dataset (see Figure \ref{engagement_groups_and_pages_condor}). 
+We can observe that the engagement per post do remain stable for the `repeat offender' pages in June 2020.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{./../figure/supplementary_engagement_groups_and_pages_sf.png}
+\caption{
+Average engagement per post in 2019-2020 plotted separately for the 289 groups (top panel) and the 18 pages (bottom panel) identified as `repeat offender' by the Science Feedback data.
+}
+\label{engagement_groups_and_pages_sf}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{./../figure/supplementary_engagement_groups_and_pages_condor.png}
+\caption{
+Average engagement per post in 2019-2020 plotted separately for the 476 groups (top panel) and the 27 pages (bottom panel) identified as `repeat offender' by the Condor data.
+}
+\label{engagement_groups_and_pages_condor}
+\end{figure}
+
+We also plotted here the engagement dynamics for the set of misinformation pages that shared a `reduced distribution' notification (see Figure \ref{engagement_groups_and_pages_reduce}).
+As with the previous sets of pages shown above, there is no reduction in engagement for these `reduced distribution' pages in June 2020.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{./../figure/supplementary_engagement_pages_reduce.png}
+\caption{
+Average engagement per post in 2019-2020 for the 83 `reduced distribution' pages, identified because they shared a `reduced distribution' notification from Facebook.
+}
+\label{engagement_groups_and_pages_reduce}
+\end{figure}
+
+These graphs illustrate that only Facebook groups, and not pages, were affected by the reduce measure implemented on June 9, 2020.
+
 \section*{Engagement dynamics in 2019-2020 for a control set of accounts}
 
 We compared the dynamics of the `repeat offender' accounts to those of a control set of accounts, which consisted of Facebook pages and groups associated with established news outlets that we expect to have received no false fact-checks on their posts.
@@ -455,9 +498,6 @@ Same metrics as on Figure \ref{repeat_june_drop_percentage_change} aggregated ov
 The percentage changes after June 9, 2020 are not significantly different from zero for groups (W = $95$, p-value = $0.32$, median = $-7\%$) and for pages (W = $27$, p-value = $1$, median = $-6\%$, see Figure \ref{june_drop_control}).
 Therefore, contrary to what we observe for the `repeat offender' groups, we found no drop in engagement in June 2020 for the `control' groups.
 This observation further supports the hypothesis that the drop observed for the `repeat offender' groups is specifically targeted at these misinformation groups, and not a feature that broadly affected Facebook groups.
-
-\section*{Engagement dynamics plotted separately for groups and pages}
-
 
 \section*{Overlap between the lists of false URLs}
 

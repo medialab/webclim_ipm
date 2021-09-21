@@ -11,6 +11,8 @@ from utils import (import_data, save_figure,
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
+np.random.seed(0)
+
 def import_crowdtangle_group_data():
 
     df_list = []
@@ -291,9 +293,13 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_
     save_figure(figure_name)
 
 
-def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat offender'):
+def plot_average_timeseries(posts_df, database_name, figure_name):
 
     drop_date='2020-06-09'
+    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
+              np.datetime64('2021-01-01'), drop_date
+             ]
 
     plt.figure(figsize=(7, 7))
 
@@ -303,21 +309,10 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
     plt.ylabel("Engagement per day")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-
-    if option == 'repeat offender':
-        plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(
-            str(posts_df.account_id.nunique()), database_name))
-        # plt.ylim(0, 3200)
-    else:
-        plt.title("{} '{}' Facebook accounts".format(str(posts_df.account_id.nunique()), option))
-        # plt.ylim(0, 950000)
-
-    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
-              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
-              np.datetime64('2021-01-01'), drop_date
-             ]
+    plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(
+        str(posts_df.account_id.nunique()), database_name))
+    plt.ylim(0, 3200)
     plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
-    plt.gca().get_xticklabels()[-1].set_color('red')
 
     ax = plt.subplot(3, 1, 2)
     plt.plot(posts_df["date"].value_counts().sort_index()/posts_df.groupby(by=["date"])["account_id"].nunique(),
@@ -325,10 +320,8 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
     plt.ylabel("Number of posts per day")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    # plt.ylim(0, 99)
-
+    plt.ylim(0, 99)
     plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
-    plt.gca().get_xticklabels()[-1].set_color('red')
 
     ax = plt.subplot(3, 1, 3)
     plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), 
@@ -336,11 +329,7 @@ def plot_average_timeseries(posts_df, database_name, figure_name, option='repeat
     plt.ylabel("Engagement per post")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    # if option == 'repeat offender':
-    #     plt.ylim(0, 60)
-    #else:
-        #plt.ylim(0, 15000)
-
+    plt.ylim(0, 60)
     plt.xticks(xticks, rotation=30, ha='right')
     plt.gca().get_xticklabels()[-1].set_color('red')
 
@@ -405,11 +394,4 @@ if __name__=="__main__":
                                           'Science Feedback', 'sf_repeat_vs_free_percentage_change')
 
     plot_average_timeseries(posts_df, 'Science Feedback', 'sf_average_timeseries')
-
-    # posts_df_temp = posts_df[posts_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
-    # plot_average_timeseries(posts_df_temp, 'Science Feedback', 'sf_average_timeseries_pages')
-
-    # posts_df_temp = posts_df[~posts_df['account_name'].isin(list(posts_page_df["account_name"].unique()))]
-    # plot_average_timeseries(posts_df_temp, 'Science Feedback', 'sf_average_timeseries_groups')
-
     plot_june_drop_percentage_change(posts_df, posts_page_df, 'Science Feedback', 'sf_june_drop_percentage_change')

@@ -10,6 +10,9 @@ from utils import (import_data, save_figure,
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
+np.random.seed(0)
+
+
 def import_crowdtangle_group_data():
 
     posts_wi_date_df = import_data(file_name="posts_self_declared_wi_date.csv", folder="section_3_self_declared")
@@ -34,7 +37,7 @@ def import_crowdtangle_group_data():
     posts_wo_date_df = posts_wo_date_df[~posts_wo_date_df['account_name'].isin(list_wo_name)]
 
     posts_df = pd.concat([posts_wi_date_df, posts_wo_date_df])
-    print("There are {} 'reduced distribution' Facebook pages.".format(posts_df.account_id.nunique()))
+    print("\nThere are {} 'reduced distribution' Facebook pages.".format(posts_df.account_id.nunique()))
 
     posts_df['date'] = pd.to_datetime(posts_df['date'])
     posts_df['engagement'] = posts_df[["share", "comment", "reaction"]].sum(axis=1)

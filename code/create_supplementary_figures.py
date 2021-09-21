@@ -7,12 +7,78 @@ import ural
 
 from utils import (import_data, save_figure, 
                    calculate_june_drop, calculate_confidence_interval_median,
-                   percentage_change_template)
-from create_section_1_figures import plot_average_timeseries, plot_june_drop_percentage_change
+                   timeserie_template, percentage_change_template)
+from create_section_1_figures import plot_june_drop_percentage_change
 
 from create_section_1_figures import import_crowdtangle_group_data as import_crowdtangle_group_data_section_1
 from create_section_2_figures import import_crowdtangle_group_data_all as import_crowdtangle_group_data_section_2
 from create_section_3_figures import import_crowdtangle_group_data as import_crowdtangle_group_data_section_3
+
+
+np.random.seed(0)
+
+
+def plot_engagement_per_post(posts_df, posts_page_df, database_name, figure_name):
+
+    drop_date='2020-06-09'
+    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
+              np.datetime64('2021-01-01'), drop_date
+             ]
+    plt.figure(figsize=(7, 5))
+
+    posts_groups_df = posts_df[~posts_df['account_id'].isin(list(posts_page_df["account_id"].unique()))]
+    ax = plt.subplot(211)
+    plt.plot(posts_groups_df.groupby(by=["date"])['engagement'].mean(), 
+             color="royalblue")
+    timeserie_template(ax)
+    plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+    plt.ylim(0, 60)
+    plt.ylabel("Engagement per post")
+    plt.title("{} 'repeat offender' Facebook groups ({} data)".format(
+        str(posts_groups_df.account_id.nunique()), database_name))
+
+    ax = plt.subplot(212)
+    posts_pages_df = posts_df[posts_df['account_id'].isin(list(posts_page_df["account_id"].unique()))]
+    plt.plot(posts_pages_df.groupby(by=["date"])['engagement'].mean(), 
+             color='skyblue')
+    timeserie_template(ax)
+    plt.xticks(xticks, rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+    plt.ylim(0, 200)
+    plt.ylabel("Engagement per post")
+    plt.title("{} 'repeat offender' Facebook pages ({} data)".format(
+        str(posts_pages_df.account_id.nunique()), database_name))
+
+    plt.tight_layout()
+    save_figure(figure_name)
+
+
+def plot_engagement_per_post_pages(posts_df):
+
+    drop_date='2020-06-09'
+    xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
+              np.datetime64('2021-01-01'), drop_date
+             ]
+    plt.figure(figsize=(7, 3))
+
+    ax = plt.subplot()
+    plt.plot(posts_df.groupby(by=["date"])['engagement'].mean(), 
+             color='skyblue')
+    timeserie_template(ax)
+    plt.xticks(xticks, rotation=30, ha='right')
+    plt.gca().get_xticklabels()[-1].set_color('red')
+    plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
+    plt.ylim(0, 4000)
+    plt.ylabel("Engagement per post")
+    plt.title("{} 'reduced distribution' Facebook pages".format(
+        str(posts_df.account_id.nunique())))
+
+    plt.tight_layout()
+    save_figure('supplementary_engagement_pages_reduce')
 
 
 def import_crowdtangle_control_data():
@@ -87,18 +153,14 @@ def plot_venn_diagram_url():
     save_figure('supplementary_venn_urls')
 
 
-def plot_venn_diagram_group_and_page():
-
-    posts_df_1, posts_page_df_1 = import_crowdtangle_group_data_section_1()
-    posts_df_2, posts_page_df_2 = import_crowdtangle_group_data_section_2()
-    posts_page_df_3 = import_crowdtangle_group_data_section_3()
+def plot_venn_diagram_group_and_page(posts_df_1, posts_page_df_1, posts_df_2, posts_page_df_2, posts_page_df_3):
     
     plt.figure(figsize=(10, 5))
 
     plt.subplot(1, 2, 1)
-    posts_group_df_1 = posts_df_1[~posts_df_1['account_name'].isin(list(posts_page_df_1["account_name"].unique()))]
+    posts_group_df_1 = posts_df_1[~posts_df_1['account_id'].isin(list(posts_page_df_1["account_id"].unique()))]
     set_group_1 = set(posts_group_df_1.account_id.unique())
-    posts_group_df_2 = posts_df_2[~posts_df_2['account_name'].isin(list(posts_page_df_2["account_name"].unique()))]
+    posts_group_df_2 = posts_df_2[~posts_df_2['account_id'].isin(list(posts_page_df_2["account_id"].unique()))]
     set_group_2 = set(posts_group_df_2.account_id.unique())
     venn2(
         subsets=[set_group_1, set_group_2], 
@@ -128,14 +190,25 @@ def plot_venn_diagram_group_and_page():
 
 if __name__=="__main__":
 
-    # # Control June drop
+    # Plot engagement separately for groups and pages
+
+    posts_df_1, posts_page_df_1 = import_crowdtangle_group_data_section_1()
+    plot_engagement_per_post(posts_df_1, posts_page_df_1, 'Science Feedback', 
+                             'supplementary_engagement_groups_and_pages_sf')
+
+    posts_df_2, posts_page_df_2 = import_crowdtangle_group_data_section_2()
+    posts_df_2_new = posts_df_2[~posts_df_2['account_id'].isin(list(posts_df_1.account_id.unique()))]
+    posts_page_df_2_new = posts_page_df_2[~posts_page_df_2['account_id'].isin(list(posts_page_df_1.account_id.unique()))]
+    plot_engagement_per_post(posts_df_2_new, posts_page_df_2_new, 'Condor', 
+                             'supplementary_engagement_groups_and_pages_condor')
+    
+    posts_page_df_3 = import_crowdtangle_group_data_section_3()
+    plot_engagement_per_post_pages(posts_page_df_3)
+
+    # June drop on the control accounts
     posts_df, posts_page_df = import_crowdtangle_control_data()
-    plot_average_timeseries(posts_df, 'whatever', 'supplementary_mainstream_average_timeseries', 'control')
     plot_june_drop_percentage_change(posts_df, posts_page_df, 'control', 'supplementary_mainstream_june_drop_percentage_change')
 
-    # # Venn diagrams
-    # plot_venn_diagram_url()
-    # plot_venn_diagram_group_and_page()
-
-
-
+    # Venn diagrams
+    plot_venn_diagram_url()
+    plot_venn_diagram_group_and_page(posts_df_1, posts_page_df_1, posts_df_2, posts_page_df_2, posts_page_df_3)
