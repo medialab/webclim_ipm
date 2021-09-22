@@ -390,6 +390,8 @@ As a second step, we identified 83 Facebook pages which have shared a Facebook n
 The pages' engagement metrics were significantly lower after the date of the notification (median of $-24\%$), suggesting that the `reduced distribution' measure was indeed applied to the pages.
 We noted that no group was found when searching for accounts sharing a reduced distribution notification, which confirms that the `repeat offender' policy is applied only to Facebook pages, and not to groups.
 
+{\color{red} EXPLAIN LIMITS OF THE STUDY}
+
 Although we observe a global reduction in engagement for `repeat offender' pages, there is a large heterogeneity across the different pages (see Figures \ref{repeat_vs_free_percentage_change}, \ref{condor_repeat_vs_free_percentage_change} and \ref{reduce_percentage_change}). 
 The engagement of some popular pages have actually increased, such as the \href{https://www.facebook.com/TuckerCarlsonTonight/}{`Tucker Carlson Tonight' page} with a $38\%$ increase (from 104k to 143k interactions per post)  following the `reduced distribution' notification from Facebook. 
 It is possible that this page compensated the reduce intervention of Facebook by a simultaneous gain of popularity, but a recent article points toward an alternative explanation. 
@@ -403,17 +405,38 @@ It indicates that the company has very likely taken internal decisions that heav
 More transparency from Facebook would be needed to understand the nature and origin of this change. 
 It would also bring clarity on how rules aimed at limiting the spread of misinformation are being enforced.
 
-Facebook pages and groups have different purposes: pages are meant to be for official communication from the page administrators to a large audience, while groups are meant to foster interactions between users \citep{differenceGroupAndPage}. 
-Pages are thus always public, while groups can be public or private.
-Pages' posts can also be monetized and promoted.
-Despite these differences, we have seen that both pages and groups are being used to share false news, and we actually found vastly more groups than pages when we identified the accounts spreading the most misinformation ({\color{red} add proportions?}). 
-In the interest of curbing the spread of misinformation, applying its `repeat offender' policy to groups as well as to pages would help Facebook decrease the amount of misinformation in their users’ feeds. 
-
-It is also not clear why only repeat offender Facebook groups, and not pages, saw their engagement reduced in June 2020.
+It is not clear why only repeat offender Facebook groups, and not pages, saw their engagement reduced in June 2020.
 Studies have highlighted that misinformation persists at high levels on Facebook and other platforms \citep{kornbluh2020new, resnick2018iffy}.
 In the context of the COVID-19 pandemic, concerns rose about the amount of misinformation spreading on social media, including Facebook, and its potential harm to users \citep{johnson2020online}.
 It is possible that such concerns have driven Facebook to apply a `quick fix' to decrease the engagement of posts shared in groups spreading misinformation and compensate for the absence of a repeat offender policy.
 One should note that since the overall activity in these misinformation groups doubled between September 2019 and June 2020, the `June drop' has only succeeded in bringing the overall engagement level back to its early 2019 values (see Figure \ref{repeat_average_timeseries} top panel).
+
+Facebook pages and groups have different purposes: pages are meant to be for official communication from the page administrators to a large audience, while groups are meant to foster interactions between users \citep{differenceGroupAndPage}. 
+Pages are thus always public, while groups can be public or private.
+Pages' posts can also be monetized and promoted.
+Despite these differences, we have seen that both pages and groups are being used to share false news, and we actually found vastly more groups than pages when we identified the accounts spreading the most misinformation ({\color{red} add proportions?}). 
+In the interest of curbing the spread of misinformation, applying its `repeat offender' policy to groups as well as to pages would have helped Facebook to decrease the amount of misinformation in their users’ feeds in 2019 and 2020.
+
+It should be noted that fighting misinformation is a relatively new issue for platforms that appeared with the 2016 American elections, and the misinformation regulations are constantly changing.
+It appears that Facebook is now also applying its reduce policy on misinformation groups, as one of the `repeat offender' group analyzed has shared in 2021 a `reduced distribution' notification from Facebook (see Figure \ref{screenshot_reduced_group}).
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.24]{./../figure/screenshot_reduced_group.png}
+\caption{
+Screenshot of \href{https://www.facebook.com/groups/mcbowwow/posts/3893068180741848/}{the post of a `repeat offender' group}, sharing a `reduced distribution' notification sent by Facebook.
+}
+\label{screenshot_reduced_group}
+\end{figure}
+
+The `reduced distribution' notification is different for groups and pages. 
+Notably groups are informed by Facebook that: ``You can delete false information to help restore your group's distribution'' (see Figure \ref{screenshot_reduced_group}).
+In contrast, page owners cannot get rid of a strike in the same way as group owners: ``Note that deleting a post will not eliminate the strike against the Page or domain'', although they can correct the posts and submit an appeal to fact-checkers for the strike to be lifted \cite{FacebookCorrectRating}.
+As the followers of a group, and not just its administrators, can post in the group, group content can be hard to control. 
+Maybe that is why this exception to the `repeat offender' restrictions was created for groups. 
+We would nevertheless argue that it makes the policy easier to be circumvented for groups repeatedly sharing misinformation.
+Furthermore, Facebook has announced in May 2021 that an individual's Facebook account will also be reduced if they repeatedly share misinformation content \cite{FacebookReduceUsers}.
+It would thus be interesting to replicate our findings on the 2021 engagement data to monitor the effects of these new measures.
 
 Online misinformation can be a threat to society, and the role that platforms can play via targeted interventions, has been the subject of intense debate over the past few years \citep{rogers2020deplatforming}. 
 As a consequence, researchers \citep{mena2020cleaning, yaqub2020effects} and journalists \citep{FacebookPartisanBias, FacebookCivilityGrowth} have begun to monitor the actions that platforms take to tackle misinformation and their efficacy.
