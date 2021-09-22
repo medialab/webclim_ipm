@@ -10,7 +10,7 @@ from utils import (import_data, save_figure,
                    calculate_june_drop, calculate_confidence_interval_median)
 
 
-np.random.seed(0)
+np.random.seed(2)
 
 
 def import_crowdtangle_group_data():
@@ -50,7 +50,7 @@ def plot_reduce_example_timeseries(posts_df):
     account_name = 'I Love Carbon Dioxide'
     reduced_distribution_date = '2020-04-28'
 
-    plt.figure(figsize=(7, 3.8))
+    plt.figure(figsize=(7, 3.5))
     ax = plt.subplot()
     
     plt.title("'" + account_name + "' Facebook page")
@@ -122,7 +122,6 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     print("drop for 'I Love Carbon Dioxide':", sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0])
 
     print('Number of Facebook pages:', len(sumup_df))
-    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
     print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
     
     w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
@@ -154,6 +153,10 @@ def plot_engagement_percentage_change(posts_df, pages_df):
 if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
+    # Remove pages already analyzed in section 1 or 2:
+    posts_df = posts_df[~posts_df['account_id'].isin([121187761264826, 143745137930, 164620026961366])]
+    print("\nThere are {} 'reduced distribution' Facebook pages.".format(posts_df.account_id.nunique()))
+
     plot_reduce_example_timeseries(posts_df)
 
     pages_df = import_data(file_name="page_list_section_3.csv", folder="section_3_self_declared")

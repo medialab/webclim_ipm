@@ -15,7 +15,7 @@ from create_section_2_figures import import_crowdtangle_group_data_all as import
 from create_section_3_figures import import_crowdtangle_group_data as import_crowdtangle_group_data_section_3
 
 
-np.random.seed(0)
+np.random.seed(1)
 
 
 def plot_engagement_per_post(posts_df, posts_page_df, database_name, figure_name):
@@ -203,7 +203,8 @@ if __name__=="__main__":
                              'supplementary_engagement_groups_and_pages_condor')
     
     posts_page_df_3 = import_crowdtangle_group_data_section_3()
-    plot_engagement_per_post_pages(posts_page_df_3)
+    posts_page_df_3_new = posts_page_df_3[~posts_page_df_3['account_id'].isin([121187761264826, 143745137930, 164620026961366])]
+    plot_engagement_per_post_pages(posts_page_df_3_new)
 
     # June drop on the control accounts
     posts_df, posts_page_df = import_crowdtangle_control_data()

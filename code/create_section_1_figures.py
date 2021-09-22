@@ -268,7 +268,6 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_
     #       sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
 
     print('Number of Facebook accounts:', len(sumup_df))
-    print('Mean engagement percentage changes:', np.mean(sumup_df['percentage_change_engagament']))
     print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
     
     w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
