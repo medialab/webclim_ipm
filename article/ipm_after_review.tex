@@ -20,7 +20,7 @@
 
 \begin{frontmatter}
 
-\title{Investigating Facebook's actions against accounts that repeatedly share misinformation}
+\title{Investigating Facebook's interventions against accounts that repeatedly share misinformation}
 
 \author[mymainaddress]{Héloïse Théro\corref{mycorrespondingauthor}}
 \cortext[mycorrespondingauthor]{Corresponding authors.}
@@ -34,14 +34,13 @@
 \begin{abstract}
 
 Like many web platforms, Facebook is under pressure to regulate misinformation.
-According to the company, users that repeatedly share misinformation (`repeat offender') will have their distribution reduced, but little is known about the implementation or the efficiency of this measure.
-First, combining data from a fact-checking organization and CrowdTangle, we identified a set of public accounts (groups and pages) that have shared misinformation repeatedly during the 2019-2020 period.
-While we observe a decrease in engagement for pages after they shared two or more `false news', such a reduction is not observed for `repeat offender' groups.
-This result was replicated using a more complete set of misinformation URLs shared by Facebook (Condor data).
-We also discover that groups have been affected in a different way with a sudden drop in their average engagement per post that occurred around June 9, 2020.
-Finally we identified a set of pages claiming to be put under `reduced distribution' by Facebook for repeatedly sharing misinformation, and we again observed a decrease in their engagement per post.
+According to the company, users that repeatedly share misinformation (`repeat offender') will have their distribution reduced, but little is known about the implementation or the impacts of this measure.
+This paper investigates the implementation and consequences of this policy using a first of its kind analysis, combining data from a fact-checking organization (Science Feedback), Facebook’s Social Science One dataset (Condor), users’ self-declaration and CrowdTangle data. 
+Based on Science Feedback data, we first identified a set of public accounts (groups and pages) that have shared misinformation repeatedly during the 2019-2020 period.
+The engagement per post decreased for Facebook pages after they shared two or more `false news’, and this result was replicated using the Condor data.
+We also discover that Facebook groups have been affected in a different way with a sudden drop in their average engagement per post that occurred around June 9, 2020.
+Finally we identified a set of pages claiming to be under `reduced distribution' by Facebook for repeatedly sharing misinformation, and we again observed a decrease in their engagement per post.
 In the three sets of pages studied, the median decrease in engagement after sharing misinformation is ranging from $-62\%$ to $-24\%$.
-Our results highlight easy steps Facebook could take to reduce misinformation, such as to enforce their `repeat offender' policy more forcefully on pages, and to start applying it to groups.
 
 \end{abstract}
 
@@ -60,50 +59,69 @@ The general public is increasingly getting news related information online, thro
 Hence the spread of misinformation through these platforms has recently received growing attention.
 Recent studies, along with the political context of January 2021 in the United States, show how the presence of misinformation online can contribute to negative societal consequences.
 Namely it can fuel false beliefs, such as the idea of a massive voter fraud during the US 2020 presidential election, which may have led to the January 6, 2021 insurrection at the U.S. Capitol \citep{benkler2020mail} and other false stories about presidential candidates \citep{allcott2017social}. 
-Misinformation has also confused the public about the reality of climate change \citep{brulle30years, porter2019can} and stoked skepticism about vaccine safety among the public \citep{featherstone2020feeling, lahouati2020spread}. 
+Misinformation has also contributed to confusing the public about the reality of climate change \citep{brulle30years, porter2019can} and stoked skepticism about vaccine safety among the public \citep{featherstone2020feeling, lahouati2020spread}. 
 In April 2020, a questionnaire from the Reuters Institute found that people in the UK use online sources more often than offline sources when looking for information about the coronavirus. 
 Among social media platforms, Facebook was the most widely used with $24\%$ of the respondents saying they used Facebook to access COVID-19 information in the last seven days \citep{fletcher2020information}.
 The importance of Facebook in the media landscape is confirmed by Parse.ly’s dashboard, which shows that $25\%$ of the visitors of 2500+ media websites are referred by Facebook \citep{parslyDashboard}.
 
 Lawmakers and regulators are increasingly pressuring platforms to limit the spread of misinformation. 
 In the US, the House of Representatives organized hearings and convened representatives of the main platforms to testify on how they are being weaponized to spread ``misinformation and conspiracy theories online'' \citep{donovan2020}. 
-In Europe, the European Commission has established a `Code of Practice on Disinformation' \citep{codePracticeMisinformation} that enjoins platforms to voluntarily comply with a set of commitments \citep{heldt2019let}. 
+In Europe, the European Commission has established a `Code of Practice on Disinformation' \citep{codePracticeMisinformation} that enjoins platforms to voluntarily comply with a set of commitments \citep{heldt2019let}.
+Platforms' compliance with the Code of Practice is subjected to an annual assessment by the Commission, the first of which was released in September 2020 \citep{firstEUassess}.
+The actions that platforms claim to be taking include limiting political advertisement or providing transparency regarding who is funding political advertising, promoting `authoritative' sources of information, providing data for researchers, sponsoring media literacy initiatives or informing users when they are interacting with misinformation \citep{selfassessment}.
 However, there is little data available and few established processes to monitor the implementation of these measures and quantify their actual impact. 
 Here we propose a methodology to monitor Facebook’s implementation of its policy to reduce the visibility of accounts repeatedly spreading misinformation. 
 We chose to focus on Facebook as it is the biggest social media platform with more than two billion users worldwide.
 
 Facebook announced a three-part policy to address ‘misleading or harmful content’: they claim to \textit{remove} harmful information, \textit{reduce} the spread of misinformation and \textit{inform} people with additional context \citep{threePartRecipe}. 
 Facebook has developed the most extensive third-party fact-checking program with dozens of partner institutions to assist the company in this endeavour \citep{60factCheckingPartners}.
+Fact-checkers have access to a stream of viral and likely problematic content, which they can verify and flag as misinformation, with options ranging from ``True'' (not misinformation), to ``Missing context'' to ``Partly false'' and ``False'' \citep{RatingOptions}.
 Facebook informs page or group owners when published posts on their pages or groups are marked as misinformation, inviting them to correct the posts.
-Facebook also states that the virality of the posts marked as `False' or `Partly False' will be reduced.
+Facebook states that the virality of the posts marked as `False' or `Partly False' will be reduced.
+The platform's users receive a notification when they have shared a post marked as misinformation and see a notice linking to the fact-check over the flagged posts. 
+A handful of papers provide evidence that supports the efficacy of fact-checking labels by reducing the likelihood that users share false information \citep{mena2020cleaning} and reducing false beliefs \citep{porter2021global}. 
+In an experimental setting, Pennycook et al. \cite{pennycook2020understanding} show that prompting people to consider the accuracy of a piece of information increases the quality of the information they subsequently share on social media.
 
-Facebook’s \textit{reduce} policy is not only applied to individual posts, but also to organizations and communities that often publish posts containing misinformation, as indicated by this statement in their publishers’ help center \citep{factCheckingRules, repeatOffenderCommunication}: 
+The \textit{reduce} policy is not only applied to individual posts, but also to organizations (``Pages, groups, accounts and domains'') that often publish posts containing misinformation, according to statements in Facebook’s publishers help center \citep{factCheckingRules, repeatOffenderCommunication}:
 \begin{quote}
 \emph{Pages and websites that repeatedly share misinformation rated False or Altered will have some restrictions, including having their distribution reduced.}
 \end{quote}
-Facebook ranks each post by assigning to it a relevancy score, where a high score leads to a high likelihood of the post to appear on a user's newsfeed. 
-Doing so, Facebook can make a post or a whole account less visible by decreasing the relevancy score of its content; this is precisely the {\it reduce} measure \citep{threePartRecipe}.
 
-So far Facebook has not provided data showing how their {\it reduce} policy is implemented, which would allow researchers to quantify its impact on the spread of misinformation. 
-To the best of our knowledge, the impact of the {\it reduce} policy has not yet been audited directly.
-Hence the present research article departs from articles studying the overall levels of misinformation on platforms \citep{allcott2019trends, kornbluh2020new, resnick2018iffy}, by focusing on monitoring a specific policy against misinformation.
+Facebook ranks each post in users’ newsfeed by assigning a relevance score to it. 
+A high score leads to a high likelihood of the post appearing at the top of a user's newsfeed. 
+By decreasing the relevance score, Facebook can make a post or an entire account less visible \citep{threePartRecipe}.
+However, Facebook has not provided data showing how their {\it reduce} policy is implemented that would allow researchers to quantify its impact on the spread of misinformation. 
 
-We used CrowdTangle, a public insights tool owned and operated by Facebook, to access Facebook data \citep{team2020crowdtangle}. 
+One study analysed the reach of a set of websites identified as sources of false stories on Facebook and Twitter from January 2015 to July 2018. 
+They found that during the 2016 American elections, total engagement on Facebook and Twitter for these sites had more than doubled compared to pre-election levels. 
+Following the election, however, Facebook engagements fell sharply, while Twitter shares continued to increase for these sites, suggesting that Facebook might have taken measures to contain misinformation while Twitter did not \cite{allcott2019trends}. 
+
+A more recent article by Kornbluh et al. (2020) \cite{kornbluh2020new} measured the level of interactions on Facebook with articles from outlets that repeatedly publish false content from 2016 to 2020, and found results contrasting with those of Allcott and colleagues \cite{allcott2019trends}. 
+Although Kornbluh et al. did observe a decrease in the first and second quarter of 2017, they observed that total interactions with ‘deceptive’ outlets on Facebook have increased since then, and were $242\%$ higher during the third quarter of 2020 than during the run-up to the 2016 election. 
+These results suggest that Facebook’s policy did not make a lasting impact on misinformation. 
+
+Another similar approach was developed by Resnick and colleagues \cite{resnick2018iffy} in the form of the Iffy quotient: a daily calculation of the fraction of the 5,000 most popular URLs on a platform that came from `iffy' sites (made of a large list of sites that are defined as frequent sources of misinformation and hoaxes). 
+According to this quotient, the proportion of top viral links on Facebook from `iffy' websites was about $20\%$ during both the 2016 and 2020 US presidential elections. 
+On Twitter, the Iffy quotient increased from about $15\%$ in late October 2016 to around $20\%$ in late October 2020 \cite{IffyQuotient}. 
+The three studies mentioned above find rather different results due to different methodologies and use of sources that they labeled `unreliable', but they paint a picture that is in agreement with a persistence of misinformation on Facebook and Twitter at an elevated level.
+
+The present research article departs from articles studying the overall levels of misinformation on platforms by focusing on monitoring a specific policy against misinformation.
+To do so, we used CrowdTangle, a public insights tool owned and operated by Facebook, to access Facebook data \citep{team2020crowdtangle}. 
 CrowdTangle exclusively tracks public content, and provides access to engagement metrics (such as the number of likes, shares and comments), but not to the reach (number of views) of content \citep{helpCT}.
-To investigate the effect of the reduce policy, we thus analyzed the engagement per post received by `repeat offender' accounts. 
-Indeed, one would expect this metric to decline if the accounts’ posts become less visible in Facebook’s feed.
+If Facebook is decreasing the visibility of accounts sharing misinformation, we would expect the reach of their posts to decrease.
+As less users see these posts, the engagement per post should also decrease.
+To investigate the effect of the {\it reduce} policy, we used the engagement per post as a proxy for the visibility of the `repeat offender' accounts content.
  
 We first combined data from one of Facebook's fact-checking partners (Science Feedback) identifying URLs sharing misinformation and from CrowdTangle tracking engagement metrics of the Facebook accounts that repeatedly shared such misinformation.
-We then replicated this methodology using a more complete source of misinformation URLs obtained directly from Facebook (Condor data).
-Using another method to identify `repeat offender' accounts, we finally studied the engagement metrics of a set of Facebook pages claiming to be under reduced distribution.
-
+We then replicated this methodology using a set of URLs marked as misinformation by more than one fact-checking organization obtained directly from Facebook (using the Condor dataset).
+Finally, we investigated the engagement metrics of a set of Facebook pages claiming to be under reduced distribution.
 
 \section{Research questions}
 
 \begin{itemize}
-\item Was the policy aiming to reduce the distribution of misinformation repeat offenders actually enforced by Facebook during the 2019-2020 period?
-\item If so, what was the magnitude of the reduction applied? And is there a difference between Facebook groups and Facebook pages?
-\item Does this action have an impact on the spread of misinformation on Facebook, i.e., can we see a global increase or decrease in engagement for the repeat offender accounts through time?
+\item Is Facebook’s policy aiming to reduce the distribution of misinformation from repeat offenders enforced and can its implementation be verified using available engagement data?
+\item If implemented, what is the magnitude of the reduction in engagement metrics and how does it affect Facebook groups and pages?
+\item What is the overall impact of the policy on the spread of misinformation on Facebook, i.e. does it result in a  decrease in engagement integrated for all repeat offender’s accounts over time?
 \end{itemize}
 
 \section{Investigating the reduce policy on Facebook accounts repeatedly sharing misinformation (Science Feedback data)}
