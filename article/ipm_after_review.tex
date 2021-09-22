@@ -463,7 +463,7 @@ Average engagement per post in 2019-2020 plotted separately for the 476 groups (
 \end{figure}
 
 We also plotted here the engagement dynamics for the set of misinformation pages that shared a `reduced distribution' notification (see Figure \ref{engagement_groups_and_pages_reduce}).
-As with the previous sets of pages shown above, there is no reduction in engagement for these `reduced distribution' pages in June 2020.
+As with the previous sets of pages shown above, there is no reduction in engagement for these pages in June 2020.
 
 \begin{figure}[!h]
 \centering
@@ -522,18 +522,28 @@ Overlap between the list of False URLs from Science Feedback and the list of Fal
 To compare the two lists of URLs, we first normalized all the URLs with the same method, and then built a Venn diagram from the two lists of normalized URLs (see Figure \ref{venn_urls}). 
 The overlap was found to be smaller than expected. 
 Indeed only $32\%$ of the URLs in Science Feedback were also in Condor, suggesting that most of the URLs fact-checked were shared by less than 100 users. 
-Furthermore, the URLs from Science Feedback represented only $11\%$ of all the URLs in Condor, which shows that Science Feedback is only one of the many third-party fact-check partners to Facebook.
+Furthermore, the URLs from Science Feedback represented only $11\%$ of all the URLs in Condor. As Science Feedback is only one of the 60+ fact-checking organizations partnering with Facebook \citep{60factCheckingPartners}, we can see that its fact-checked URLs are actually well represented in the Condor dataset.
 
 \section*{Overlap between the different sets of accounts analyzed}
+
+As we used different methodologies to obtain three different lists of `repeat offender' accounts, we verify how much of these accounts were redundant in the different lists. 
+
+In the third analysis only pages were found, and thus we only compare the lists of Facebook groups collected between the first and second analyses (see Figure \ref{venn_accounts} left panel). 
+Although the lists of false URLs do not overlap that much between the two data sources, we found that two third ($67\%$) of the groups identified using the Science Feedback data were also obtained from the Condor data. 
+This can be explained because the ULRs in common between Science Feedback and Condor were the most viral ones (shared by more than 100 users) and thus these URLs played an important role to identify accounts repeatedly sharing misinformation.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{./../figure/supplementary_venn_groups_and_pages.png}
 \caption{
-Overlap between the sets of accounts collected with the different methodologies.
+\textbf{(Left panel)} Overlap between the two lists of Facebook groups identified by the Science Feedback data (first analysis) and by the Condor data (second analysis). \textbf{(Right panel)} Overlap between the three lists of Facebook pages identified with by Science Feedback data (first analysis), by the Condor data (second analysis) and by sharing a `reduced distribution' notification (third analysis).
 }
 \label{venn_accounts}
 \end{figure}
+
+We also compare the lists of pages found using the three different methods (Figure \ref{venn_accounts} right panel).
+We again found a significant overlap between the page list for two first analyses, as 8 pages out of the 18 pages identified by the Science Feedback data were also found using the Condor data.
+Interestingly the overlap between of the two first lists and the 83 pages sharing a `reduced distribution' notification was almost null (with only 2 pages in common with the first list, and 1 page with the second list).
 
 \section*{Characterization of the accounts studied} 
 
