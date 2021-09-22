@@ -45,10 +45,11 @@ def import_crowdtangle_group_data():
     return posts_df
 
 
-def plot_reduce_example_timeseries(posts_df):
+def plot_reduce_example_timeseries(posts_df, pages_df):
 
-    account_name = 'I Love Carbon Dioxide'
-    reduced_distribution_date = '2020-04-28'
+    account_name = '100 Percent FED Up'
+    reduced_distribution_date = pages_df[pages_df['page_name'] == account_name]['date'].values[0]
+    print(reduced_distribution_date)
 
     plt.figure(figsize=(7, 3.5))
     ax = plt.subplot()
@@ -62,12 +63,12 @@ def plot_reduce_example_timeseries(posts_df):
     plt.ylabel("Engagement per post")
     timeserie_template(ax)
 
-    plt.ylim(0, 3000)
+    plt.ylim(0, 10000)
     plt.axvline(x=np.datetime64(reduced_distribution_date), color='C3', linestyle='--')
 
     xticks = [np.datetime64('2019-01-01'), np.datetime64('2019-05-01'), np.datetime64('2019-09-01'),
-              np.datetime64('2020-01-01'), np.datetime64('2020-09-01'), np.datetime64('2021-01-01'),
-              np.datetime64(reduced_distribution_date)
+              np.datetime64('2020-01-01'), np.datetime64('2020-05-01'), np.datetime64('2020-09-01'),
+              np.datetime64('2021-01-01'), np.datetime64(reduced_distribution_date)
              ]
     plt.xticks(xticks, rotation=30, ha='right')
     plt.gca().get_xticklabels()[-1].set_color('red')
@@ -119,7 +120,7 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     # sumup_df.to_csv('list_pages_decrease_after_notification.csv', index=False)
 
     print('\nREDUCE DROP:')
-    print("drop for 'I Love Carbon Dioxide':", sumup_df[sumup_df['account_name']=='I Love Carbon Dioxide']['percentage_change_engagament'].values[0])
+    print("drop for '100 Percent FED Up':", sumup_df[sumup_df['account_name']=='100 Percent FED Up']['percentage_change_engagament'].values[0])
 
     print('Number of Facebook pages:', len(sumup_df))
     print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
@@ -157,11 +158,10 @@ if __name__=="__main__":
     posts_df = posts_df[~posts_df['account_id'].isin([121187761264826, 143745137930, 164620026961366])]
     print("\nThere are {} 'reduced distribution' Facebook pages.".format(posts_df.account_id.nunique()))
 
-    plot_reduce_example_timeseries(posts_df)
-
     pages_df = import_data(file_name="page_list_section_3.csv", folder="section_3_self_declared")
     pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
+    plot_reduce_example_timeseries(posts_df, pages_df)
     plot_engagement_percentage_change(posts_df, pages_df)
 
     print('\nJUNE DROP:')
