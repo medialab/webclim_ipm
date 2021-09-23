@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
-from utils import (import_data, save_figure, 
+from utils import (import_data, save_figure, export_data,
                    timeserie_template, percentage_change_template,
                    calculate_june_drop, calculate_confidence_interval_median)
 
@@ -80,6 +80,7 @@ def plot_reduce_example_timeseries(posts_df, pages_df):
 def calculate_engagement_percentage_change(posts_df, pages_df, period_length=30):
 
     sumup_df = pd.DataFrame(columns=[
+        'account_id',
         'account_name', 
         'engagement_before', 
         'engagement_after'
@@ -104,6 +105,7 @@ def calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
         if (len(posts_df_group_before) > 0) & (len(posts_df_group_after) > 0):
             
             sumup_df = sumup_df.append({
+                'account_id': account_id,
                 'account_name': account_name, 
                 'engagement_before': np.mean(posts_df_group_before['engagement']),
                 'engagement_after': np.mean(posts_df_group_after['engagement']),
@@ -114,10 +116,9 @@ def calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
     return sumup_df
 
 
-def plot_engagement_percentage_change(posts_df, pages_df):
+def plot_engagement_percentage_change(posts_df, pages_df, list_accounts):
 
     sumup_df = calculate_engagement_percentage_change(posts_df, pages_df, period_length=30)
-    # sumup_df.to_csv('list_pages_decrease_after_notification.csv', index=False)
 
     print('\nREDUCE DROP:')
     print("drop for '100 Percent FED Up':", sumup_df[sumup_df['account_name']=='100 Percent FED Up']['percentage_change_engagament'].values[0])
@@ -150,8 +151,14 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     plt.tight_layout()
     save_figure('reduce_percentage_change')
 
+    sumup_df['after_vs_before_reduce'] = sumup_df['percentage_change_engagament'].apply(lambda x: str(int(np.round(x))) + '%')
+    list_accounts = pd.merge(list_accounts, sumup_df[['account_id', 'after_vs_before_reduce']], 
+                             how='left', on="account_id")
 
-def print_june_drop_stats(posts_df):
+    return list_accounts
+
+
+def print_june_drop_stats(posts_df, list_accounts):
 
     sumup_df = calculate_june_drop(posts_df)
 
@@ -160,18 +167,28 @@ def print_june_drop_stats(posts_df):
     w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
     print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
 
+    sumup_df['june_drop'] = sumup_df['percentage_change_engagament'].apply(lambda x: str(int(np.round(x))) + '%')
+    list_accounts = pd.merge(list_accounts, sumup_df[['account_id', 'june_drop']], 
+                             how='left', on="account_id")
+
+    return list_accounts
 
 if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
+
     # Remove pages already analyzed in section 1 and 2:
     posts_df = posts_df[~posts_df['account_id'].isin([121187761264826, 143745137930, 164620026961366])]
     print("\nThere are {} 'reduced distribution' Facebook pages.".format(posts_df.account_id.nunique()))
+
+    list_accounts = posts_df[['account_id', 'account_name']].drop_duplicates()
+    list_accounts.insert(2, 'page_or_group', 'page')
 
     pages_df = import_data(file_name="page_list_section_3.csv", folder="section_3_self_declared")
     pages_df['date'] = pd.to_datetime(pages_df['reduced_distribution_start_date'])
 
     plot_reduce_example_timeseries(posts_df, pages_df)
-    plot_engagement_percentage_change(posts_df, pages_df)
+    list_accounts = plot_engagement_percentage_change(posts_df, pages_df, list_accounts)
 
-    print_june_drop_stats(posts_df)
+    list_accounts = print_june_drop_stats(posts_df, list_accounts)
+    export_data(list_accounts, 'list_accounts_reduce', 'section_3_self_declared')
