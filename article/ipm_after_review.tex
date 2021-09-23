@@ -417,7 +417,17 @@ As a third step, we identified 83 Facebook pages which have shared a Facebook no
 The pages' engagement metrics were significantly lower after the date of the notification (median of $-25\%$), suggesting that the `reduced distribution' measure was indeed applied to the pages.
 We noted that no group was found when searching for accounts sharing a reduced distribution notification, which confirms that the `repeat offender' policy is applied only to Facebook pages, and not to groups.
 
-{\color{red} EXPLAIN LIMITS OF THE STUDY}
+The different methodologies we used to infer the repeat offender periods are subjected to biases.
+On one hand, to identify perfectly repeat offender periods from a list of False URLs, we should have access to all the False URLs that this given accout has shared, and the two URL data sources we relied on are both more or less incomplete.
+Moreover the `two strikes in 90 days' rule used to infer repeat offender periods may not be the exact rule used by Facebook, or the rule may have changed with time.
+On the other hand, the date at which a page shared their `reduced distribution' notification may be months later after the page received the notification.
+
+There is no public data indicating when a group or page is under a repeat offender status, as this information is a private notification sent to Facebook to the concerned accounts only.
+The only way to monitor the repeat offender policy was thus to deduce which groups or pages should be reduced from the data available to us.
+We found consistent results in the three different analyses, with a median decrease in engagement ranging from $-62\%$ to $-24\%$, and it hints that these different methods estimated more or less correctly the repeat offender periods.
+Furthermore there might be a lag between the strike date and the application of the `repeat offender' policy, to allow for human verification. 
+If so, it should be of a few days and have minimal impact on our calculations using 30 days or more windows.
+Because of these potential biases, it is likely that the true size effect of the `repeat offender' interventions is underestimated.
 
 Although we observe a global reduction in engagement, there is a large heterogeneity across the different `repeat offender' pages (see Figures \ref{repeat_vs_free_percentage_change}, \ref{condor_repeat_vs_free_percentage_change} and \ref{reduce_percentage_change}). 
 The engagement of some popular pages have actually increased, such as the \href{https://www.facebook.com/TuckerCarlsonTonight/}{`Tucker Carlson Tonight' page} with a $38\%$ increase (from 104k to 143k interactions per post) following the `reduced distribution' notification from Facebook.
@@ -481,11 +491,6 @@ then acting against `repeat offenders' is likely to be one of the most effective
 
 There is a critical need for further research to thoroughly verify and shed light on platforms' actions against misinformation. 
 While our results provide information on the relative drop in engagement per post resulting from Facebook’s repeat offenders policy, more research is needed to quantify the impact of such policies on the overall prevalence of misinformation in users’ feeds.
-
-%\begin{enumerate}[(1)]
-%\item Group the authors per affiliation.
-%\item Use footnotes to indicate the affiliations.
-%\end{enumerate}
 
 \bibliography{mybibfile}
 
