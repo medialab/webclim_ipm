@@ -154,7 +154,7 @@ def plot_engagement_percentage_change(posts_df, pages_df):
 if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
-    # Remove pages already analyzed in section 1 or 2:
+    # Remove pages already analyzed in section 1 and 2:
     posts_df = posts_df[~posts_df['account_id'].isin([121187761264826, 143745137930, 164620026961366])]
     print("\nThere are {} 'reduced distribution' Facebook pages.".format(posts_df.account_id.nunique()))
 
