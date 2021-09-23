@@ -59,7 +59,7 @@ The general public is increasingly getting news related information online, thro
 Hence the spread of misinformation through these platforms has recently received growing attention.
 Recent studies, along with the political context of January 2021 in the United States, show how the presence of misinformation online can contribute to negative societal consequences.
 Namely it can fuel false beliefs, such as the idea of a massive voter fraud during the US 2020 presidential election, which may have led to the January 6, 2021 insurrection at the U.S. Capitol \citep{benkler2020mail} and other false stories about presidential candidates \citep{allcott2017social}. 
-Misinformation has also contributed to confusing the public about the reality of climate change \citep{brulle30years, porter2019can} and stoked skepticism about vaccine safety among the public \citep{featherstone2020feeling, lahouati2020spread}. 
+Misinformation has also contributed to confusing the public about the reality of climate change \citep{brulle30years, porter2019can} and stoked skepticism about vaccine safety among the public \citep{featherstone2020feeling, lahouati2020spread, pierri2021impact}. 
 In April 2020, a questionnaire from the Reuters Institute found that people in the UK use online sources more often than offline sources when looking for information about the coronavirus. 
 Among social media platforms, Facebook was the most widely used with $24\%$ of the respondents saying they used Facebook to access COVID-19 information in the last seven days \citep{fletcher2020information}.
 The importance of Facebook in the media landscape is confirmed by Parse.ly’s dashboard, which shows that $25\%$ of the visitors of 2500+ media websites are referred by Facebook \citep{parslyDashboard}.
@@ -77,12 +77,12 @@ Facebook announced a three-part policy to address ‘misleading or harmful conte
 Facebook has developed the most extensive third-party fact-checking program with dozens of partner institutions to assist the company in this endeavour \citep{60factCheckingPartners}.
 Fact-checkers have access to a stream of viral and likely problematic content, which they can verify and flag as misinformation, with options ranging from ``True'' (not misinformation), to ``Missing context'' to ``Partly false'' and ``False'' \citep{RatingOptions}.
 Facebook informs page or group owners when published posts on their pages or groups are marked as misinformation, inviting them to correct the posts.
-Facebook states that the virality of the posts marked as `False' or `Partly False' will be reduced.
 The platform's users receive a notification when they have shared a post marked as misinformation and see a notice linking to the fact-check over the flagged posts. 
 A handful of papers provide evidence that supports the efficacy of fact-checking labels by reducing the likelihood that users share false information \citep{mena2020cleaning} and reducing false beliefs \citep{porter2021global}. 
 In an experimental setting, Pennycook et al. \cite{pennycook2020understanding} show that prompting people to consider the accuracy of a piece of information increases the quality of the information they subsequently share on social media.
+Facebook states that the virality of the posts marked as `False' or `Partly False' will be reduced.
 
-The \textit{reduce} policy is not only applied to individual posts, but also to organizations (``Pages, groups, accounts and domains'') that often publish posts containing misinformation, according to statements in Facebook’s publishers help center \citep{factCheckingRules, repeatOffenderCommunication}:
+The \textit{reduce} policy is not only applied to individual posts, but also to organizations that often publish posts containing misinformation, according to statements in Facebook’s publishers help center \citep{factCheckingRules, repeatOffenderCommunication}:
 \begin{quote}
 \emph{Pages and websites that repeatedly share misinformation rated False or Altered will have some restrictions, including having their distribution reduced.}
 \end{quote}
@@ -106,9 +106,9 @@ On Twitter, the Iffy quotient increased from about $15\%$ in late October 2016 t
 The three studies mentioned above find rather different results due to different methodologies and use of sources that they labeled `unreliable', but they paint a picture that is in agreement with a persistence of misinformation on Facebook and Twitter at an elevated level.
 
 The present research article departs from articles studying the overall levels of misinformation on platforms by focusing on monitoring a specific policy against misinformation.
-To do so, we used CrowdTangle, a public insights tool owned and operated by Facebook, to access Facebook data \citep{team2020crowdtangle}. 
+To that end, we used CrowdTangle, a public insights tool owned and operated by Facebook, to access Facebook data \citep{team2020crowdtangle}. 
 CrowdTangle exclusively tracks public content, and provides access to engagement metrics (such as the number of likes, shares and comments), but not to the reach (number of views) of content \citep{helpCT}.
-If Facebook is decreasing the visibility of accounts sharing misinformation, we would expect the reach of their posts to decrease.
+If Facebook decreases the visibility of posts from accounts sharing misinformation, we expect that their reach decreases.
 As less users see these posts, the engagement per post should also decrease.
 To investigate the effect of the {\it reduce} policy, we used the engagement per post as a proxy for the visibility of the `repeat offender' accounts content.
  
@@ -126,45 +126,61 @@ Finally, we investigated the engagement metrics of a set of Facebook pages claim
 
 \section{Investigating the reduce policy on Facebook accounts repeatedly sharing misinformation (Science Feedback data)}
 
-We used data from Science Feedback, which is part of Facebook’s third-party fact-checking program \cite{sciencefeedbackFbPartner}. 
-Science Feedback is a fact-checking organization, where academics review the credibility of science-related claims and articles.
+To investigate a possible impact of Facebook’s policy against accounts that repeatedly share misinformation, we first identified such accounts using data from Science Feedback, one of Facebook’s third-party fact-checking partners \cite{sciencefeedbackFbPartner}.
+Science Feedback is a fact-checking organization dedicated to verifying the credibility of science-related claims and articles. 
+The organization tracks the most viral press articles or social media posts, invites scientists with domain expertise to evaluate their credibility and publishes explanatory articles for a general audience. 
+It contributes to maintaining a database of URLs where the claims checked have been published or repeated that is available online at \url{open.feedback.org}.
 
 \subsection{Methods}
 
 We obtained from Science Feedback a list of 4,000+ URLs reviewed by its team. 
+The list was obtained on January 4, 2021 and cover links flagged in 2019 and 2020.
 We relied on the 2,452 URLs marked as `False', which we refer to as `false news links', excluding the URLs marked as `Partly False', `Missing Context', `False headlines' or `True', as well as the URLs marked as `False' but `corrected' by the publisher, because these labels do not contribute to the `repeat offender' status according to Facebook's guidelines.
-Sharing a URL fact-checked as `Altered' also contribute to the `repeat offender' status \citep{factCheckingRules, repeatOffenderCommunication}, but we found no such rating in the Science Feedback data.
-The list of `false news links' was obtained on January 4, 2021 and cover links flagged in 2019 and 2020.
+Sharing a URL flagged as `Altered' also contributes to the `repeat offender' status \citep{factCheckingRules, repeatOffenderCommunication}, but we found no such rating in the Science Feedback data.
 
 Using the `/links' endpoint from the CrowdTangle API, we collected the public Facebook groups and pages that shared at least one false news link between January 1, 2019 and December 31, 2020. 
-Due to the API limitations, if a URL was shared in more than 1000 posts, we collected only the 1000 posts that received the highest number of interactions \cite{docCT}. 
-We focused on the accounts that spread misinformation the most often, choosing a threshold of 24 different false news links shared over the past two years.  
+Due to the API limitations, if a URL was shared in more than 1000 posts, we collected only the 1000 posts that received the highest number of interactions \cite{docCT}; this means that we miss some of the accounts that generate the least interactions and our results focus on the most prolific accounts.
+We focused on the accounts that spread misinformation the most often, choosing a threshold of 24 different false news links shared over the two years period. 
 
 The corresponding 307 Facebook accounts (289 Facebook groups and 18 Facebook pages) are referred to as `repeat offenders accounts'. 
+The list of accounts is available on the paper’s GitHub repository: {\color{red} \url{https://github.com/medialab/webclim_facebook/blob/master/data/crowdtangle_list/account_list_part_1.csv}}.
+The repository also contains the code used to collect and analyze the data, and to plot the figures.
 All the posts they published between January 1, 2019 and December 31, 2020 were collected using the `/posts' endpoint. 
 We calculated the engagement per post by summing the number of comments, shares and reactions (such as ‘like’, ‘love’, ‘favorite’, ‘haha’, ‘wow’, ‘sad’ and ‘angry’ reactions) that each post has received.
 
 `Repeat offender' accounts are supposed to have their distribution reduced, according to Facebook's official communication, but the precise rule Facebook uses to classify an account as `repeat offender' is not specified. 
-However, an undisclosed source obtained by a journalist \cite{2strikes90daysRule} indicated that:
+However, a Facebook’s staff indicated to a journalist \cite{2strikes90daysRule} that:
 \begin{quote}
 \emph{The company operates on a `strike' basis, meaning a page can post inaccurate information and receive a one-strike warning before the platform takes action. 
 Two strikes in 90 days places an account into `repeat offender' status.}
 \end{quote}
-
 
 Based on this `two strikes in 90 days' rule and the list of strike dates known by Science Feedback, we inferred periods during which each account must have been under repeat offender status. 
 If a post shares a misinformation link which was previously fact-checked as `False', we used the date of the post as the strike date. 
 However, if an account shares a link, which later gets fact-checked as `False', then the fact-check date was used as the strike date. 
 A repeat offender period is defined as any given time in which an account shared two or more `false news links' over the past 90 days (see Figure \ref{repeat_example_timeseries} for two examples).
 
+The set of accounts analysed comprises some groups and pages that generate more engagement than others by several orders of magnitude. 
+Because the underlying distribution of the engagement metrics were not Gaussian, we used non-parametric statistical methods. 
+To compare the engagement metrics between different periods, we calculated the percentage change for each account, and tested their difference against zero with a Wilcoxon test.
+As it compares the sums of ranks, a Wilcoxon test is less likely than a t-test to spuriously indicate significance because of the presence of outliers \cite{wilcoxon1992individual}.
+
+The confidence intervals around the medians are estimated using a non-parametric approach, called bootstrap. 
+In each range, the engagement metrics for the N accounts are called events. 
+We randomly sample N events with replacement, meaning that one event can be selected more than once. 
+From the selected N events, we calculate the median. 
+By repeating this process 1,000 times, we obtain 1,000 values for the median. 
+The upper and lower limit of each error bar (in Figures \ref{repeat_vs_free_percentage_change}, \ref{repeat_june_drop_percentage_change}, \ref{condor_repeat_vs_free_percentage_change}, \ref{condor_june_drop_percentage_change} and \ref{reduce_percentage_change}) represents the 5\% and 95\% percentiles of the 1,000 medians.
+
+
 \subsection{Results}
 
-Figure \ref{repeat_example_timeseries} displays the engagement metrics for one `repeat offender' group named \href{https://www.facebook.com/groups/108655705888371/}{`Australian Climate Sceptics Group'} and one `repeat offender' page named \href{https://www.facebook.com/avoiceforchoice/}{`A Voice for Choice'}. 
-The known strike dates appear as red lines at the bottom and the inferred ‘repeat offender’ periods are shaded in red. 
+Figure \ref{repeat_example_timeseries} displays the engagement metrics for one `repeat offender' group named \href{https://www.facebook.com/groups/108655705888371/}{`Australian Climate Sceptics Group'} and one `repeat offender' page named \href{https://www.facebook.com/avoiceforchoice/}{`A Voice for Choice'}.
+The known strike dates appear as red lines at the bottom and the inferred ‘repeat offender’ periods are shaded in red.
 The average engagement per post varies throughout the past two years, but does not appear to be related with the shift between `repeat offender' and `no strike' periods for `Australian Climate Sceptics Group'.
-Regarding the `A Voice for Choice' page, we observe a decrease in engagement in 2020, while the page has shared many different False URLs in 2020 and was supposed to be under `repeat offender' status.
+For the `A Voice for Choice' page, we observe a decrease in engagement in 2020, as the page repeatedly shared different False URLs, which would have maintained it under `repeat offender' status throughout 2020.
 We compared the average engagement metrics between the `repeat offender' and the `no strike' periods, expecting a decrease in engagement during the `repeat offender' periods.
-The percentage change is $61\%$ for `Australian Climate Sceptics Group', and $-58\%$ for `A Voice for Choice'.
+The percentage change is $+61\%$ for `Australian Climate Sceptics Group', and $-58\%$ for `A Voice for Choice'.
 
 \begin{figure}[!h]
 \centering
@@ -173,15 +189,15 @@ The percentage change is $61\%$ for `Australian Climate Sceptics Group', and $-5
 \textbf{(Top panel)} Average engagement (the sum of comments, shares, likes, ...) per post for the `Australian Climate Sceptics Group' Facebook group for each day in 2019 and 2020.
 Each red line at the bottom represents the date of a known strike for this group according to the Science Feedback data. 
 The areas shaded in red represent the `repeat offender' periods as defined by the ‘two strikes in 90 days’ rule.
-\textbf{(Bottom panel)} Same representation for the `A Voice for Choice' Facebook page.
+\textbf{(Bottom panel)} Same as above for the `A Voice for Choice' Facebook page.
 }
 \label{repeat_example_timeseries}
 \end{figure}
 
-To provide a general overview, we calculate the percentage change between the `repeat offender' and the `no strike' periods for each of the 256 Facebook accounts that have published at least one post during each period (see Figure \ref{repeat_vs_free_percentage_change}).\footnote{The percentage changes were calculated on the periods between January 1, 2019 and June 8, 2020. Because of the drop in engagement described further, the second semester of 2020 was excluded for its vastly diminished and not representative engagement level (see Figure \ref{repeat_average_timeseries}).}
+To provide a general overview, we calculate the percentage change between the `repeat offender' and the `no strike' periods for each of the 256 Facebook accounts that have published at least one post during each period (see Figure \ref{repeat_vs_free_percentage_change}).\footnote{The percentage changes were calculated on the periods between January 1, 2019 and June 8, 2020. Because of the drop in engagement described further down, the second semester of 2020 was excluded (see Figure \ref{repeat_average_timeseries}).}
 The median percentage change is $-6\%$, and a Wilcoxon test shows that the values are not significantly different from zero (W = $16051$, p-value = $0.74$).
 
-When we consider groups and pages separately, the results are different.
+When we consider groups and pages separately, the percentage changes are different for the two.
 For the 238 Facebook groups, the percentage changes are not significantly different from zero (W = $13561$, p-value = $0.54$), with a median of $-3\%$, while for the 18 Facebook pages, the percentage changes are significantly different from zero (W = $21$, p-value = $0.0034$), with a median of $-43\%$.
 
 \begin{figure}[!h]
@@ -191,7 +207,7 @@ For the 238 Facebook groups, the percentage changes are not significantly differ
 Percentage changes between the average engagement per post during the `repeat offender' periods and the `no strike' periods.
 Each deep blue dot represents a Facebook group, and each light blue dot a Facebook page.
 The bars show the medians for each set and their $90\%$ confidence intervals (the intervals are estimated using a bootstrap method).
-The 256 `repeat offender' accounts represented here were identified by the Science Feedback data, and have published at least one post during each period.
+The 256 `repeat offender' accounts represented here were identified using Science Feedback data, and have published at least one post during each period.
 }
 \label{repeat_vs_free_percentage_change}
 \end{figure}
@@ -203,11 +219,11 @@ This metric, representing the total engagement generated by these accounts on Fa
 \centering
 \includegraphics[scale=0.5]{./../figure/sf_average_timeseries.png}
 \caption{
-{\bf(Top panel)} Average engagement per day. 
+Metrics aggregated over the 307 Facebook accounts that repeatedly shared false news links identified using Science Feedback data.
+{\bf(Top panel)} Total engagement per day averaged for all accounts.
 {\bf(Middle panel)} Number of posts per day. 
 {\bf(Bottom panel)} Average engagement per post. 
 The dotted red line marks the date of June 9, 2020, when a sudden drop in engagement is observed.
-The metrics were aggregated over the 307 `repeat offender' Facebook accounts identified by the Science Feedback data.
 }
 \label{repeat_average_timeseries}
 \end{figure}
@@ -216,10 +232,10 @@ The total engagement per day is stable from January to September 2019, however w
 This rise is explained by the increase in activity of the misinformation accounts (with a doubling of the number of posts per day) while the engagement per post remained rather constant.
 Around June 9, 2020, the total engagement metrics have massively dropped.
 This decrease is entirely explained by a corresponding drop in engagement per post (Figure \ref{repeat_average_timeseries}).
-This drop has cut the groups' engagement per post in half, but it was compensated by the fact that the overall activity of `repeat offender' has doubled between 2019 and 2020.
-The engagement for `repeat offender' groups was thus reset by this intervention to its pre-pandemic level.
+While this drop has cut the groups' engagement per post in half, this decrease was compensated by the fact that `repeat offender' accounts have doubled their number of posts between 2019 and 2020.
+The net result is that the total engagement on posts from `repeat offender' accounts returned to its early 2019 levels.
 
-To further quantify this ‘June drop’, we calculated the percentage change in engagement for each account during a 30-day period before and after June 9, 2020 (Figure \ref{repeat_june_drop_percentage_change}). 
+To further quantify this ‘June drop’, we calculated the percentage change in engagement per post for each account during a 30-day period before and after June 9, 2020 (Figure \ref{repeat_june_drop_percentage_change}). 
 The median percentage change is $-43\%$, and most of the accounts (219 out of 289) experienced a decrease in engagement\footnote{A decrease in engagement on June 9, 2020 can be seen for the `Australian Climate Sceptics Group' in Figure \ref{repeat_example_timeseries} (the percentage change was $-60\%$ for this example).}.
 A Wilcoxon test indicates that these percentage changes are significantly different from zero (W = $9012$, p-value = $4.6 \times 10^{-17}$).
 
@@ -235,20 +251,17 @@ The 289 `repeat offender' accounts represented here were identified by the Scien
 \label{repeat_june_drop_percentage_change}
 \end{figure}
 
-Again the results differ between Facebook pages and Facebook groups.
-While the percentage changes for the 271 groups are significantly different than zero (W = $7599$, p-value = $5.1 \times 10^{-17}$), with a median of $-45\%$,
-the 18 pages appears to be not affected by the decrease (W = $73$, p-value = $0.61$), with a median percentage change of only $-5\%$.
-Because of this difference between groups and pages, we have also plotted the engagement per post in 2019-2020 separately for groups and pages in Supplementary Figure \ref{engagement_groups_and_pages_sf}, and we can see that the engagement only drops for groups in June 2020.
+When we consider groups and pages separately, the percentage changes are different for the two.
+While the percentage changes for the 271 groups are significantly different from zero (W = $7599$, p-value = $5.1 \times 10^{-17}$), with a median of $-45\%$,
+the 18 pages appear to not be affected by the decrease (W = $73$, p-value = $0.61$), with a median percentage change of $-5\%$. 
+As the June drop does not affect groups and pages equally, we reproduced Figure \ref{repeat_average_timeseries}’s bottom panel for groups and pages separately (see Supplementary Figure \ref{engagement_groups_and_pages_sf}), which further shows that the June 2020 engagement metrics’ drop only affects groups.
 
-To verify whether this drop was specific to this set of groups, we compared these dynamics to those of a control set of accounts consisting of Facebook pages and groups associated with established news outlets that did not publish misinformation.
-No such drop in total or per post engagement metrics was observed around June 9, 2020 (see Supplementary Figure \ref{june_drop_control}).
+To verify whether this drop was specific to `repeat offender' groups, we compared these dynamics to those of a control set of accounts consisting of Facebook pages and groups associated with accounts that did not publish misinformation.
+No such drop in engagement was observed around June 9, 2020 (see Supplementary Figure \ref{june_drop_control}).
 
-We can only explain such a massive change by a modification in how Facebook’s algorithm promoted the content from these groups starting on June 9, 2020.
+The most likely explanation for such a massive change is that Facebook modified how its algorithm promoted the content from these groups starting on June 9, 2020.
 While we did observe a relationship between the strike dates and a decrease in engagement for `repeat offender' pages, we observed no such link for `repeat offender' groups.
-Hence it seems that Facebook only took action against these groups via this one-shot measure in June.
-
-One limitation of the results described in this section is that we obtained the links labelled as `False' from only one fact-checking organization (Science Feedback), while Facebook partners with over 60 fact-checking organizations \citep{60factCheckingPartners}.
-The true `repeat offender' periods could thus be longer than the ones inferred, potentially changing the magnitude of the ‘reduce’ effect.
+Hence it seems that Facebook took action against these groups via this one-shot measure in June 2020.
 
 \section{Investigating the reduce policy on accounts repeatedly sharing misinformation (Condor data)}
 
@@ -477,8 +490,6 @@ We would nevertheless argue that it makes the policy easier to be circumvented f
 Furthermore, Facebook has announced in May 2021 that an individual's Facebook account will also be reduced if they repeatedly share misinformation content \cite{FacebookReduceUsers}.
 It would thus be interesting to replicate our findings on the 2021 engagement data to monitor the effects of these new measures.
 
-{\color{red} COMPARE WITH THE OTHER PLATFORMS?}
-
 Online misinformation can be a threat to society, and the role that platforms can play via targeted interventions, has been the subject of intense debate over the past few years \citep{rogers2020deplatforming}. 
 As a consequence, researchers \citep{mena2020cleaning, yaqub2020effects} and journalists \citep{FacebookPartisanBias, FacebookCivilityGrowth} have begun to monitor the actions that platforms take to tackle misinformation and their efficacy.
 Given the facts that:
@@ -594,7 +605,7 @@ Furthermore, the URLs from Science Feedback represented only $11\%$ of all the U
 As we used different methodologies to obtain three different lists of `repeat offender' accounts, we verify how much of these accounts were redundant in the different lists. 
 
 In the third analysis only pages were found, and thus we only compare the lists of Facebook groups collected between the first and second analyses (see Figure \ref{venn_accounts} left panel). 
-Although the lists of false URLs do not overlap that much between the two data sources, we found that two third ($67\%$) of the groups identified using the Science Feedback data were also obtained from the Condor data. 
+Although the lists of false URLs do not overlap that much between the two data sources, we found that two third ($67\%$) of the groups identified using Science Feedback data were also obtained from the Condor data. 
 This can be explained because the ULRs in common between Science Feedback and Condor were the most viral ones (shared by more than 100 users) and thus these URLs played an important role to identify accounts repeatedly sharing misinformation.
 
 \begin{figure}[!h]
