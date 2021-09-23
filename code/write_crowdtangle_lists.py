@@ -47,4 +47,4 @@ if __name__=="__main__":
 
     top_more_than_24 = pd.concat([top1_df, top2_df, top3_df, top4_df, top5_df, top6_df])
     print('\n')
-    export_data(top_more_than_24, "condor_lists_for_crowdtangle", folder='section_2_condor')
+    export_data(top_more_than_24, "lists_for_crowdtangle_condor", folder='section_2_condor')

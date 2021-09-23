@@ -62,6 +62,7 @@ def calculate_june_drop(posts_df, period_length=30, drop_date='2020-06-09'):
     drop_date = datetime.datetime.strptime(drop_date, '%Y-%m-%d')
 
     sumup_df = pd.DataFrame(columns=[
+        'account_id',
         'account_name', 
         'engagement_before', 
         'engagement_after'
@@ -84,6 +85,7 @@ def calculate_june_drop(posts_df, period_length=30, drop_date='2020-06-09'):
         if (len(posts_df_group_before) > 0) & (len(posts_df_group_after) > 0) & (np.mean(posts_df_group_before['engagement']) > 0):
             
             sumup_df = sumup_df.append({
+                'account_id': account_id,
                 'account_name': account_name, 
                 'engagement_before': np.mean(posts_df_group_before['engagement']),
                 'engagement_after': np.mean(posts_df_group_after['engagement']),

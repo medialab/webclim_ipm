@@ -15,3 +15,5 @@ __pycache__
 
 *.csv
 *.csv#
+!list_accounts_sf.csv
+!list_accounts_condor.csv

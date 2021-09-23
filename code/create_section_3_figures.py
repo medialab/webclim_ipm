@@ -151,6 +151,16 @@ def plot_engagement_percentage_change(posts_df, pages_df):
     save_figure('reduce_percentage_change')
 
 
+def print_june_drop_stats(posts_df):
+
+    sumup_df = calculate_june_drop(posts_df)
+
+    print('\nJUNE DROP:')
+    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
+    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
+
+
 if __name__=="__main__":
 
     posts_df = import_crowdtangle_group_data()
@@ -164,8 +174,4 @@ if __name__=="__main__":
     plot_reduce_example_timeseries(posts_df, pages_df)
     plot_engagement_percentage_change(posts_df, pages_df)
 
-    print('\nJUNE DROP:')
-    sumup_df = calculate_june_drop(posts_df)
-    print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
-    w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
-    print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
+    print_june_drop_stats(posts_df)

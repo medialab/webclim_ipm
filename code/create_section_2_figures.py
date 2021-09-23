@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from utils import (import_data, save_figure)
+from utils import import_data, save_figure, export_data
 from create_section_1_figures import (
     import_crowdtangle_group_data,
     clean_crowdtangle_url_data,
@@ -37,26 +37,36 @@ def import_crowdtangle_group_data_only_new():
     posts_df, posts_page_df = import_crowdtangle_group_data_all()
     print('There are {} Facebook accounts in this section.'.format(posts_df.account_id.nunique()))
 
-    posts_section_1_df, posts_page_section_1_df = import_crowdtangle_group_data()
-    posts_df = posts_df[~posts_df['account_id'].isin(list(posts_section_1_df.account_id.unique()))]
-    posts_page_df = posts_page_df[~posts_page_df['account_id'].isin(list(posts_page_section_1_df.account_id.unique()))]
+    list_accounts_1 = import_crowdtangle_group_data()[2]
+    posts_df = posts_df[~posts_df['account_id'].isin(list(list_accounts_1.account_id.unique()))]
+    posts_page_df = posts_page_df[~posts_page_df['account_id'].isin(list(list_accounts_1.account_id.unique()))]
     print("Removing the duplicates from Section 1, there are now {} 'new' Facebook accounts.".format(posts_df.account_id.nunique()))
 
-    return posts_df, posts_page_df
+    list_accounts = posts_df[['account_id', 'account_name']].drop_duplicates()
+    list_pages = list_accounts[list_accounts['account_id'].isin(list(posts_page_df["account_id"].unique()))]
+    list_pages.insert(2, 'page_or_group', 'page')
+    list_groups = list_accounts[~list_accounts['account_id'].isin(list(posts_page_df["account_id"].unique()))]
+    list_groups.insert(2, 'page_or_group', 'group')
+    list_accounts = pd.concat([list_groups, list_pages])
+
+    return posts_df, posts_page_df, list_accounts
 
 
 if __name__=="__main__":
 
     # posts_df, posts_page_df = import_crowdtangle_group_data_all()
-    posts_df, posts_page_df = import_crowdtangle_group_data_only_new()
-
+    posts_df, posts_page_df, list_accounts = import_crowdtangle_group_data_only_new()
+    
     posts_url_df  = import_data(file_name="posts_url_2021-08-16.csv", folder="section_2_condor")
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
     url_df = import_data(file_name="tpfc-recent-clean.csv", folder="section_2_condor") 
 
-    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df,
-                                          'clean_url', 'tpfc_first_fact_check',
-                                          'Condor', 'condor_repeat_vs_free_percentage_change')
+    list_accounts = plot_repeat_vs_free_percentage_change(
+        posts_df, posts_url_df, url_df, posts_page_df, 'clean_url', 'tpfc_first_fact_check',
+        'Condor', 'condor_repeat_vs_free_percentage_change', list_accounts)
 
     plot_average_timeseries(posts_df, 'Condor', 'condor_average_timeseries')
-    plot_june_drop_percentage_change(posts_df, posts_page_df, 'Condor', 'condor_june_drop_percentage_change')
+    list_accounts = plot_june_drop_percentage_change(
+        posts_df, posts_page_df, 'Condor', 'condor_june_drop_percentage_change', list_accounts)
+
+    export_data(list_accounts, 'list_accounts_condor', 'section_2_condor')

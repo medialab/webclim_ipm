@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import scipy.stats as stats
 
-from utils import (import_data, save_figure, 
+from utils import (import_data, save_figure, export_data,
                    timeserie_template, percentage_change_template,
                    calculate_june_drop, calculate_confidence_interval_median)
 
@@ -30,7 +30,14 @@ def import_crowdtangle_group_data():
     posts_df['date'] = pd.to_datetime(posts_df['date'])
     posts_df['engagement'] = posts_df[["share", "comment", "reaction"]].sum(axis=1)
 
-    return posts_df, posts_page_df
+    list_accounts = posts_df[['account_id', 'account_name']].drop_duplicates()
+    list_pages = list_accounts[list_accounts['account_id'].isin(list(posts_page_df["account_id"].unique()))]
+    list_pages.insert(2, 'page_or_group', 'page')
+    list_groups = list_accounts[~list_accounts['account_id'].isin(list(posts_page_df["account_id"].unique()))]
+    list_groups.insert(2, 'page_or_group', 'group')
+    list_accounts = pd.concat([list_groups, list_pages])
+
+    return posts_df, posts_page_df, list_accounts
 
 
 def clean_crowdtangle_url_data(post_url_df):
@@ -208,6 +215,7 @@ def keep_free_posts(posts_df_group, repeat_offender_periods):
 def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, url_column, date_column):
 
     sumup_df = pd.DataFrame(columns=[
+        'account_id',
         'account_name', 
         'engagement_repeat', 
         'engagement_free'
@@ -232,6 +240,7 @@ def calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, u
 
         if (len(repeat_offender_df) > 0) & (len(free_df) > 0):            
             sumup_df = sumup_df.append({
+                'account_id': account_id,
                 'account_name': account_name, 
                 'engagement_repeat': np.mean(repeat_offender_df['engagement']),
                 'engagement_free': np.mean(free_df['engagement']),
@@ -269,7 +278,7 @@ def plot_percentage_changes(sumup_groups_df, sumup_pages_df):
     plt.ylim(-.45, 1.35)
 
 
-def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df, url_column, date_column, database_name, figure_name):
+def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df, url_column, date_column, database_name, figure_name, list_accounts):
 
     sumup_df = calculate_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, url_column, date_column)
 
@@ -307,6 +316,12 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_
     plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(len(sumup_df), database_name))
     plt.tight_layout()
     save_figure(figure_name)
+
+    sumup_df['repeat_vs_free'] = sumup_df['percentage_change_engagament'].apply(lambda x: str(int(np.round(x))) + '%')
+    list_accounts = pd.merge(list_accounts, sumup_df[['account_id', 'repeat_vs_free']], 
+                             how='left', on="account_id")
+
+    return list_accounts
 
 
 def plot_average_timeseries(posts_df, database_name, figure_name):
@@ -359,7 +374,7 @@ def plot_average_timeseries(posts_df, database_name, figure_name):
     save_figure(figure_name)
 
 
-def plot_june_drop_percentage_change(posts_df, posts_page_df, database_name, figure_name):
+def plot_june_drop_percentage_change(posts_df, posts_page_df, database_name, figure_name, list_accounts):
 
     sumup_df = calculate_june_drop(posts_df)
 
@@ -399,19 +414,29 @@ def plot_june_drop_percentage_change(posts_df, posts_page_df, database_name, fig
     plt.tight_layout()
     save_figure(figure_name)
 
+    sumup_df['june_drop'] = sumup_df['percentage_change_engagament'].apply(lambda x: str(int(np.round(x))) + '%')
+    list_accounts = pd.merge(list_accounts, sumup_df[['account_id', 'june_drop']], 
+                             how='left', on="account_id")
+
+    return list_accounts
+
 
 if __name__=="__main__":
 
-    posts_df, posts_page_df = import_crowdtangle_group_data()
+    posts_df, posts_page_df, list_accounts = import_crowdtangle_group_data()
 
     posts_url_df  = import_data(file_name="posts_url_2021-01-04_.csv", folder="section_1_sf")
     posts_url_df = clean_crowdtangle_url_data(posts_url_df)
     url_df = import_data(file_name="appearances_2021-01-04_.csv", folder="section_1_sf") 
 
     plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df)
-    plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_page_df,
-                                          'url', 'Date of publication',
-                                          'Science Feedback', 'sf_repeat_vs_free_percentage_change')
+    list_accounts = plot_repeat_vs_free_percentage_change(
+        posts_df, posts_url_df, url_df, posts_page_df,
+        'url', 'Date of publication', 'Science Feedback', 'sf_repeat_vs_free_percentage_change', 
+        list_accounts)
 
     plot_average_timeseries(posts_df, 'Science Feedback', 'sf_average_timeseries')
-    plot_june_drop_percentage_change(posts_df, posts_page_df, 'Science Feedback', 'sf_june_drop_percentage_change')
+    list_accounts = plot_june_drop_percentage_change(
+        posts_df, posts_page_df, 'Science Feedback', 'sf_june_drop_percentage_change', list_accounts)
+
+    export_data(list_accounts, 'list_accounts_sf', 'section_1_sf')
