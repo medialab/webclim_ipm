@@ -37,7 +37,7 @@ Like many web platforms, Facebook is under pressure to regulate misinformation.
 According to the company, users that repeatedly share misinformation (`repeat offender') will have their distribution reduced, but little is known about the implementation or the impacts of this measure.
 This paper investigates the implementation and consequences of this policy using a first of its kind analysis, combining data from a fact-checking organization (Science Feedback), Facebook’s Social Science One dataset (Condor), users’ self-declaration and CrowdTangle data. 
 Based on Science Feedback data, we first identified a set of public accounts (groups and pages) that have shared misinformation repeatedly during the 2019-2020 period.
-The engagement per post decreased for Facebook pages after they shared two or more `false news’, and this result was replicated using the Condor data.
+The engagement per post decreased for Facebook pages after they shared two or more `false news’, and this result was replicated using Condor data.
 We also discover that Facebook groups have been affected in a different way with a sudden drop in their average engagement per post that occurred around June 9, 2020.
 Finally we identified a set of pages claiming to be under `reduced distribution' by Facebook for repeatedly sharing misinformation, and we again observed a decrease in their engagement per post.
 In the three sets of pages studied, the median decrease in engagement after sharing misinformation is ranging from $-62\%$ to $-24\%$.
@@ -136,7 +136,7 @@ It contributes to maintaining a database of URLs where the claims checked have b
 We obtained from Science Feedback a list of 4,000+ URLs reviewed by its team. 
 The list was obtained on January 4, 2021 and cover links flagged in 2019 and 2020.
 We relied on the 2,452 URLs marked as `False', which we refer to as `false news links', excluding the URLs marked as `Partly False', `Missing Context', `False headlines' or `True', as well as the URLs marked as `False' but `corrected' by the publisher, because these labels do not contribute to the `repeat offender' status according to Facebook's guidelines.
-Sharing a URL flagged as `Altered' also contributes to the `repeat offender' status \citep{factCheckingRules, repeatOffenderCommunication}, but we found no such rating in the Science Feedback data.
+Sharing a URL flagged as `Altered' also contributes to the `repeat offender' status \citep{factCheckingRules, repeatOffenderCommunication}, but we found no such rating in Science Feedback data.
 
 Using the `/links' endpoint from the CrowdTangle API, we collected the public Facebook groups and pages that shared at least one false news link between January 1, 2019 and December 31, 2020. 
 Due to the API limitations, if a URL was shared in more than 1000 posts, we collected only the 1000 posts that received the highest number of interactions \cite{docCT}; this means that we miss some of the accounts that generate the least interactions and our results focus on the most prolific accounts.
@@ -187,7 +187,7 @@ The percentage change is $+61\%$ for `Australian Climate Sceptics Group', and $-
 \includegraphics[scale=0.5]{./../figure/sf_examples_timeseries.png}
 \caption{
 \textbf{(Top panel)} Average engagement (the sum of comments, shares, likes, ...) per post for the `Australian Climate Sceptics Group' Facebook group for each day in 2019 and 2020.
-Each red line at the bottom represents the date of a known strike for this group according to the Science Feedback data. 
+Each red line at the bottom represents the date of a known strike for this group according to Science Feedback data. 
 The areas shaded in red represent the `repeat offender' periods as defined by the ‘two strikes in 90 days’ rule.
 \textbf{(Bottom panel)} Same as above for the `A Voice for Choice' Facebook page.
 }
@@ -246,7 +246,7 @@ A Wilcoxon test indicates that these percentage changes are significantly differ
 Percentage changes in the average engagement per post during a 30-day period before and after June 9, 2020. 
 Each deep blue dot represents a Facebook group, and each light blue dot a Facebook page.
 The bars show the medians for each set and their $90\%$ confidence intervals.
-The 289 `repeat offender' accounts represented here were identified by the Science Feedback data, and have published at least one post one month before and one month after June 9, 2020.
+The 289 `repeat offender' accounts represented here were identified by Science Feedback data, and have published at least one post one month before and one month after June 9, 2020.
 }
 \label{repeat_june_drop_percentage_change}
 \end{figure}
@@ -288,7 +288,7 @@ We thus show here the metrics for only the 503 `novel' accounts, which represent
 \includegraphics[scale=0.5]{./../figure/condor_repeat_vs_free_percentage_change.png}
 \caption{
 Same metric as on Figure \ref{repeat_vs_free_percentage_change}
-The 437 `repeat offender' accounts represented here were identified by the Condor data, and have published at least one post during each period.
+The 437 `repeat offender' accounts represented here were identified using Condor data, and have published at least one post during each period.
 }
 \label{condor_repeat_vs_free_percentage_change}
 \end{figure}
@@ -304,7 +304,7 @@ The percentage changes for the 414 Facebook groups are not different than zero (
 \centering
 \includegraphics[scale=0.5]{./../figure/condor_average_timeseries.png}
 \caption{
-Same metrics as on Figure \ref{repeat_average_timeseries} aggregated over the 503 `repeat offender' Facebook accounts identified by the Condor data.
+Same metrics as on Figure \ref{repeat_average_timeseries} aggregated over the 503 `repeat offender' Facebook accounts identified using Condor data.
 }
 \label{condor_average_timeseries}
 \end{figure}
@@ -325,7 +325,7 @@ Also, when the engagement per post is plotted separately for groups and pages, w
 \includegraphics[scale=0.5]{./../figure/condor_june_drop_percentage_change.png}
 \caption{
 Same metric as on Figure \ref{repeat_june_drop_percentage_change}.
-The 465 `repeat offender' accounts represented here were identified by the Condor data, and have published at least one post one month before and one month after June 9, 2020.
+The 465 `repeat offender' accounts represented here were identified using Condor data, and have published at least one post one month before and one month after June 9, 2020.
 }
 \label{condor_june_drop_percentage_change}
 \end{figure}
@@ -524,7 +524,7 @@ We can observe that the engagement per post do remain stable for the `repeat off
 \centering
 \includegraphics[scale=0.5]{./../figure/supplementary_engagement_groups_and_pages_sf.png}
 \caption{
-Average engagement per post in 2019-2020 plotted separately for the 289 groups (top panel) and the 18 pages (bottom panel) identified as `repeat offender' by the Science Feedback data.
+Average engagement per post in 2019-2020 plotted separately for the 289 groups (top panel) and the 18 pages (bottom panel) identified as `repeat offender' using Science Feedback data.
 }
 \label{engagement_groups_and_pages_sf}
 \end{figure}
@@ -533,7 +533,7 @@ Average engagement per post in 2019-2020 plotted separately for the 289 groups (
 \centering
 \includegraphics[scale=0.5]{./../figure/supplementary_engagement_groups_and_pages_condor.png}
 \caption{
-Average engagement per post in 2019-2020 plotted separately for the 476 groups (top panel) and the 27 pages (bottom panel) identified as `repeat offender' by the Condor data.
+Average engagement per post in 2019-2020 plotted separately for the 476 groups (top panel) and the 27 pages (bottom panel) identified as `repeat offender' using Condor data.
 }
 \label{engagement_groups_and_pages_condor}
 \end{figure}
@@ -605,20 +605,20 @@ Furthermore, the URLs from Science Feedback represented only $11\%$ of all the U
 As we used different methodologies to obtain three different lists of `repeat offender' accounts, we verify how much of these accounts were redundant in the different lists. 
 
 In the third analysis only pages were found, and thus we only compare the lists of Facebook groups collected between the first and second analyses (see Figure \ref{venn_accounts} left panel). 
-Although the lists of false URLs do not overlap that much between the two data sources, we found that two third ($67\%$) of the groups identified using Science Feedback data were also obtained from the Condor data. 
+Although the lists of false URLs do not overlap that much between the two data sources, we found that two third ($67\%$) of the groups identified using Science Feedback data were also obtained from Condor data. 
 This can be explained because the ULRs in common between Science Feedback and Condor were the most viral ones (shared by more than 100 users) and thus these URLs played an important role to identify accounts repeatedly sharing misinformation.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{./../figure/supplementary_venn_groups_and_pages.png}
 \caption{
-\textbf{(Left panel)} Overlap between the two lists of Facebook groups identified by the Science Feedback data (first analysis) and by the Condor data (second analysis). \textbf{(Right panel)} Overlap between the three lists of Facebook pages identified with by Science Feedback data (first analysis), by the Condor data (second analysis) and by sharing a `reduced distribution' notification (third analysis).
+\textbf{(Left panel)} Overlap between the two lists of Facebook groups identified using Science Feedback data (first analysis) and Condor data (second analysis). \textbf{(Right panel)} Overlap between the three lists of Facebook pages identified using Science Feedback data (first analysis), using Condor data (second analysis) and by sharing a `reduced distribution' notification (third analysis).
 }
 \label{venn_accounts}
 \end{figure}
 
 We also compare the lists of pages found using the three different methods (Figure \ref{venn_accounts} right panel).
-We again found a significant overlap between the page list for two first analyses, as 8 pages out of the 18 pages identified by the Science Feedback data were also found using the Condor data.
+We again found a significant overlap between the page list for two first analyses, as 8 pages out of the 18 pages identified using Science Feedback data were also found using Condor data.
 Interestingly the overlap between of the two first lists and the 83 pages sharing a `reduced distribution' notification was almost null (with only 2 pages in common with the first list, and 1 page with the second list).
 The `reduced distribution' notifications used to identified the last set of pages were mostly shared during the last semester of 2020.
 Because we kept only pages that shared 24 or more False URLs in the two first analyses, it is possible that this method was biased to select pages that rather received their `reduced distribution' notification in 2019 or earlier in 2020.
