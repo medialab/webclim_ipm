@@ -265,22 +265,28 @@ Hence it seems that Facebook took action against these groups via this one-shot 
 
 \section{Investigating the reduce policy on accounts repeatedly sharing misinformation (Condor data)}
 
+One limitation of the results described above is that we obtained the links labelled as `False' from only one fact-checking organization (Science Feedback), while Facebook partners with over 60 fact-checking organizations \citep{60factCheckingPartners}.
+The accounts might have received strikes from other fact-checkers apart from Science Feedback, which would create longer or additional 'repeat offender' periods. 
+The true `repeat offender' periods could thus be different than the ones inferred, potentially changing the magnitude of the ‘reduce’ effect. 
+In this section, we clear up this potential issue by replicating the above analysis using a dataset containing flags from other fact-checking organizations.
+
 \subsection{Methods}
 
-We used data from the Social Science One organization \cite{king2020new}, that builds partnerships between academia and private industries such as Facebook to share data and expertise. 
-In July 2021, we had access to a new version of the Condor dataset \cite{messing2020facebook}, which contains all URLs shared publicly by at least 100 Facebook users between 2017 and 2021, as well as their fact-checking metadata. 
-From this list, we extracted the 6,811 URLs that were shared in 2019 and 2020, that were fact-checked as `False' and whose country in which it was shared most frequently was either the USA, Canada, Great Britain or Australia.
+We use data from the Social Science One organization \cite{king2020new}, a consortium of research centers that builds partnerships between academia and private companies such as Facebook to share data and expertise.
+In June 2021, Social Science One released a new version of the Condor dataset \cite{messing2020facebook}, which contains all the URLs shared on the platform by at least 100 Facebook users between January 1, 2017 and February 28, 2021, as well as their fact-checking metadata.
+From this list, we extracted the 6,811 URLs that were shared in 2019 or 2020, that were flagged as `False', and whose country in which it was shared the most was either the USA, Canada, Great Britain or Australia.
 
-We then replicated as closely as possible the methods used in the previous section. 
-Using CrowdTangle, we thus collected all the posts that shared one of the false links between January 1, 2019 and December 31, 2020, and focused on the 706 Facebook accounts (671 Facebook groups and 35 Facebook pages) that spread at least 24 false links. 
-Then we used CrowdTangle again to collect all the posts published by those accounts in 2019 and 2020. 
-Because the Condor dataset contained the date of the first fact-check done on a URL, we were able to infer the `repeat offender' periods for each account and therefore conduct the same analysis as in the previous section.
+We then replicated the data processing described in the previous section.
+Using CrowdTangle, we collected all the posts that shared one of the false links and identified 706 Facebook accounts (671 Facebook groups and 35 Facebook pages) that shared at least 24 false links between January 1, 2019 and December 31, 2020.
+Then we used CrowdTangle to collect all the posts published by those accounts in 2019 and 2020.
+The Condor dataset contains the date of the first fact-check article used to flag a URL. We could thus infer the `repeat offender' periods for each account and conduct the same analysis as in the previous section.
 
-Science Feedback being a third-party fact-checker working with Facebook, some of the URLs from Science Feedback are also contained in the Condor dataset (see Supplementary Figure \ref{venn_urls}). 
-Thus a significant part of the `repeat offender' groups and pages obtained from the Condor URLs are actually the same as the accounts analyzed previously. 
-As the point of this new analysis is to replicate the previous results, we exclude the accounts whose engagement was already shown in the previous section. 
-We thus show here the metrics for only the 503 `novel' accounts, which represent 476 groups and 27 pages (see Supplementary Figure \ref{venn_accounts}).
-
+Science Feedback being a third-party fact-checker working with Facebook, some of their URLs are also contained in the Condor dataset (see Supplementary Figure \ref{venn_urls}).
+Thus a significant part of the `repeat offender' groups and pages obtained from the Condor URLs are the same as the ones analyzed previously. 
+As the point of this section’s analysis is to test the replicability of the previous results, we chose to exclude the accounts that were analyzed in the previous section. 
+This section hence presents the engagement metrics only for the 503 `novel' accounts, which represent 476 groups and 27 pages (see Supplementary Figure \ref{venn_accounts}).
+The list of accounts is available here: \url{https://github.com/medialab/webclim_ipm/blob/master/data/section_2_condor/list_accounts_condor.csv}.
+ 
 \subsection{Results}
 
 \begin{figure}[!h]
@@ -288,17 +294,17 @@ We thus show here the metrics for only the 503 `novel' accounts, which represent
 \includegraphics[scale=0.5]{./../figure/condor_repeat_vs_free_percentage_change.png}
 \caption{
 Same metric as on Figure \ref{repeat_vs_free_percentage_change}
-The 437 `repeat offender' accounts represented here were identified using Condor data, and have published at least one post during each period.
+The 437 `repeat offender' accounts presented here were identified using the Condor dataset, and have published at least one post during each period.
 }
 \label{condor_repeat_vs_free_percentage_change}
 \end{figure}
 
-Our first objective is to verify that the repeat offender policy was applied only to Facebook pages, and not to groups during the 2019-2020 period.
-To do this, we calculate the percentage change in engagement between the `repeat offender' and the `no strike' periods for each of the 437 Facebook accounts that have published at least one post during each period (see Figure \ref{condor_repeat_vs_free_percentage_change}). 
+Our first objective is to verify whether the repeat offender policy was applied differently to Facebook pages and groups as observed in the previous section.
+To that end, we calculate the percentage change in engagement between the `repeat offender' and the `no strike' periods for each of the 437 Facebook accounts that have published at least one post during each period (see Figure \ref{condor_repeat_vs_free_percentage_change}). 
 The median percentage change is $-5\%$, and the values are not significantly different from zero (W = $46495$, p-value = $0.61$).
 
-The changes in engagement are also different for the groups and the pages (Figure \ref{condor_repeat_vs_free_percentage_change}). 
-The percentage changes for the 414 Facebook groups are not different than zero (W = $41561$, p-value = $0.57$), with a median of $-2\%$, while the values for the 23 Facebook pages are significantly different than zero (W = $29$, p-value = $0.00041$), and the median is $-62\%$.
+As in the previous section, changes in engagement per post are different for groups and pages (Figure \ref{condor_repeat_vs_free_percentage_change}).
+The percentage change for the 414 Facebook groups are not statistically different from zero (W = $41561$, p-value = $0.57$), with a median of $-2\%$, while the values for the 23 Facebook pages are significantly different from zero (W = $29$, p-value = $0.00041$), with a median of $-62\%$.
 
 \begin{figure}[!h]
 \centering
@@ -309,15 +315,16 @@ Same metrics as on Figure \ref{repeat_average_timeseries} aggregated over the 50
 \label{condor_average_timeseries}
 \end{figure}
 
-As in the previous section, we then analyzed the engagement received by the 503 repeat offenders accounts in 2019 and 2020 (see Figure \ref{condor_average_timeseries}). 
-The `novel' accounts replicated the slow rise in total engagement from September 2019 to June 2020, and the massive drop around June 9, 2020.
-Again, we observe that this measure set the engagement for ‘repeat offenders’ groups back to its early 2019 level.
+We then analyzed the engagement received by the 503 `repeat offender' accounts in 2019 and 2020 (see Figure \ref{condor_average_timeseries}).
+The `novel' accounts similarly display a gradual rise in total engagement from September 2019 to June 2020, and a massive drop around June 9, 2020.
+Again, we observe that this `June drop' resulted in a decrease in engagement per post by about half, and brought the total engagement on posts from ‘repeat offenders’ back to its early 2019 levels.
 
-The percentage change in engagement was then calculated for each account during a 30-day period before and after June 9, 2020 ({Figure \ref{condor_june_drop_percentage_change}).
-The median percentage change is $-26\%$, and $63\%$ of the accounts experienced a decrease in engagement, the results being a little more modest than what was found previously.
+To quantify the ‘June drop’, we calculated the percentage change in engagement for each account during a 30-day period before and after June 9, 2020 ({Figure \ref{condor_june_drop_percentage_change}).
+The median percentage change is $-26\%$, and $63\%$ of the accounts experienced a decrease in engagement. 
+This decrease is smaller than the one observed previously ($-43\%$).
 The values are still significantly different from zero (W = $42651$, p-value = $3.8 \times 10^{-5}$).
 
-When tested separately, the percentage changes for the 442 groups are significantly different from zero (W = $37889$, p-value = $3.8 \times 10^{-5}$) and the median is $-27\%$, whereas the values for the 23 pages are not different from zero (W = $133$, p-value = $0.89$), with a median of $-2\%$.
+When we consider groups and pages separately, the percentage changes for the 442 groups are significantly different from zero (W = $37889$, p-value = $3.8 \times 10^{-5}$) and the median is $-27\%$, whereas the values for the 23 pages are not different from zero (W = $133$, p-value = $0.89$), with a median of $-2\%$ ({Figure \ref{condor_june_drop_percentage_change}).
 Also, when the engagement per post is plotted separately for groups and pages, we can see a drop in engagement only for groups (see Supplementary Figure \ref{engagement_groups_and_pages_condor}).
 
 \begin{figure}[!h]
@@ -330,11 +337,11 @@ The 465 `repeat offender' accounts represented here were identified using Condor
 \label{condor_june_drop_percentage_change}
 \end{figure}
 
-To conclude, using a more complete dataset of `False' URLs and collecting new Facebook accounts, we replicated our previous findings. 
-Indeed we again find a sudden decrease in engagement for repeat offender Facebook groups in June 2020, and a decrease in engagement following the publication of two false links for repeat offender Facebook pages.
+This analysis using a dataset of `False' URLs flagged by several fact-checking organizations confirms the main findings of the previous section.
+Pages undergo a period of decrease in engagement following the publication of two false links, while groups have been affected by a sudden decrease in engagement for all their posts in June 2020.
 
-One limitation of the results is that this king of analysis is rather indirect, as we relied on the strike dates to infer the `repeat offender' periods, and we cannot know for certain whether the pages investigated were actually under a `repeat offender' status. 
-For example, one could imagine that the `two strikes in less than 90 days' rule may have changed over time, or that links fact-checked as `partly false' or `missing context' were also counted as strikes (only links fact-checked as `False' were taken into account in our analysis).
+A limitation of these results is that we relied on the strike dates to infer the `repeat offender' periods, but we cannot know for certain whether the pages investigated were actually under a `repeat offender' status.
+Indeed, one could imagine that the `two strikes in less than 90 days' rule has been modified, or that links fact-checked as `partly false' or `missing context' might also be taken into account to determine the repeat offender status.
 In the next section, we used a different methodology to collect pages for which we are sure that they are under `repeat offender' status.
 
 \section{Investigating the reduce policy on pages declaring to be under `reduced distribution'} 
@@ -367,6 +374,7 @@ This highlights an important issue when studying misinformation trends on Facebo
 
 Among the 83 Facebook pages collected, two were already among the 18 pages included in the first analysis, and one was already present in the set of 35 pages included in the second analysis (see Supplementary Figure \ref{venn_accounts}).
 We excluded these pages to present only the 80 `novel' pages in this section.
+The list of accounts is available here: \url{https://github.com/medialab/webclim_ipm/blob/master/data/section_3_self_declared/list_accounts_reduce.csv}.
 
 The date of the last fact-check notification was used as the inferred start date of reduced distribution, when it appeared in the screenshot. 
 When it was not visible, we used the date of the post as the inferred start date of reduced distribution.
