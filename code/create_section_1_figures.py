@@ -278,10 +278,11 @@ def plot_repeat_vs_free_percentage_change(posts_df, posts_url_df, url_df, posts_
 
     print('\nREPEAT VS FREE PERIODS:')
 
-    print('Australian Climate Sceptics Group percentage change:', 
-          sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
-    print('A Voice for Choice percentage change:', 
-          sumup_df[sumup_df['account_name']=='A Voice for Choice']['percentage_change_engagament'].values[0])
+    if database_name == 'Science Feedback':
+        print('Australian Climate Sceptics Group percentage change:', 
+            sumup_df[sumup_df['account_name']=='Australian Climate Sceptics Group']['percentage_change_engagament'].values[0])
+        print('A Voice for Choice percentage change:', 
+            sumup_df[sumup_df['account_name']=='A Voice for Choice']['percentage_change_engagament'].values[0])
 
     print('Number of Facebook accounts:', len(sumup_df))
     print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
@@ -326,7 +327,10 @@ def plot_average_timeseries(posts_df, database_name, figure_name):
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
     plt.title("{} 'repeat offender' Facebook accounts ({} data)".format(
         str(posts_df.account_id.nunique()), database_name))
-    plt.ylim(0, 3200)
+    if database_name == 'Science Feedback':
+        plt.ylim(0, 3200)
+    elif database_name == 'Condor':
+        plt.ylim(0, 2300)
     plt.xticks(xticks, labels=['' for x in xticks], rotation=30, ha='right')
 
     ax = plt.subplot(3, 1, 2)
@@ -344,7 +348,10 @@ def plot_average_timeseries(posts_df, database_name, figure_name):
     plt.ylabel("Engagement per post")
     timeserie_template(ax)
     plt.axvline(x=np.datetime64(drop_date), color='C3', linestyle='--')
-    plt.ylim(0, 60)
+    if database_name == 'Science Feedback':
+        plt.ylim(0, 60)
+    elif database_name == 'Condor':
+        plt.ylim(0, 50)
     plt.xticks(xticks, rotation=30, ha='right')
     plt.gca().get_xticklabels()[-1].set_color('red')
 
