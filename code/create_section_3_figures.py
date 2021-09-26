@@ -49,7 +49,6 @@ def plot_reduce_example_timeseries(posts_df, pages_df):
 
     account_name = '100 Percent FED Up'
     reduced_distribution_date = pages_df[pages_df['page_name'] == account_name]['date'].values[0]
-    print(reduced_distribution_date)
 
     plt.figure(figsize=(7, 3.5))
     ax = plt.subplot()
