@@ -188,21 +188,54 @@ def plot_venn_diagram_group_and_page(posts_df_1, posts_page_df_1, posts_df_2, po
     save_figure('supplementary_venn_groups_and_pages')
 
 
+def plot_venn_diagram_group_and_page_wo_3(posts_df_1, posts_page_df_1, posts_df_2, posts_page_df_2):
+
+    plt.figure(figsize=(10, 5))
+
+    plt.subplot(1, 2, 1)
+    posts_group_df_1 = posts_df_1[~posts_df_1['account_id'].isin(list(posts_page_df_1["account_id"].unique()))]
+    set_group_1 = set(posts_group_df_1.account_id.unique())
+    posts_group_df_2 = posts_df_2[~posts_df_2['account_id'].isin(list(posts_page_df_2["account_id"].unique()))]
+    set_group_2 = set(posts_group_df_2.account_id.unique())
+    venn2(
+        subsets=[set_group_1, set_group_2], 
+        set_labels=(
+            'Science Feedback\nrepeat offenders\ngroups ({})'.format(len(set_group_1)),
+            'Condor\nrepeat offenders\ngroups ({})'.format(len(set_group_2))
+        )
+    )
+    plt.tight_layout()
+
+    plt.subplot(1, 2, 2)
+    set_page_1 = set(posts_page_df_1.account_id.unique())
+    set_page_2 = set(posts_page_df_2.account_id.unique())
+    venn2(
+        subsets=[set_page_1, set_page_2], 
+        set_labels=(
+            'Science Feedback\nrepeat offenders\npages ({})'.format(len(set_page_1)),
+            'Condor\nrepeat offenders\npages ({})'.format(len(set_page_2))
+        )
+    )
+    plt.tight_layout()
+
+    save_figure('supplementary_venn_groups_and_pages_wo_3')
+
+
 if __name__=="__main__":
 
     # Plot engagement separately for groups and pages
 
-    posts_df_1, posts_page_df_1 = import_crowdtangle_group_data_section_1()
+    posts_df_1, posts_page_df_1 = import_crowdtangle_group_data_section_1()[:2]
     plot_engagement_per_post(posts_df_1, posts_page_df_1, 'Science Feedback', 
                              'supplementary_engagement_groups_and_pages_sf')
 
-    posts_df_2, posts_page_df_2 = import_crowdtangle_group_data_section_2()
+    posts_df_2, posts_page_df_2 = import_crowdtangle_group_data_section_2()[:2]
     posts_df_2_new = posts_df_2[~posts_df_2['account_id'].isin(list(posts_df_1.account_id.unique()))]
     posts_page_df_2_new = posts_page_df_2[~posts_page_df_2['account_id'].isin(list(posts_page_df_1.account_id.unique()))]
     plot_engagement_per_post(posts_df_2_new, posts_page_df_2_new, 'Condor', 
                              'supplementary_engagement_groups_and_pages_condor')
     
-    posts_page_df_3 = import_crowdtangle_group_data_section_3()
+    posts_page_df_3 = import_crowdtangle_group_data_section_3()[:2]
     posts_page_df_3_new = posts_page_df_3[~posts_page_df_3['account_id'].isin([121187761264826, 143745137930, 164620026961366])]
     plot_engagement_per_post_pages(posts_page_df_3_new)
 
@@ -213,3 +246,4 @@ if __name__=="__main__":
     # Venn diagrams
     plot_venn_diagram_url()
     plot_venn_diagram_group_and_page(posts_df_1, posts_page_df_1, posts_df_2, posts_page_df_2, posts_page_df_3)
+    # plot_venn_diagram_group_and_page_wo_3(posts_df_1, posts_page_df_1, posts_df_2, posts_page_df_2)

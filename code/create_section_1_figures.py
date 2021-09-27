@@ -118,8 +118,6 @@ def plot_repeat_example_timeseries_figure(posts_df, posts_url_df, url_df):
 
     for i in range(len(account_names)):
         ax = plt.subplot(2, 1, i + 1)
-        plt.title("'" + account_names[i] + "' Facebook group/page")
-
         account_id = posts_df[posts_df['account_name']==account_names[i]].account_id.unique()[0]
         posts_df_group = posts_df[posts_df["account_id"] == account_id]
 
