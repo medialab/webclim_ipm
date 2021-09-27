@@ -163,6 +163,8 @@ def print_june_drop_stats(posts_df, list_accounts):
 
     print('\nJUNE DROP:')
     print('Median engagement percentage changes:', np.median(sumup_df['percentage_change_engagament']))
+    print('Number of Facebook pages:', len(sumup_df))
+
     w, p = stats.wilcoxon(sumup_df['percentage_change_engagament'])
     print('Wilcoxon test against zero for the engagement percentage changes: w =', w, ', p =', p)
 
