@@ -84,7 +84,7 @@ def plot_engagement_per_post_pages(posts_df):
 def import_crowdtangle_control_data():
 
     posts_group_df = import_data(file_name="posts_main_news_2021_group.csv", folder="supplementary")
-    posts_group_new_df = import_data(file_name="control_groups.csv", folder="supplementary")
+    posts_group_new_df = import_data(file_name="posts_control_groups.csv", folder="supplementary")
     posts_group_df = posts_group_df[~posts_group_df.account_id.isin(list(posts_group_new_df.account_id.unique()))]
     print("There are {} 'mainstream' Facebook groups.".format(posts_group_df.account_id.nunique() + posts_group_new_df.account_id.nunique()))
 
