@@ -1,4 +1,4 @@
-This repository corresponds to the draft submitted in 2021 to the Information Processing & Management journal untitled *Investigating Facebook’s interventions against accounts that repeatedly share misinformation* by Héloïse Théro and Emmanuel Vincent.
+This repository corresponds to the code of our [article entitled *Investigating Facebook’s interventions against accounts that repeatedly share misinformation*](https://doi.org/10.1016/j.ipm.2021.102804).
 
 # Article
 
